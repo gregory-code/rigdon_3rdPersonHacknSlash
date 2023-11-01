@@ -1,3 +1,4 @@
+using Cinemachine.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,9 @@ public class playerMovement
 
     private bool _bIsSprinting;
 
+    private bool _bInLock;
+    private Transform _targetTransform;
+
     public playerMovement(GameObject myOwner)
     {
         _owner = myOwner;
@@ -34,6 +38,14 @@ public class playerMovement
 
     public void MoveCharacter(Vector3 velocity, Vector3 inputDirection, Vector3 movementDir)
     {
+        if(_bInLock)
+        {
+            Quaternion targetLock = Quaternion.LookRotation(_targetTransform.position - _owner.transform.position);
+            targetLock.x = 0;
+            targetLock.z = 0;
+            _owner.transform.rotation = Quaternion.Slerp(_owner.transform.rotation, targetLock, _rotationSpeed * Time.deltaTime);
+        }
+
         // Checks if there is current movement
         if (inputDirection == Vector3.zero)
         {
@@ -42,19 +54,31 @@ public class playerMovement
         }
 
         SpeedChange(GetDesiredSpeed());
-        UpdateAnimator(_owner.transform.forward);
 
-        movementDir.y = 0;
-        movementDir = movementDir.normalized;
+        if (_bInLock)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(_targetTransform.forward);
+            targetRotation.y = 0;
+            targetRotation = targetRotation.normalized;
+            Vector3 relativeDirection = targetRotation * inputDirection;
 
+            UpdateAnimator(_owner.transform.TransformDirection(relativeDirection));
 
-        // Handles Moving to the direction of the camera
-        _characterController.Move(_owner.transform.forward * Speed * Time.deltaTime);
+            _characterController.Move(_owner.transform.TransformDirection(relativeDirection) * Speed * Time.deltaTime);
+        }
+        else
+        {
+            UpdateAnimator(_owner.transform.forward);
 
-        // Handles Rotating in the direction of movement
-        Vector3 relativeDirection = Quaternion.LookRotation(movementDir) * inputDirection;
-        Quaternion targetRotation = Quaternion.LookRotation(relativeDirection);
-        _owner.transform.rotation = Quaternion.Slerp(_owner.transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            _characterController.Move(_owner.transform.forward * Speed * Time.deltaTime);
+
+            // Handles Rotating in the direction of movement
+            movementDir.y = 0;
+            movementDir = movementDir.normalized;
+            Vector3 relativeDirection = Quaternion.LookRotation(movementDir) * inputDirection;
+            Quaternion targetRotation = Quaternion.LookRotation(relativeDirection);
+            _owner.transform.rotation = Quaternion.Slerp(_owner.transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+        }
     }
 
     private void SpeedChange(float desiredSpeed)
@@ -69,13 +93,22 @@ public class playerMovement
         return desiredSpeed;
     }
 
+    public void SetTarget(bool state, Transform target)
+    {
+        _bInLock = state;
+        if (state) _targetTransform = target;
+    }
+
     private void UpdateAnimator(Vector3 moveDir)
     {
         float rightSpeed = Vector3.Dot(moveDir, _owner.transform.right);
         float forwardSpeed = Vector3.Dot(moveDir, _owner.transform.forward);
 
-        _ownerAnimator.SetFloat("leftSpeed", -rightSpeed);
-        _ownerAnimator.SetFloat("fowardSpeed", forwardSpeed);
+        float lerpRight = Mathf.Lerp(_ownerAnimator.GetFloat("leftSpeed"), rightSpeed, 4 * Time.deltaTime);
+        float lerpFoward = Mathf.Lerp(_ownerAnimator.GetFloat("fowardSpeed"), forwardSpeed, 4 * Time.deltaTime);
+
+        _ownerAnimator.SetFloat("leftSpeed", lerpRight);
+        _ownerAnimator.SetFloat("fowardSpeed", lerpFoward);
     }
 
     public void MoveToGravity()

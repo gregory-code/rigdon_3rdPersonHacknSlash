@@ -11,7 +11,8 @@ public class playerCamera
     GameObject _owner;
     Transform _followTransform;
     Camera _playerCam;
-    CinemachineVirtualCamera _VCcam1;
+    CinemachineVirtualCamera _regularVC;
+    CinemachineVirtualCamera _lockedVC;
 
     float _clampMax;
     float _clampMin;
@@ -21,12 +22,15 @@ public class playerCamera
     float _closeVCDistance;
     float _farVCDistance;
 
+    bool _bInLock;
+
     public playerCamera(GameObject myOwner)
     {
         _owner = myOwner;
         _followTransform = GameObject.Find("followTransform").GetComponent<Transform>();
         _playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        _VCcam1 = GameObject.Find("VC_Cam1").GetComponent<CinemachineVirtualCamera>();
+        _regularVC = GameObject.Find("regularVC").GetComponent<CinemachineVirtualCamera>();
+        _lockedVC = GameObject.Find("lockedVC").GetComponent<CinemachineVirtualCamera>();
         _clampMax = 40;
         _clampMin = -30;
         _horizontalRotSpeed = 3.5f;
@@ -57,11 +61,22 @@ public class playerCamera
 
     public void PushBackVirtualCam()
     {
-        if (_VCcam1 == null) return;
+        if (_regularVC == null) return;
         float dotProduct = Vector3.Dot(_owner.transform.forward, _playerCam.transform.forward);
         float distanceLerp = (dotProduct <= 0.5f) ? _farVCDistance : _closeVCDistance;
-        Cinemachine3rdPersonFollow cinemachineFollow = _VCcam1.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+        Cinemachine3rdPersonFollow cinemachineFollow = _regularVC.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         cinemachineFollow.CameraDistance = Mathf.Lerp(cinemachineFollow.CameraDistance, distanceLerp, 3 * Time.deltaTime);
+    }
+
+    public void LockOn(Transform target)
+    {
+        _bInLock = !_bInLock;
+
+        _regularVC.enabled = !_bInLock;
+        _lockedVC.enabled = _bInLock;
+
+        if(_bInLock) _lockedVC.LookAt = target;
+
     }
 
     public Vector3 GetCameraFoward()

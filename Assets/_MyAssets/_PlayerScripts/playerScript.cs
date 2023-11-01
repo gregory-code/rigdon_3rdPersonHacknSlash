@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -13,6 +14,8 @@ public class playerScript : MonoBehaviour
     [SerializeField] PlayerInputActions _playerInput;
     [SerializeField] playerMovement _movement;
     [SerializeField] playerCamera _camera;
+
+    bool _bInLock;
 
     void Start()
     {
@@ -56,6 +59,22 @@ public class playerScript : MonoBehaviour
         {
             if (_movement == null) return;
             _movement.SprintToggle();
+        }
+    }
+
+    public void LockOn(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (_movement == null) return;
+            if (_camera == null) return;
+
+            _bInLock = !_bInLock;
+
+            Transform target = (_bInLock) ? GameObject.Find("lockBlock").GetComponent<Transform>() : gameObject.transform.Find("lookAt").transform;
+
+            _movement.SetTarget(_bInLock, target);
+            _camera.LockOn(target);
         }
     }
 }

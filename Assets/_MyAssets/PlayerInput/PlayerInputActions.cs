@@ -53,6 +53,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lock-On"",
+                    ""type"": ""Button"",
+                    ""id"": ""38bed835-41c1-4c48-9177-fa7749165096"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -198,6 +207,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f57fcaa5-6be5-4378-8d21-c69103bc1574"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lock-On"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -209,6 +229,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerSword_Movement = m_PlayerSword.FindAction("Movement", throwIfNotFound: true);
         m_PlayerSword_Look = m_PlayerSword.FindAction("Look", throwIfNotFound: true);
         m_PlayerSword_Sprint = m_PlayerSword.FindAction("Sprint", throwIfNotFound: true);
+        m_PlayerSword_LockOn = m_PlayerSword.FindAction("Lock-On", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,6 +294,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerSword_Movement;
     private readonly InputAction m_PlayerSword_Look;
     private readonly InputAction m_PlayerSword_Sprint;
+    private readonly InputAction m_PlayerSword_LockOn;
     public struct PlayerSwordActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -280,6 +302,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerSword_Movement;
         public InputAction @Look => m_Wrapper.m_PlayerSword_Look;
         public InputAction @Sprint => m_Wrapper.m_PlayerSword_Sprint;
+        public InputAction @LockOn => m_Wrapper.m_PlayerSword_LockOn;
         public InputActionMap Get() { return m_Wrapper.m_PlayerSword; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -298,6 +321,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @LockOn.started += instance.OnLockOn;
+            @LockOn.performed += instance.OnLockOn;
+            @LockOn.canceled += instance.OnLockOn;
         }
 
         private void UnregisterCallbacks(IPlayerSwordActions instance)
@@ -311,6 +337,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @LockOn.started -= instance.OnLockOn;
+            @LockOn.performed -= instance.OnLockOn;
+            @LockOn.canceled -= instance.OnLockOn;
         }
 
         public void RemoveCallbacks(IPlayerSwordActions instance)
@@ -333,5 +362,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnLockOn(InputAction.CallbackContext context);
     }
 }
