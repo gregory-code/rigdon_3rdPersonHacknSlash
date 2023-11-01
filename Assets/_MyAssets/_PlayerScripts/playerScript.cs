@@ -7,6 +7,7 @@ using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(Animator))]
 public class playerScript : MonoBehaviour
 {
     [SerializeField] PlayerInputActions _playerInput;
@@ -38,6 +39,7 @@ public class playerScript : MonoBehaviour
     {
         Vector2 lookVector = _playerInput.PlayerSword.Look.ReadValue<Vector2>();
         _camera.HandleRotation(lookVector);
+        _camera.PushBackVirtualCam();
     }
 
     private void Movement()
@@ -46,5 +48,14 @@ public class playerScript : MonoBehaviour
         Vector3 movementDir = new Vector3(inputVector.x, 0, inputVector.y);
         _movement.MoveCharacter(inputVector, movementDir, _camera.GetCameraFoward());
         _movement.MoveToGravity();
+    }
+
+    public void Sprint(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            if (_movement == null) return;
+            _movement.SprintToggle();
+        }
     }
 }
