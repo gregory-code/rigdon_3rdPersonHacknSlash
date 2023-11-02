@@ -104,6 +104,8 @@ public class playerMovement
         float rightSpeed = Vector3.Dot(moveDir, _owner.transform.right);
         float forwardSpeed = Vector3.Dot(moveDir, _owner.transform.forward);
 
+        //Debug.Log($"X: {forwardSpeed} Y: {rightSpeed}"); //
+
         float lerpRight = Mathf.Lerp(_ownerAnimator.GetFloat("leftSpeed"), rightSpeed, 4 * Time.deltaTime);
         float lerpFoward = Mathf.Lerp(_ownerAnimator.GetFloat("fowardSpeed"), forwardSpeed, 4 * Time.deltaTime);
 

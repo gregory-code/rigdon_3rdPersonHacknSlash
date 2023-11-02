@@ -28,13 +28,13 @@ public class playerCamera
     {
         _owner = myOwner;
         _followTransform = GameObject.Find("followTransform").GetComponent<Transform>();
-        _playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        _playerCam = Camera.main;
         _regularVC = GameObject.Find("regularVC").GetComponent<CinemachineVirtualCamera>();
         _lockedVC = GameObject.Find("lockedVC").GetComponent<CinemachineVirtualCamera>();
         _clampMax = 40;
         _clampMin = -30;
-        _horizontalRotSpeed = 3.5f;
-        _verticalRotSpeed = 2;
+        _horizontalRotSpeed = 6f;
+        _verticalRotSpeed = 4;
         _closeVCDistance = 3;
         _farVCDistance = 4.5f;
     }
@@ -49,7 +49,7 @@ public class playerCamera
         followLerp *= Quaternion.AngleAxis(look.x * _horizontalRotSpeed, Vector3.up);
         followLerp *= Quaternion.AngleAxis(-look.y * _verticalRotSpeed, Vector3.right);
 
-        _followTransform.transform.rotation = Quaternion.Slerp(_followTransform.transform.rotation, followLerp, 3 * Time.deltaTime);
+        _followTransform.transform.rotation = Quaternion.Slerp(_followTransform.transform.rotation, followLerp, 5 * Time.deltaTime);
         
         Vector3 clampedAngle = _followTransform.transform.eulerAngles;
 
