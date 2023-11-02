@@ -21,6 +21,7 @@ public class playerLock : MonoBehaviour
     public void SetupAttachment(Transform attachParent)
     {
         _parentTransform = attachParent;
+        transform.position = Camera.main.WorldToScreenPoint(_parentTransform.position);
         _bActive = true;
     }
 
@@ -39,7 +40,7 @@ public class playerLock : MonoBehaviour
     {
         if (_bActive == false) return;
 
-        transform.position = Camera.main.WorldToScreenPoint(_parentTransform.position);
+        transform.position = Vector3.Lerp(transform.position, Camera.main.WorldToScreenPoint(_parentTransform.position), 45 * Time.deltaTime);
 
         if (_bInLock == false)
         {
