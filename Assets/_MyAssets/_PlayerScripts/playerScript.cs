@@ -18,6 +18,9 @@ public class playerScript : MonoBehaviour
     [SerializeField] playerLock _lock;
     [SerializeField] playerLock _lockPrefab;
 
+    public delegate void OnTargetLockUpdated(bool state, Transform target);
+    public event OnTargetLockUpdated onTargetLockUpdated;
+
     Transform _closestEnemy;
     bool _bInLock;
 
@@ -93,16 +96,14 @@ public class playerScript : MonoBehaviour
     {
         if (context.performed)
         {
-            if (_movement == null) return;
-            if (_camera == null) return;
             if (_closestEnemy == null) return;
+
 
             _bInLock = !_bInLock;
 
             Transform target = (_bInLock) ? _closestEnemy : gameObject.transform.Find("lookAt").transform;
-            _lock.SetLockState(_bInLock);
-            _movement.SetTarget(_bInLock, target);
-            _camera.LockOn(target);
+
+            onTargetLockUpdated?.Invoke(_bInLock, target);
         }
     }
 }

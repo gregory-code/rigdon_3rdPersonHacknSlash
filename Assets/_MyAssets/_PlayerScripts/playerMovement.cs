@@ -1,7 +1,9 @@
 using Cinemachine.Utility;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static playerScript;
 
 public class playerMovement
 {
@@ -34,6 +36,14 @@ public class playerMovement
         _walkSpeed = 3;
         _runSpeed = 6;
         _animationTransitionSpeed = 5;
+
+        _owner.GetComponent<playerScript>().onTargetLockUpdated += TargetLockUpdated;
+    }
+
+    private void TargetLockUpdated(bool state, Transform target)
+    {
+        _bInLock = state;
+        if (state) _targetTransform = target;
     }
 
     public void MoveCharacter(Vector3 velocity, Vector3 inputDirection, Vector3 movementDir)
@@ -91,12 +101,6 @@ public class playerMovement
     {
         float desiredSpeed = (_bIsSprinting) ? _runSpeed : _walkSpeed;
         return desiredSpeed;
-    }
-
-    public void SetTarget(bool state, Transform target)
-    {
-        _bInLock = state;
-        if (state) _targetTransform = target;
     }
 
     private void UpdateAnimator(Vector3 moveDir)

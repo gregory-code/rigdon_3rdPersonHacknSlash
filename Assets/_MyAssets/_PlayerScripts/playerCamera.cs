@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,6 +11,7 @@ public class playerCamera
 {
     GameObject _owner;
     Transform _followTransform;
+    Transform _lookAt;
     Camera _playerCam;
     CinemachineVirtualCamera _regularVC;
     CinemachineVirtualCamera _lockedVC;
@@ -28,6 +30,7 @@ public class playerCamera
     {
         _owner = myOwner;
         _followTransform = GameObject.Find("followTransform").GetComponent<Transform>();
+        _lookAt = GameObject.Find("lookAt").GetComponent<Transform>();
         _playerCam = Camera.main;
         _regularVC = GameObject.Find("regularVC").GetComponent<CinemachineVirtualCamera>();
         _lockedVC = GameObject.Find("lockedVC").GetComponent<CinemachineVirtualCamera>();
@@ -37,6 +40,18 @@ public class playerCamera
         _verticalRotSpeed = 4;
         _closeVCDistance = 3;
         _farVCDistance = 4.5f;
+
+        _owner.GetComponent<playerScript>().onTargetLockUpdated += TargetLockUpdated;
+    }
+
+    private void TargetLockUpdated(bool state, Transform target)
+    {
+        _bInLock = state;
+
+        _regularVC.enabled = !_bInLock;
+        _lockedVC.enabled = _bInLock;
+
+        if(_bInLock) _lockedVC.LookAt = target;
     }
 
     public void HandleRotation(Vector2 look)
@@ -66,17 +81,6 @@ public class playerCamera
         float distanceLerp = (dotProduct <= 0.5f) ? _farVCDistance : _closeVCDistance;
         Cinemachine3rdPersonFollow cinemachineFollow = _regularVC.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
         cinemachineFollow.CameraDistance = Mathf.Lerp(cinemachineFollow.CameraDistance, distanceLerp, 3 * Time.deltaTime);
-    }
-
-    public void LockOn(Transform target)
-    {
-        _bInLock = !_bInLock;
-
-        _regularVC.enabled = !_bInLock;
-        _lockedVC.enabled = _bInLock;
-
-        if(_bInLock) _lockedVC.LookAt = target;
-
     }
 
     public Vector3 GetCameraFoward()

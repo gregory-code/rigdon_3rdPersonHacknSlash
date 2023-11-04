@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,12 @@ public class playerLock : MonoBehaviour
     {
         _crosshairImage = transform.GetComponent<Image>();
         _originalScale = transform.localScale;
+        GameObject.Find("player").GetComponent<playerScript>().onTargetLockUpdated += TargetLockUpdated;
+    }
+
+    private void TargetLockUpdated(bool state, Transform target)
+    {
+        _bInLock = state;
     }
 
     public void SetupAttachment(Transform attachParent)
@@ -29,11 +36,6 @@ public class playerLock : MonoBehaviour
     {
         _bActive = false;
         _crosshairImage.color = new Color(0, 0, 0, 0);
-    }
-
-    public void SetLockState(bool state)
-    {
-        _bInLock = state;
     }
 
     void Update()
