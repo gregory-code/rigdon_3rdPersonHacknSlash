@@ -15,6 +15,7 @@ public class playerScript : MonoBehaviour
     [SerializeField] playerMovement _movement;
     [SerializeField] playerCamera _camera;
     [SerializeField] playerSight _sight;
+    [SerializeField] playerActions _actions;
     [SerializeField] playerLock _lock;
     [SerializeField] playerLock _lockPrefab;
 
@@ -30,6 +31,7 @@ public class playerScript : MonoBehaviour
         _movement = new playerMovement(gameObject);
         _camera = new playerCamera(gameObject);
         _sight = Camera.main.GetComponent<playerSight>();
+        _actions = new playerActions(gameObject);
 
         if (FindObjectOfType<Canvas>() == null)
         {
@@ -49,9 +51,13 @@ public class playerScript : MonoBehaviour
         if (_movement == null) return;
         if (_camera == null) return;
         if (_sight == null) return;
+        if (_actions == null) return;
+
 
         Look();
         Movement();
+        UpdateWeight();
+
 
         if(_bInLock == false)
         {
@@ -92,6 +98,15 @@ public class playerScript : MonoBehaviour
         }
     }
 
+    public void RegularAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (_actions == null) return;
+            _actions.RegularAttack();
+        }
+    }
+
     public void LockOn(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -105,5 +120,24 @@ public class playerScript : MonoBehaviour
 
             onTargetLockUpdated?.Invoke(_bInLock, target);
         }
+    }
+
+    private void UpdateWeight()
+    {
+        _actions.UpdateAnimWeight();
+    }
+
+    private void GrabSword()
+    {
+        if (_actions == null) return;
+
+        _actions.UpdateSword(false);
+    }
+
+    private void StoreSword()
+    {
+        if (_actions == null) return;
+
+        _actions.UpdateSword(true);
     }
 }

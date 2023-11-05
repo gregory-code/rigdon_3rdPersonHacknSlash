@@ -42,7 +42,7 @@ public class playerLock : MonoBehaviour
     {
         if (_bActive == false) return;
 
-        transform.position = Vector3.Lerp(transform.position, Camera.main.WorldToScreenPoint(_parentTransform.position), 45 * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, Camera.main.WorldToScreenPoint(_parentTransform.position), 40 * Time.deltaTime);
 
         if (_bInLock == false)
         {

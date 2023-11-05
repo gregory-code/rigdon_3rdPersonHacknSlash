@@ -110,8 +110,8 @@ public class playerMovement
 
         //Debug.Log($"X: {forwardSpeed} Y: {rightSpeed}"); //
 
-        float lerpRight = Mathf.Lerp(_ownerAnimator.GetFloat("leftSpeed"), rightSpeed, 4 * Time.deltaTime);
-        float lerpFoward = Mathf.Lerp(_ownerAnimator.GetFloat("fowardSpeed"), forwardSpeed, 4 * Time.deltaTime);
+        float lerpRight = Mathf.Lerp(_ownerAnimator.GetFloat("leftSpeed"), rightSpeed, 7 * Time.deltaTime);
+        float lerpFoward = Mathf.Lerp(_ownerAnimator.GetFloat("fowardSpeed"), forwardSpeed, 7 * Time.deltaTime);
 
         _ownerAnimator.SetFloat("leftSpeed", lerpRight);
         _ownerAnimator.SetFloat("fowardSpeed", lerpFoward);

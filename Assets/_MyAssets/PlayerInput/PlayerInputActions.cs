@@ -62,6 +62,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RegularAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""561259ba-41b5-481d-9af3-4a668fe91b58"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -218,6 +227,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Lock-On"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5aebf036-bca5-44ca-b45c-a6285d26a060"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RegularAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -230,6 +250,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerSword_Look = m_PlayerSword.FindAction("Look", throwIfNotFound: true);
         m_PlayerSword_Sprint = m_PlayerSword.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerSword_LockOn = m_PlayerSword.FindAction("Lock-On", throwIfNotFound: true);
+        m_PlayerSword_RegularAttack = m_PlayerSword.FindAction("RegularAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +316,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerSword_Look;
     private readonly InputAction m_PlayerSword_Sprint;
     private readonly InputAction m_PlayerSword_LockOn;
+    private readonly InputAction m_PlayerSword_RegularAttack;
     public struct PlayerSwordActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -303,6 +325,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_PlayerSword_Look;
         public InputAction @Sprint => m_Wrapper.m_PlayerSword_Sprint;
         public InputAction @LockOn => m_Wrapper.m_PlayerSword_LockOn;
+        public InputAction @RegularAttack => m_Wrapper.m_PlayerSword_RegularAttack;
         public InputActionMap Get() { return m_Wrapper.m_PlayerSword; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -324,6 +347,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @LockOn.started += instance.OnLockOn;
             @LockOn.performed += instance.OnLockOn;
             @LockOn.canceled += instance.OnLockOn;
+            @RegularAttack.started += instance.OnRegularAttack;
+            @RegularAttack.performed += instance.OnRegularAttack;
+            @RegularAttack.canceled += instance.OnRegularAttack;
         }
 
         private void UnregisterCallbacks(IPlayerSwordActions instance)
@@ -340,6 +366,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @LockOn.started -= instance.OnLockOn;
             @LockOn.performed -= instance.OnLockOn;
             @LockOn.canceled -= instance.OnLockOn;
+            @RegularAttack.started -= instance.OnRegularAttack;
+            @RegularAttack.performed -= instance.OnRegularAttack;
+            @RegularAttack.canceled -= instance.OnRegularAttack;
         }
 
         public void RemoveCallbacks(IPlayerSwordActions instance)
@@ -363,5 +392,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
+        void OnRegularAttack(InputAction.CallbackContext context);
     }
 }

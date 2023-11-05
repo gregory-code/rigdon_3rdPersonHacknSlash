@@ -48,21 +48,30 @@ public class playerCamera
     {
         _bInLock = state;
 
+        _lockedVC.LookAt = target;
+        _lockedVC.Follow = (_bInLock) ? _lookAt : _followTransform;
+
         _regularVC.enabled = !_bInLock;
         _lockedVC.enabled = _bInLock;
-
-        if(_bInLock) _lockedVC.LookAt = target;
     }
 
     public void HandleRotation(Vector2 look)
     {
-        Vector3 followPlayer = _owner.transform.position;
-        followPlayer.y = 1.7f;
-        _followTransform.position = followPlayer;
-
         Quaternion followLerp = _followTransform.transform.rotation;
-        followLerp *= Quaternion.AngleAxis(look.x * _horizontalRotSpeed, Vector3.up);
-        followLerp *= Quaternion.AngleAxis(-look.y * _verticalRotSpeed, Vector3.right);
+
+        if (_bInLock)
+        {
+            followLerp = _owner.transform.rotation;
+        }
+        else
+        {
+            Vector3 followPlayer = _owner.transform.position;
+            followPlayer.y = 1.7f;
+            _followTransform.position = followPlayer;
+
+            followLerp *= Quaternion.AngleAxis(look.x * _horizontalRotSpeed, Vector3.up);
+            followLerp *= Quaternion.AngleAxis(-look.y * _verticalRotSpeed, Vector3.right);
+        }
 
         _followTransform.transform.rotation = Quaternion.Slerp(_followTransform.transform.rotation, followLerp, 5 * Time.deltaTime);
         
