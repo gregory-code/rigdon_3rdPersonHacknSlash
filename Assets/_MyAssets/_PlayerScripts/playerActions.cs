@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEditor.Rendering;
 using UnityEngine;
+using static playerScript;
 
 public class playerActions
 {
@@ -24,6 +26,9 @@ public class playerActions
     int _inputAge;
     bool _bStoredInput;
 
+    public delegate void OnMovementStopUpdated(bool state);
+    public event OnMovementStopUpdated onMovementStopUpdated;
+
     public playerActions(GameObject myOwner)
     {
         _owner = myOwner;
@@ -42,6 +47,8 @@ public class playerActions
             DrawSword(true);
             return;
         }
+
+        onMovementStopUpdated?.Invoke(true);
 
         if (_bRecieveAttack == false && _nextAttackIndex > 0)
         {
@@ -82,6 +89,7 @@ public class playerActions
         {
             _animator.SetBool("attack" + i, false);
         }
+        onMovementStopUpdated?.Invoke(false);
         _bRecieveAttack = false;
         _nextAttackIndex = 0;
     }
@@ -90,6 +98,7 @@ public class playerActions
     {
         _animator.SetLayerWeight(1, 1);
         _timeDelay = 500;
+        _desiredWeight = 0;
         _bSwordEquipped = bState;
         _animator.SetBool("bSwordEquipped", _bSwordEquipped);
     }

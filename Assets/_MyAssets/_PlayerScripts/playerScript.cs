@@ -6,6 +6,8 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using static playerScript;
+using static UnityEngine.UI.GridLayoutGroup;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Animator))]
@@ -24,6 +26,7 @@ public class playerScript : MonoBehaviour
 
     Transform _closestEnemy;
     bool _bInLock;
+    bool _bMovementStop;
 
     void Start()
     {
@@ -32,6 +35,7 @@ public class playerScript : MonoBehaviour
         _camera = new playerCamera(gameObject);
         _sight = Camera.main.GetComponent<playerSight>();
         _actions = new playerActions(gameObject);
+        _actions.onMovementStopUpdated += MovementStopUpdated;
 
         if (FindObjectOfType<Canvas>() == null)
         {
@@ -54,14 +58,15 @@ public class playerScript : MonoBehaviour
         if (_actions == null) return;
 
         Look();
-        Movement();
+
+        if (_bMovementStop == false) Movement();
+
+        _movement.BurstFoward();
+
         ActionUpdate();
 
 
-        if(_bInLock == false)
-        {
-            _closestEnemy = _sight.GetClosestEnemy();
-        }
+        if(_bInLock == false) _closestEnemy = _sight.GetClosestEnemy();
 
         if(_closestEnemy == null)
         {
@@ -126,6 +131,11 @@ public class playerScript : MonoBehaviour
         _actions.Update();
     }
 
+    private void MovementStopUpdated(bool state)
+    {
+        _bMovementStop = state;
+    }
+
     #region Anim Events
 
     private void GrabSword()
@@ -161,6 +171,13 @@ public class playerScript : MonoBehaviour
         if (_actions == null) return;
 
         _actions.FinishFlourish();
+    }
+
+    private void StepFoward(int time)
+    {
+        if (_actions == null) return;
+
+        _movement.SetBurst(time, 8);
     }
 
     #endregion

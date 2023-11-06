@@ -26,6 +26,9 @@ public class playerMovement
     private bool _bInLock;
     private Transform _targetTransform;
 
+    float _burstTime;
+    float _burstSpeed;
+
     public playerMovement(GameObject myOwner)
     {
         _owner = myOwner;
@@ -48,13 +51,7 @@ public class playerMovement
 
     public void MoveCharacter(Vector3 velocity, Vector3 inputDirection, Vector3 movementDir)
     {
-        if(_bInLock)
-        {
-            Quaternion targetLock = Quaternion.LookRotation(_targetTransform.position - _owner.transform.position);
-            targetLock.x = 0;
-            targetLock.z = 0;
-            _owner.transform.rotation = Quaternion.Slerp(_owner.transform.rotation, targetLock, _rotationSpeed * Time.deltaTime);
-        }
+        if (_bInLock) RotateTowardsTarget();
 
         // Checks if there is current movement
         if (inputDirection == Vector3.zero)
@@ -82,13 +79,46 @@ public class playerMovement
 
             _characterController.Move(_owner.transform.forward * Speed * Time.deltaTime);
 
-            // Handles Rotating in the direction of movement
-            movementDir.y = 0;
-            movementDir = movementDir.normalized;
-            Vector3 relativeDirection = Quaternion.LookRotation(movementDir) * inputDirection;
-            Quaternion targetRotation = Quaternion.LookRotation(relativeDirection);
-            _owner.transform.rotation = Quaternion.Slerp(_owner.transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            RotateTowardsMoveDir(inputDirection, movementDir);
         }
+    }
+
+    private void RotateTowardsTarget()
+    {
+        Quaternion targetLock = Quaternion.LookRotation(_targetTransform.position - _owner.transform.position);
+        targetLock.x = 0;
+        targetLock.z = 0;
+        _owner.transform.rotation = Quaternion.Slerp(_owner.transform.rotation, targetLock, _rotationSpeed * Time.deltaTime);
+    }
+
+    private void RotateTowardsMoveDir(Vector3 inputDirection, Vector3 movementDir)
+    {
+        movementDir.y = 0;
+        movementDir = movementDir.normalized;
+        Vector3 relativeDirection = Quaternion.LookRotation(movementDir) * inputDirection;
+        Quaternion targetRotation = Quaternion.LookRotation(relativeDirection);
+        _owner.transform.rotation = Quaternion.Slerp(_owner.transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+    }
+
+    public void BurstFoward()
+    {
+        if(_burstTime > 0)
+        {
+            --_burstTime;
+            Vector3 moveDirection = _owner.transform.forward * _burstSpeed * Time.deltaTime;
+            _characterController.Move(moveDirection);
+
+            if(_bInLock)
+            {
+                RotateTowardsTarget();
+            }
+        }
+    }
+
+    public void SetBurst(float time, float speed)
+    {
+        _burstTime = time;
+        _burstSpeed = speed;
     }
 
     private void SpeedChange(float desiredSpeed)
