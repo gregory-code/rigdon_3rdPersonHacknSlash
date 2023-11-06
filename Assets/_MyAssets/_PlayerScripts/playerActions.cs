@@ -16,6 +16,14 @@ public class playerActions
     int _timeDelay;
     int _desiredWeight;
 
+    // What?
+
+    int _nextAttackIndex;
+    bool _bRecieveAttack;
+
+    int _inputAge;
+    bool _bStoredInput;
+
     public playerActions(GameObject myOwner)
     {
         _owner = myOwner;
@@ -24,22 +32,66 @@ public class playerActions
         _hipHolder = GameObject.FindGameObjectWithTag("hipHolder").GetComponent<Transform>();
         _handHolder = GameObject.FindGameObjectWithTag("handHolder").GetComponent<Transform>();
         _desiredWeight = 0;
+        _nextAttackIndex = 0;
     }
 
     public void RegularAttack()
     {
-        _animator.SetLayerWeight(1, 1);
-        _timeDelay = 500;
-
         if (_bSwordEquipped == false)
         {
-            _bSwordEquipped = true;
-            _animator.SetBool("bSwordEquipped", _bSwordEquipped);
+            DrawSword(true);
+            return;
         }
-        else
+
+        if (_bRecieveAttack == false && _nextAttackIndex > 0)
         {
-            _animator.SetBool("attack0", true);
+            StoreInput(100);
+            return;
         }
+        ExecuteAttack();
+    }
+
+    private void ExecuteAttack()
+    {
+        _bRecieveAttack = false;
+        _animator.SetLayerWeight(1, 0);
+        _animator.SetBool("attack" + _nextAttackIndex, true);
+        _nextAttackIndex++;
+    }
+
+    private void StoreInput(int setAge)
+    {
+        _inputAge = setAge;
+        _bStoredInput = true;
+    }
+
+    public void CheckAttack()
+    {
+        _bRecieveAttack = true;
+        if (_bStoredInput) ExecuteAttack();
+    }
+
+    public void AttackCutOff()
+    {
+        _bRecieveAttack = false;
+    }
+
+    public void FinishFlourish()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            _animator.SetBool("attack" + i, false);
+        }
+        _bRecieveAttack = false;
+        _nextAttackIndex = 0;
+    }
+
+    private void DrawSword(bool bState)
+    {
+        _animator.SetLayerWeight(1, 1);
+        _timeDelay = 500;
+        _bSwordEquipped = bState;
+        _animator.SetBool("bSwordEquipped", _bSwordEquipped);
     }
 
     public void UpdateSword(bool toHip)
@@ -51,8 +103,14 @@ public class playerActions
         _katana.transform.localEulerAngles = Vector3.zero;
     }
 
-    public void UpdateAnimWeight()
+    public void Update()
     {
+        if(_inputAge > 0)
+        {
+            --_inputAge;
+            if (_inputAge <= 0) _bStoredInput = false;
+        }
+
         if(_timeDelay > 0)
         {
             --_timeDelay;

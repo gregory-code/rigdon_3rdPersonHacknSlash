@@ -53,10 +53,9 @@ public class playerScript : MonoBehaviour
         if (_sight == null) return;
         if (_actions == null) return;
 
-
         Look();
         Movement();
-        UpdateWeight();
+        ActionUpdate();
 
 
         if(_bInLock == false)
@@ -122,10 +121,12 @@ public class playerScript : MonoBehaviour
         }
     }
 
-    private void UpdateWeight()
+    private void ActionUpdate()
     {
-        _actions.UpdateAnimWeight();
+        _actions.Update();
     }
+
+    #region Anim Events
 
     private void GrabSword()
     {
@@ -140,4 +141,27 @@ public class playerScript : MonoBehaviour
 
         _actions.UpdateSword(true);
     }
+
+    public void CheckAttack()
+    {
+        if (_actions == null) return;
+
+        _actions.CheckAttack();
+    }
+
+    private void AttackCutOff()
+    {
+        if (_actions == null) return;
+
+        _actions.AttackCutOff();
+    }
+
+    private void FinishFlourish()
+    {
+        if (_actions == null) return;
+
+        _actions.FinishFlourish();
+    }
+
+    #endregion
 }
