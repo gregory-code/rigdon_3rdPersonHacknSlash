@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "RegularAttack",
+                    "type": "Button",
+                    "id": "561259ba-41b5-481d-9af3-4a668fe91b58",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Lock-On",
                     "type": "Button",
                     "id": "38bed835-41c1-4c48-9177-fa7749165096",
@@ -42,9 +51,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RegularAttack",
+                    "name": "FocusRight",
                     "type": "Button",
-                    "id": "561259ba-41b5-481d-9af3-4a668fe91b58",
+                    "id": "7b26b3f6-3cab-4a61-82a8-dd3c59150d82",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FocusLeft",
+                    "type": "Button",
+                    "id": "2256820d-c574-4146-9161-65ffc4b20698",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -203,6 +221,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Lock-On",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a18c0e0d-cd55-4a23-8333-379ecb8c5758",
+                    "path": "<Keyboard>/r",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FocusLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a59282e-3dd8-4740-a943-0dff190c6e5f",
+                    "path": "<Keyboard>/q",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FocusRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

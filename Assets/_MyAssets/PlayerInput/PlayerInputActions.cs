@@ -55,6 +55,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""RegularAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""561259ba-41b5-481d-9af3-4a668fe91b58"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Lock-On"",
                     ""type"": ""Button"",
                     ""id"": ""38bed835-41c1-4c48-9177-fa7749165096"",
@@ -64,9 +73,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RegularAttack"",
+                    ""name"": ""FocusRight"",
                     ""type"": ""Button"",
-                    ""id"": ""561259ba-41b5-481d-9af3-4a668fe91b58"",
+                    ""id"": ""7b26b3f6-3cab-4a61-82a8-dd3c59150d82"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FocusLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""2256820d-c574-4146-9161-65ffc4b20698"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -230,6 +248,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""a18c0e0d-cd55-4a23-8333-379ecb8c5758"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FocusLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a59282e-3dd8-4740-a943-0dff190c6e5f"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FocusRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5aebf036-bca5-44ca-b45c-a6285d26a060"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Press"",
@@ -249,8 +289,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerSword_Movement = m_PlayerSword.FindAction("Movement", throwIfNotFound: true);
         m_PlayerSword_Look = m_PlayerSword.FindAction("Look", throwIfNotFound: true);
         m_PlayerSword_Sprint = m_PlayerSword.FindAction("Sprint", throwIfNotFound: true);
-        m_PlayerSword_LockOn = m_PlayerSword.FindAction("Lock-On", throwIfNotFound: true);
         m_PlayerSword_RegularAttack = m_PlayerSword.FindAction("RegularAttack", throwIfNotFound: true);
+        m_PlayerSword_LockOn = m_PlayerSword.FindAction("Lock-On", throwIfNotFound: true);
+        m_PlayerSword_FocusRight = m_PlayerSword.FindAction("FocusRight", throwIfNotFound: true);
+        m_PlayerSword_FocusLeft = m_PlayerSword.FindAction("FocusLeft", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,8 +357,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerSword_Movement;
     private readonly InputAction m_PlayerSword_Look;
     private readonly InputAction m_PlayerSword_Sprint;
-    private readonly InputAction m_PlayerSword_LockOn;
     private readonly InputAction m_PlayerSword_RegularAttack;
+    private readonly InputAction m_PlayerSword_LockOn;
+    private readonly InputAction m_PlayerSword_FocusRight;
+    private readonly InputAction m_PlayerSword_FocusLeft;
     public struct PlayerSwordActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -324,8 +368,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerSword_Movement;
         public InputAction @Look => m_Wrapper.m_PlayerSword_Look;
         public InputAction @Sprint => m_Wrapper.m_PlayerSword_Sprint;
-        public InputAction @LockOn => m_Wrapper.m_PlayerSword_LockOn;
         public InputAction @RegularAttack => m_Wrapper.m_PlayerSword_RegularAttack;
+        public InputAction @LockOn => m_Wrapper.m_PlayerSword_LockOn;
+        public InputAction @FocusRight => m_Wrapper.m_PlayerSword_FocusRight;
+        public InputAction @FocusLeft => m_Wrapper.m_PlayerSword_FocusLeft;
         public InputActionMap Get() { return m_Wrapper.m_PlayerSword; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -344,12 +390,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
-            @LockOn.started += instance.OnLockOn;
-            @LockOn.performed += instance.OnLockOn;
-            @LockOn.canceled += instance.OnLockOn;
             @RegularAttack.started += instance.OnRegularAttack;
             @RegularAttack.performed += instance.OnRegularAttack;
             @RegularAttack.canceled += instance.OnRegularAttack;
+            @LockOn.started += instance.OnLockOn;
+            @LockOn.performed += instance.OnLockOn;
+            @LockOn.canceled += instance.OnLockOn;
+            @FocusRight.started += instance.OnFocusRight;
+            @FocusRight.performed += instance.OnFocusRight;
+            @FocusRight.canceled += instance.OnFocusRight;
+            @FocusLeft.started += instance.OnFocusLeft;
+            @FocusLeft.performed += instance.OnFocusLeft;
+            @FocusLeft.canceled += instance.OnFocusLeft;
         }
 
         private void UnregisterCallbacks(IPlayerSwordActions instance)
@@ -363,12 +415,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
-            @LockOn.started -= instance.OnLockOn;
-            @LockOn.performed -= instance.OnLockOn;
-            @LockOn.canceled -= instance.OnLockOn;
             @RegularAttack.started -= instance.OnRegularAttack;
             @RegularAttack.performed -= instance.OnRegularAttack;
             @RegularAttack.canceled -= instance.OnRegularAttack;
+            @LockOn.started -= instance.OnLockOn;
+            @LockOn.performed -= instance.OnLockOn;
+            @LockOn.canceled -= instance.OnLockOn;
+            @FocusRight.started -= instance.OnFocusRight;
+            @FocusRight.performed -= instance.OnFocusRight;
+            @FocusRight.canceled -= instance.OnFocusRight;
+            @FocusLeft.started -= instance.OnFocusLeft;
+            @FocusLeft.performed -= instance.OnFocusLeft;
+            @FocusLeft.canceled -= instance.OnFocusLeft;
         }
 
         public void RemoveCallbacks(IPlayerSwordActions instance)
@@ -391,7 +449,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
-        void OnLockOn(InputAction.CallbackContext context);
         void OnRegularAttack(InputAction.CallbackContext context);
+        void OnLockOn(InputAction.CallbackContext context);
+        void OnFocusRight(InputAction.CallbackContext context);
+        void OnFocusLeft(InputAction.CallbackContext context);
     }
 }

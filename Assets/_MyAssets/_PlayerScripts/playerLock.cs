@@ -12,12 +12,14 @@ public class playerLock : MonoBehaviour
     bool _bActive;
     bool _bInLock;
 
+    bool _bIsText;
 
     private void Start()
     {
-        _crosshairImage = transform.GetComponent<Image>();
         _originalScale = transform.localScale;
         GameObject.Find("player").GetComponent<playerScript>().onTargetLockUpdated += TargetLockUpdated;
+        _crosshairImage = transform.GetComponent<Image>();
+        if (_crosshairImage == null) _bIsText = true;
     }
 
     private void TargetLockUpdated(bool state, Transform target)
@@ -35,7 +37,7 @@ public class playerLock : MonoBehaviour
     public void RemoveAttachment()
     {
         _bActive = false;
-        _crosshairImage.color = new Color(0, 0, 0, 0);
+        if (_bIsText == false) _crosshairImage.color = new Color(0, 0, 0, 0);
     }
 
     void Update()
@@ -46,13 +48,13 @@ public class playerLock : MonoBehaviour
 
         if (_bInLock == false)
         {
-            _crosshairImage.color = Color.Lerp(_crosshairImage.color, Color.white, 5 * Time.deltaTime);
             transform.localScale = Vector3.Lerp(transform.localScale, _originalScale, 5 * Time.deltaTime);
+            if(_bIsText == false) _crosshairImage.color = Color.Lerp(_crosshairImage.color, Color.white, 5 * Time.deltaTime);
         }
         else
         {
-            _crosshairImage.color = Color.Lerp(_crosshairImage.color, Color.red, 5 * Time.deltaTime);
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.3f, 0.3f, 0.3f), 5 * Time.deltaTime);
+            if (_bIsText == false) _crosshairImage.color = Color.Lerp(_crosshairImage.color, Color.red, 5 * Time.deltaTime);
         }
     }
 }

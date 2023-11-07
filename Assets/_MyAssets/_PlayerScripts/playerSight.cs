@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,16 +12,119 @@ public class playerSight : MonoBehaviour
     [SerializeField] float grabRadius = 15;
     [SerializeField] LayerMask enemyLayerMask;
 
+    Transform _targetedEnemy;
     Collider[] nearbyEnemies;
-    List<Transform> inRangeEnemies = new List<Transform>();
 
-    public Transform GetClosestEnemy()
+
+    public void Start()
+    {
+        GameObject.Find("player").GetComponent<playerScript>().onTargetLockUpdated += TargetLockUpdated;
+    }
+
+    private void TargetLockUpdated(bool state, Transform target)
+    {
+        _targetedEnemy = (state) ? target : null;
+    }
+
+    public Transform GetClosestEnemy(bool shiftFocus, bool shiftLeft)
+    {
+        List<Transform> inRangeEnemies = GetEnemiesInRange();
+        if (inRangeEnemies.Count <= 0) return null;
+
+        if(shiftFocus == false)
+        {
+            return GetClosestOnDistance(inRangeEnemies);
+        }
+
+        if(shiftLeft)
+        {
+            return GetClosestOnLeft(inRangeEnemies);
+        }
+        else
+        {
+            return GetClosestOnRight(inRangeEnemies);
+        }
+    }
+
+    private Transform GetClosestOnDistance(List<Transform> enemylist)
+    {
+        float closestValue = 9999;
+        Transform closestDis = null;
+
+        foreach (Transform enemy in enemylist)
+        {
+            if (enemy.transform.root == _targetedEnemy) continue;
+            float dis = Vector3.Distance(enemy.position, transform.position);
+
+            if (dis < closestValue)
+            {
+                closestValue = dis;
+                closestDis = enemy.transform.root;
+            }
+        }
+
+        return closestDis;
+    }
+
+    private Transform GetClosestOnLeft(List<Transform> enemylist)
+    {
+        float closestAngle = -9999;
+        Transform closestEnemy = null;
+
+        foreach (Transform enemy in enemylist)
+        {
+            if (enemy.transform.root == _targetedEnemy) continue;
+
+            float angle = CheckFocusAngle(enemy);
+            if (angle >= 0) continue;
+
+            if (angle > closestAngle)
+            {
+                closestEnemy = enemy.transform.root;
+                closestAngle = angle;
+            }
+        }
+
+        return closestEnemy;
+    }
+
+    private Transform GetClosestOnRight(List<Transform> enemylist)
+    {
+        float closestAngle = 9999;
+        Transform closestEnemy = null;
+
+        foreach (Transform enemy in enemylist)
+        {
+            if (enemy.transform.root == _targetedEnemy) continue;
+
+            float angle = CheckFocusAngle(enemy);
+            if (angle < 0) continue;
+
+            if (angle < closestAngle)
+            {
+                closestEnemy = enemy.transform.root;
+                closestAngle = angle;
+            }
+        }
+
+        return closestEnemy;
+    }
+
+    private float CheckFocusAngle(Transform enemy)
+    {
+        Vector3 stimuliDir = (enemy.transform.position - transform.position).normalized;
+        Vector3 ownerForward = transform.forward;
+
+        return (Vector3.Cross(stimuliDir, ownerForward).y);
+    }
+
+    private List<Transform> GetEnemiesInRange()
     {
         nearbyEnemies = Physics.OverlapSphere(transform.position, grabRadius, enemyLayerMask);
 
         if (nearbyEnemies.Length <= 0) return null;
 
-        inRangeEnemies.Clear();
+        List<Transform> enemiesInRange = new List<Transform>();
 
         foreach (Collider t in nearbyEnemies)
         {
@@ -37,25 +141,10 @@ public class playerSight : MonoBehaviour
                 continue;
             }
 
-            inRangeEnemies.Add(t.transform);
+            enemiesInRange.Add(t.transform);
         }
 
-        if (inRangeEnemies.Count <= 0) return null;
-
-        float closestValue = 9999;
-        Transform closestEnemy = null;
-
-        foreach (Transform enemy in inRangeEnemies)
-        {
-            float dis = Vector3.Distance(enemy.position, transform.position);
-            if (dis < closestValue)
-            {
-                closestValue = dis;
-                closestEnemy = enemy;
-            }
-        }
-
-        return closestEnemy.transform.root;
+        return enemiesInRange;
     }
 
     private void OnDrawGizmos()

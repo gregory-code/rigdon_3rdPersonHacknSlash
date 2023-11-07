@@ -19,12 +19,18 @@ public class playerScript : MonoBehaviour
     [SerializeField] playerSight _sight;
     [SerializeField] playerActions _actions;
     [SerializeField] playerLock _lock;
+    [SerializeField] playerLock _lockRight;
+    [SerializeField] playerLock _lockLeft;
     [SerializeField] playerLock _lockPrefab;
+    [SerializeField] playerLock _lockRightPrefab;
+    [SerializeField] playerLock _lockLeftPrefab;
 
     public delegate void OnTargetLockUpdated(bool state, Transform target);
     public event OnTargetLockUpdated onTargetLockUpdated;
 
-    Transform _closestEnemy;
+    [SerializeField] Transform _targetedEnemy;
+    [SerializeField] Transform _rightEnemy;
+    [SerializeField] Transform _leftEnemy;
     bool _bInLock;
     bool _bMovementStop;
 
@@ -43,6 +49,8 @@ public class playerScript : MonoBehaviour
             return;
         }
         _lock = Instantiate(_lockPrefab, FindObjectOfType<Canvas>().transform);
+        _lockRight = Instantiate(_lockRightPrefab, FindObjectOfType<Canvas>().transform);
+        _lockLeft = Instantiate(_lockLeftPrefab, FindObjectOfType<Canvas>().transform);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -66,15 +74,30 @@ public class playerScript : MonoBehaviour
         ActionUpdate();
 
 
-        if(_bInLock == false) _closestEnemy = _sight.GetClosestEnemy();
-
-        if(_closestEnemy == null)
+        if (_bInLock == false)
         {
-            _lock.RemoveAttachment();
+            _targetedEnemy = _sight.GetClosestEnemy(false, false);
         }
         else
         {
-            _lock.SetupAttachment(_closestEnemy);
+            _rightEnemy = _sight.GetClosestEnemy(true, false);
+            _leftEnemy = _sight.GetClosestEnemy(true, true);
+        }
+
+        AdjustAttachment(_targetedEnemy, _lock);
+        AdjustAttachment(_leftEnemy, _lockLeft);
+        AdjustAttachment(_rightEnemy, _lockRight);
+    }
+
+    private void AdjustAttachment(Transform enemy, playerLock lockAttachment)
+    {
+        if (enemy == null)
+        {
+            lockAttachment.RemoveAttachment();
+        }
+        else
+        {
+            lockAttachment.SetupAttachment(enemy);
         }
     }
 
@@ -115,13 +138,43 @@ public class playerScript : MonoBehaviour
     {
         if (context.performed)
         {
-            if (_closestEnemy == null) return;
+            if (_targetedEnemy == null) return;
 
 
             _bInLock = !_bInLock;
 
-            Transform target = (_bInLock) ? _closestEnemy : gameObject.transform.Find("lookAt").transform;
+            if(_bInLock == false)
+            {
+                _rightEnemy = null;
+                _leftEnemy = null;
+            }
 
+            Transform target = (_bInLock) ? _targetedEnemy : gameObject.transform.Find("lookAt").transform;
+
+            onTargetLockUpdated?.Invoke(_bInLock, target);
+        }
+    }
+
+    public void RightFocus(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (_rightEnemy == null || _bInLock == false) return;
+
+            Transform target = _rightEnemy;
+            _targetedEnemy = _rightEnemy;
+            onTargetLockUpdated?.Invoke(_bInLock, target);
+        }
+    }
+
+    public void LeftFocus(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (_leftEnemy == null || _bInLock == false) return;
+
+            Transform target = _leftEnemy;
+            _targetedEnemy = _leftEnemy;
             onTargetLockUpdated?.Invoke(_bInLock, target);
         }
     }
@@ -177,7 +230,7 @@ public class playerScript : MonoBehaviour
     {
         if (_actions == null) return;
 
-        _movement.SetBurst(time, 8);
+        _movement.SetBurst(time, 5);
     }
 
     #endregion
