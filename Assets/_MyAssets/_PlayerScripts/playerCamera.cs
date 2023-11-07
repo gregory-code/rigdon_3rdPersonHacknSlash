@@ -36,8 +36,8 @@ public class playerCamera
         _lockedVC = GameObject.Find("lockedVC").GetComponent<CinemachineVirtualCamera>();
         _clampMax = 40;
         _clampMin = -30;
-        _horizontalRotSpeed = 6f;
-        _verticalRotSpeed = 4;
+        _horizontalRotSpeed = 12f;
+        _verticalRotSpeed = 9;
         _closeVCDistance = 3;
         _farVCDistance = 4.5f;
 

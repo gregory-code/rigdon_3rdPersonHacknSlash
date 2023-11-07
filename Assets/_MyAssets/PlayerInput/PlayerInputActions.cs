@@ -161,7 +161,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""b1bc9256-8b49-445a-868a-38250b38aff9"",
-                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""path"": ""<DualSenseGamepadHID>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -172,7 +172,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""ad795c97-14ea-4ded-9bdd-1dd31745efd4"",
-                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""path"": ""<DualSenseGamepadHID>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -183,7 +183,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""88205d90-217e-40ea-afc3-1f9a380e7053"",
-                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""path"": ""<DualSenseGamepadHID>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -194,7 +194,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""bc9cd352-381e-42d7-8fef-24189e93b6f0"",
-                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""path"": ""<DualSenseGamepadHID>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -237,9 +237,31 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""7f0845fc-c23e-444c-aa9c-0584581fefd5"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""f57fcaa5-6be5-4378-8d21-c69103bc1574"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lock-On"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff5acc52-6324-4cd7-9418-4da46991e4fb"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Lock-On"",
@@ -259,6 +281,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""aea460a9-d4e8-49c4-bd6c-552af4103704"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FocusLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5a59282e-3dd8-4740-a943-0dff190c6e5f"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": ""Press"",
@@ -270,9 +303,31 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""b0104873-3843-43d9-8eab-ddd3fb439bc4"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FocusRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5aebf036-bca5-44ca-b45c-a6285d26a060"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RegularAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5de81dd3-2c6f-4004-81b4-ca9d58577caf"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RegularAttack"",
