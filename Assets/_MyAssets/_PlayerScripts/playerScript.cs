@@ -105,7 +105,6 @@ public class playerScript : MonoBehaviour
     {
         Vector2 lookVector = _playerInput.PlayerSword.Look.ReadValue<Vector2>();
         _camera.HandleRotation(lookVector);
-        _camera.PushBackVirtualCam();
     }
 
     private void Movement()
