@@ -21,13 +21,18 @@ public class playerActions
     // What?
 
     int _nextAttackIndex;
-    bool _bRecieveAttack;
+    bool _bOpenInput;
 
     int _inputAge;
-    bool _bStoredInput;
+
+    private enum input { None, Regular, Dodge, Kill }
+    private input _storedInput;
 
     public delegate void OnMovementStopUpdated(bool state);
     public event OnMovementStopUpdated onMovementStopUpdated;
+
+    public delegate void OnDodgeUpdated();
+    public event OnDodgeUpdated onDodgeUpdated;
 
     public playerActions(GameObject myOwner)
     {
@@ -40,7 +45,7 @@ public class playerActions
         _nextAttackIndex = 0;
     }
 
-    public void RegularAttack()
+    public void RegularAttackInput()
     {
         if (_bSwordEquipped == false)
         {
@@ -50,37 +55,53 @@ public class playerActions
 
         onMovementStopUpdated?.Invoke(true);
 
-        if (_bRecieveAttack == false && _nextAttackIndex > 0)
+        if (_bOpenInput == false && _nextAttackIndex > 0)
         {
-            StoreInput(100);
+            StoreInput(100, input.Regular);
             return;
         }
-        ExecuteAttack();
+        Attack("attack");
     }
 
-    private void ExecuteAttack()
+    private void Attack(string attackName)
     {
-        _bRecieveAttack = false;
+        _bOpenInput = false;
         _animator.SetLayerWeight(1, 0);
-        _animator.SetBool("attack" + _nextAttackIndex, true);
+        _animator.SetBool(attackName + _nextAttackIndex, true);
         _nextAttackIndex++;
     }
 
-    private void StoreInput(int setAge)
+    public void DodgeInput()
+    {
+        if (_bOpenInput == true)
+        {
+            StoreInput(100, input.Dodge);
+            return;
+        }
+
+        Debug.Log("Left: " + _animator.GetFloat("leftSpeed"));
+        Debug.Log("Foward: " + _animator.GetFloat("fowardSpeed"));
+
+        _animator.SetTrigger("dodge");
+        onMovementStopUpdated?.Invoke(true);
+        onDodgeUpdated?.Invoke();
+    }
+
+    private void StoreInput(int setAge, input storedInput)
     {
         _inputAge = setAge;
-        _bStoredInput = true;
+        _storedInput = storedInput;
     }
 
     public void CheckAttack()
     {
-        _bRecieveAttack = true;
-        if (_bStoredInput) ExecuteAttack();
+        _bOpenInput = true;
+        CheckInput();
     }
 
     public void AttackCutOff()
     {
-        _bRecieveAttack = false;
+        _bOpenInput = false;
     }
 
     public void FinishFlourish()
@@ -89,9 +110,36 @@ public class playerActions
         {
             _animator.SetBool("attack" + i, false);
         }
+        _animator.ResetTrigger("dodge");
+
         onMovementStopUpdated?.Invoke(false);
-        _bRecieveAttack = false;
+        _bOpenInput = false;
         _nextAttackIndex = 0;
+
+        if(_storedInput != input.None)
+        {
+            CheckInput();
+        }
+    }
+
+    private void CheckInput()
+    {
+        switch (_storedInput)
+        {
+            case input.None:
+                return;
+
+            case input.Regular:
+                Attack("attack");
+                return;
+
+            case input.Dodge:
+                DodgeInput();
+                return;
+
+            case input.Kill:
+                return;
+        }
     }
 
     private void DrawSword(bool bState)
@@ -117,7 +165,7 @@ public class playerActions
         if(_inputAge > 0)
         {
             --_inputAge;
-            if (_inputAge <= 0) _bStoredInput = false;
+            if (_inputAge <= 0) _storedInput = input.None;
         }
 
         if(_timeDelay > 0)

@@ -89,6 +89,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""1692b62b-c3c1-40fb-87e7-3aeaa6e00ce2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -333,6 +342,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""RegularAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""746a9be2-fcab-4408-ab70-009fc69e2dbb"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -348,6 +368,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerSword_LockOn = m_PlayerSword.FindAction("Lock-On", throwIfNotFound: true);
         m_PlayerSword_FocusRight = m_PlayerSword.FindAction("FocusRight", throwIfNotFound: true);
         m_PlayerSword_FocusLeft = m_PlayerSword.FindAction("FocusLeft", throwIfNotFound: true);
+        m_PlayerSword_Dodge = m_PlayerSword.FindAction("Dodge", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -416,6 +437,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerSword_LockOn;
     private readonly InputAction m_PlayerSword_FocusRight;
     private readonly InputAction m_PlayerSword_FocusLeft;
+    private readonly InputAction m_PlayerSword_Dodge;
     public struct PlayerSwordActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -427,6 +449,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @LockOn => m_Wrapper.m_PlayerSword_LockOn;
         public InputAction @FocusRight => m_Wrapper.m_PlayerSword_FocusRight;
         public InputAction @FocusLeft => m_Wrapper.m_PlayerSword_FocusLeft;
+        public InputAction @Dodge => m_Wrapper.m_PlayerSword_Dodge;
         public InputActionMap Get() { return m_Wrapper.m_PlayerSword; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -457,6 +480,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @FocusLeft.started += instance.OnFocusLeft;
             @FocusLeft.performed += instance.OnFocusLeft;
             @FocusLeft.canceled += instance.OnFocusLeft;
+            @Dodge.started += instance.OnDodge;
+            @Dodge.performed += instance.OnDodge;
+            @Dodge.canceled += instance.OnDodge;
         }
 
         private void UnregisterCallbacks(IPlayerSwordActions instance)
@@ -482,6 +508,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @FocusLeft.started -= instance.OnFocusLeft;
             @FocusLeft.performed -= instance.OnFocusLeft;
             @FocusLeft.canceled -= instance.OnFocusLeft;
+            @Dodge.started -= instance.OnDodge;
+            @Dodge.performed -= instance.OnDodge;
+            @Dodge.canceled -= instance.OnDodge;
         }
 
         public void RemoveCallbacks(IPlayerSwordActions instance)
@@ -508,5 +537,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnLockOn(InputAction.CallbackContext context);
         void OnFocusRight(InputAction.CallbackContext context);
         void OnFocusLeft(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
     }
 }

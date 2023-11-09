@@ -28,6 +28,7 @@ public class playerMovement
 
     float _burstTime;
     float _burstSpeed;
+    Vector3 _burstDirection;
 
     public playerMovement(GameObject myOwner)
     {
@@ -105,8 +106,8 @@ public class playerMovement
         if(_burstTime > 0)
         {
             --_burstTime;
-            Vector3 moveDirection = _owner.transform.forward * _burstSpeed * Time.deltaTime;
-            _characterController.Move(moveDirection);
+            Vector3 movement = _burstDirection * _burstSpeed * Time.deltaTime;
+            _characterController.Move(movement);
 
             if(_bInLock)
             {
@@ -115,10 +116,11 @@ public class playerMovement
         }
     }
 
-    public void SetBurst(float time, float speed)
+    public void SetBurst(float time, float speed, Vector3 dir)
     {
         _burstTime = time;
         _burstSpeed = speed;
+        _burstDirection = dir;
     }
 
     private void SpeedChange(float desiredSpeed)

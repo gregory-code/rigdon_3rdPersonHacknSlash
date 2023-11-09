@@ -29,7 +29,8 @@ public class playerSight : MonoBehaviour
     public Transform GetClosestEnemy(bool shiftFocus, bool shiftLeft)
     {
         List<Transform> inRangeEnemies = GetEnemiesInRange();
-        if (inRangeEnemies.Count <= 0) return null;
+        if (inRangeEnemies.Count <= 0) 
+            return null;
 
         if(shiftFocus == false)
         {
@@ -122,9 +123,10 @@ public class playerSight : MonoBehaviour
     {
         nearbyEnemies = Physics.OverlapSphere(transform.position, grabRadius, enemyLayerMask);
 
-        if (nearbyEnemies.Length <= 0) return null;
-
         List<Transform> enemiesInRange = new List<Transform>();
+        
+        if (nearbyEnemies.Length <= 0) return enemiesInRange;
+
 
         foreach (Collider t in nearbyEnemies)
         {

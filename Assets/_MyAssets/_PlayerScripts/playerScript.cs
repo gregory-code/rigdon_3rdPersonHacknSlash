@@ -42,6 +42,7 @@ public class playerScript : MonoBehaviour
         _sight = Camera.main.GetComponent<playerSight>();
         _actions = new playerActions(gameObject);
         _actions.onMovementStopUpdated += MovementStopUpdated;
+        _actions.onDodgeUpdated += DodgeUpdated;
 
         if (FindObjectOfType<Canvas>() == null)
         {
@@ -129,7 +130,16 @@ public class playerScript : MonoBehaviour
         if (context.performed)
         {
             if (_actions == null) return;
-            _actions.RegularAttack();
+            _actions.RegularAttackInput();
+        }
+    }
+
+    public void DodgeRoll(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (_actions == null) return;
+            _actions.DodgeInput();
         }
     }
 
@@ -188,6 +198,18 @@ public class playerScript : MonoBehaviour
         _bMovementStop = state;
     }
 
+    private void DodgeUpdated()
+    {
+        if (_actions == null) return;
+
+        Vector2 inputVector = _playerInput.PlayerSword.Movement.ReadValue<Vector2>();
+        Vector3 movementDir = new Vector3(inputVector.x, 0, inputVector.y);
+
+        if (_bInLock == false) inputVector = transform.forward;
+
+        _movement.SetBurst(300, 6, inputVector);
+    }
+
     #region Anim Events
 
     private void GrabSword()
@@ -229,7 +251,7 @@ public class playerScript : MonoBehaviour
     {
         if (_actions == null) return;
 
-        _movement.SetBurst(time, 5);
+        _movement.SetBurst(time, 3, transform.forward);
     }
 
     #endregion
