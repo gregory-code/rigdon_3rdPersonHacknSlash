@@ -203,11 +203,16 @@ public class playerScript : MonoBehaviour
         if (_actions == null) return;
 
         Vector2 inputVector = _playerInput.PlayerSword.Movement.ReadValue<Vector2>();
-        Vector3 movementDir = new Vector3(inputVector.x, 0, inputVector.y);
+        Vector3 movementDir = transform.forward;
 
-        if (_bInLock == false) inputVector = transform.forward;
+        if (_bInLock && inputVector != Vector2.zero)
+        {
+            movementDir = new Vector3(inputVector.x, 0, inputVector.y);
+            Vector3 relativeDirection = _movement.GetLockedDirection(movementDir);
+            movementDir = transform.TransformDirection(relativeDirection);
+        }
 
-        _movement.SetBurst(300, 6, inputVector);
+        _movement.SetBurst(130, 6, movementDir);
     }
 
     #region Anim Events
@@ -231,13 +236,6 @@ public class playerScript : MonoBehaviour
         if (_actions == null) return;
 
         _actions.CheckAttack();
-    }
-
-    private void AttackCutOff()
-    {
-        if (_actions == null) return;
-
-        _actions.AttackCutOff();
     }
 
     private void FinishFlourish()

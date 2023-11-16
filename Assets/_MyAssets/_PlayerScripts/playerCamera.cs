@@ -65,12 +65,6 @@ public class playerCamera
 
         _lookAt = (_bInLock) ? target : _followTransform;
         _follow = (_bInLock) ? _lookAtTransform : _followTransform;
-
-        //_lockedVC.LookAt = target;
-        //_lockedVC.Follow = (_bInLock) ? _lookAt : _followTransform;
-
-        //_regularVC.enabled = !_bInLock;
-        //_lockedVC.enabled = _bInLock;
     }
 
     public void HandleRotation(Vector2 look)

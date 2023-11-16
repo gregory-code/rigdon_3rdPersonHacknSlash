@@ -21,7 +21,7 @@ public class playerActions
     // What?
 
     int _nextAttackIndex;
-    bool _bOpenInput;
+    bool _bReadyForNextInput;
 
     int _inputAge;
 
@@ -43,6 +43,7 @@ public class playerActions
         _handHolder = GameObject.FindGameObjectWithTag("handHolder").GetComponent<Transform>();
         _desiredWeight = 0;
         _nextAttackIndex = 0;
+        _bReadyForNextInput = true;
     }
 
     public void RegularAttackInput()
@@ -53,19 +54,14 @@ public class playerActions
             return;
         }
 
-        onMovementStopUpdated?.Invoke(true);
-
-        if (_bOpenInput == false && _nextAttackIndex > 0)
-        {
-            StoreInput(100, input.Regular);
-            return;
-        }
-        Attack("attack");
+        StoreInput(100, input.Regular);
+        if(_nextAttackIndex == 0) CheckInput();
     }
 
     private void Attack(string attackName)
     {
-        _bOpenInput = false;
+        onMovementStopUpdated?.Invoke(true);
+
         _animator.SetLayerWeight(1, 0);
         _animator.SetBool(attackName + _nextAttackIndex, true);
         _nextAttackIndex++;
@@ -73,35 +69,23 @@ public class playerActions
 
     public void DodgeInput()
     {
-        if (_bOpenInput == true)
-        {
-            StoreInput(100, input.Dodge);
-            return;
-        }
+        StoreInput(100, input.Dodge);
 
-        Debug.Log("Left: " + _animator.GetFloat("leftSpeed"));
-        Debug.Log("Foward: " + _animator.GetFloat("fowardSpeed"));
+        if (_bReadyForNextInput == true) Dodge();
+    }
 
+    private void Dodge()
+    {
         _animator.SetTrigger("dodge");
         onMovementStopUpdated?.Invoke(true);
         onDodgeUpdated?.Invoke();
     }
 
-    private void StoreInput(int setAge, input storedInput)
-    {
-        _inputAge = setAge;
-        _storedInput = storedInput;
-    }
+    #region Anim Events
 
     public void CheckAttack()
     {
-        _bOpenInput = true;
         CheckInput();
-    }
-
-    public void AttackCutOff()
-    {
-        _bOpenInput = false;
     }
 
     public void FinishFlourish()
@@ -113,33 +97,43 @@ public class playerActions
         _animator.ResetTrigger("dodge");
 
         onMovementStopUpdated?.Invoke(false);
-        _bOpenInput = false;
         _nextAttackIndex = 0;
 
-        if(_storedInput != input.None)
-        {
-            CheckInput();
-        }
+        CheckInput();
     }
+
+    #endregion
 
     private void CheckInput()
     {
+        _bReadyForNextInput = false;
+
         switch (_storedInput)
         {
             case input.None:
-                return;
+                _bReadyForNextInput = true;
+                _inputAge = 1;
+                break;
 
             case input.Regular:
                 Attack("attack");
-                return;
+                break;
 
             case input.Dodge:
-                DodgeInput();
-                return;
+                Dodge();
+                break;
 
             case input.Kill:
-                return;
+                break;
         }
+
+        _storedInput = input.None;
+    }
+
+    private void StoreInput(int setAge, input storedInput)
+    {
+        _storedInput = storedInput;
+        _inputAge = setAge;
     }
 
     private void DrawSword(bool bState)
@@ -153,7 +147,6 @@ public class playerActions
 
     public void UpdateSword(bool toHip)
     {
-        Debug.Log(toHip);
         Transform toParent = (toHip) ? _hipHolder : _handHolder;
         _katana.transform.SetParent(toParent);
         _katana.transform.localPosition = Vector3.zero;
@@ -165,7 +158,10 @@ public class playerActions
         if(_inputAge > 0)
         {
             --_inputAge;
-            if (_inputAge <= 0) _storedInput = input.None;
+            if (_inputAge <= 0)
+            {
+                _storedInput = input.None;
+            }
         }
 
         if(_timeDelay > 0)

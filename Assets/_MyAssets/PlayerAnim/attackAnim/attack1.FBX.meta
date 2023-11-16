@@ -586,15 +586,8 @@ ModelImporter:
         floatParameter: 0
         intParameter: 50
         messageOptions: 0
-      - time: 0.17307577
+      - time: 0.20745076
         functionName: CheckAttack
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.55072474
-        functionName: AttackCutOff
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

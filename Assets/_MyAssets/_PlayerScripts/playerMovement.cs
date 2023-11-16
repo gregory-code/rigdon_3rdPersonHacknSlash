@@ -65,10 +65,7 @@ public class playerMovement
 
         if (_bInLock)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(_targetTransform.forward);
-            targetRotation.y = 0;
-            targetRotation = targetRotation.normalized;
-            Vector3 relativeDirection = targetRotation * inputDirection;
+            Vector3 relativeDirection = GetLockedDirection(inputDirection);
 
             UpdateAnimator(_owner.transform.TransformDirection(relativeDirection));
 
@@ -82,6 +79,16 @@ public class playerMovement
 
             RotateTowardsMoveDir(inputDirection, movementDir);
         }
+    }
+
+    public Vector3 GetLockedDirection(Vector3 inputDirection)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(_targetTransform.forward);
+        targetRotation.y = 0;
+        targetRotation = targetRotation.normalized;
+        Vector3 relativeDirection = targetRotation * inputDirection;
+
+        return relativeDirection;
     }
 
     private void RotateTowardsTarget()
@@ -121,6 +128,11 @@ public class playerMovement
         _burstTime = time;
         _burstSpeed = speed;
         _burstDirection = dir;
+    }
+
+    public void SetDirection(Vector3 direction)
+    {
+        _burstDirection = direction;
     }
 
     private void SpeedChange(float desiredSpeed)
