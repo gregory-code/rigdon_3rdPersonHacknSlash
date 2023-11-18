@@ -212,7 +212,7 @@ public class playerScript : MonoBehaviour
             movementDir = transform.TransformDirection(relativeDirection);
         }
 
-        _movement.SetBurst(130, 6, movementDir);
+        _movement.SetBurst(220, 7, movementDir);
     }
 
     #region Anim Events

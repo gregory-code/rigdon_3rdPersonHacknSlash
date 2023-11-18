@@ -149,6 +149,8 @@ public class playerMovement
 
     private void UpdateAnimator(Vector3 moveDir)
     {
+        if (_burstTime > 0) return;
+
         float rightSpeed = Vector3.Dot(moveDir, _owner.transform.right);
         float forwardSpeed = Vector3.Dot(moveDir, _owner.transform.forward);
 
