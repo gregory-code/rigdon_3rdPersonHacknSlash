@@ -951,6 +951,37 @@ Transform:
   - {fileID: 538904193918594864}
   m_Father: {fileID: 4615320801744996439}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3154896512597854609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8933800850722411039}
+  m_Layer: 0
+  m_Name: attachment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8933800850722411039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3154896512597854609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.36, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1417771212204713591}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3240443188513776749
 GameObject:
   m_ObjectHideFlags: 0
@@ -2176,6 +2207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1417771212204713591}
   - component: {fileID: 447715974151219387}
+  - component: {fileID: 6193513934106684470}
   m_Layer: 0
   m_Name: archerEnemy
   m_TagString: Untagged
@@ -2198,6 +2230,7 @@ Transform:
   m_Children:
   - {fileID: 2917825785390702163}
   - {fileID: 3724688180926254531}
+  - {fileID: 8933800850722411039}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &447715974151219387
@@ -2210,7 +2243,7 @@ Animator:
   m_GameObject: {fileID: 8746959660123746642}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: be15bd93bfd6d664d9c80526dcf4d24c, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e77062c09397a2142b17f040e65220ca, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -2221,6 +2254,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6193513934106684470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746959660123746642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15a34b630cf70934fa6f345c74b4e2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarPrefab: {fileID: 6688615008033522426, guid: 7d5c56ea4079d134e829e701fb4239d7,
+    type: 3}
+  healthBarAttachTransform: {fileID: 8933800850722411039}
+  player: {fileID: 0}
 --- !u!1 &8806732391703713590
 GameObject:
   m_ObjectHideFlags: 0

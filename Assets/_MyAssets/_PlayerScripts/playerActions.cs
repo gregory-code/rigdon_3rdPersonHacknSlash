@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.VFX;
 using static playerScript;
 
 public class playerActions
@@ -13,6 +14,8 @@ public class playerActions
     Transform _katana;
     Transform _hipHolder;
     Transform _handHolder;
+
+    Transform _vfxPlacement;
 
     bool _bSwordEquipped;
     int _timeDelay;
@@ -34,6 +37,9 @@ public class playerActions
     public delegate void OnDodgeUpdated();
     public event OnDodgeUpdated onDodgeUpdated;
 
+    public delegate void OnSwordVFX(Transform spawnLocation);
+    public event OnSwordVFX onSwordVFX;
+
     public playerActions(GameObject myOwner)
     {
         _owner = myOwner;
@@ -41,6 +47,8 @@ public class playerActions
         _katana = GameObject.Find("Katana").GetComponent<Transform>();
         _hipHolder = GameObject.FindGameObjectWithTag("hipHolder").GetComponent<Transform>();
         _handHolder = GameObject.FindGameObjectWithTag("handHolder").GetComponent<Transform>();
+        _vfxPlacement = _handHolder.GetChild(0).GetComponent<Transform>();
+
         _desiredWeight = 0;
         _nextAttackIndex = 0;
         _bReadyForNextInput = true;
@@ -100,6 +108,11 @@ public class playerActions
         _nextAttackIndex = 0;
 
         CheckInput();
+    }
+
+    public void StartSwingEffect()
+    {
+        onSwordVFX?.Invoke(_vfxPlacement);
     }
 
     #endregion

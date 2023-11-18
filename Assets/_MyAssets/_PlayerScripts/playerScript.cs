@@ -6,6 +6,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 using static playerScript;
 using static UnityEngine.UI.GridLayoutGroup;
 
@@ -25,6 +26,8 @@ public class playerScript : MonoBehaviour
     [SerializeField] playerLock _lockRightPrefab;
     [SerializeField] playerLock _lockLeftPrefab;
 
+    [SerializeField] VisualEffect _slashVisualEffect;
+
     public delegate void OnTargetLockUpdated(bool state, Transform target);
     public event OnTargetLockUpdated onTargetLockUpdated;
 
@@ -43,6 +46,7 @@ public class playerScript : MonoBehaviour
         _actions = new playerActions(gameObject);
         _actions.onMovementStopUpdated += MovementStopUpdated;
         _actions.onDodgeUpdated += DodgeUpdated;
+        _actions.onSwordVFX += createSwordVFX;
 
         if (FindObjectOfType<Canvas>() == null)
         {
@@ -57,6 +61,13 @@ public class playerScript : MonoBehaviour
         Cursor.visible = false;
 
         _playerInput.PlayerSword.Enable();
+    }
+
+    private void createSwordVFX(Transform spawnLocation)
+    {
+        VisualEffect swordVFX = Instantiate(_slashVisualEffect, spawnLocation.transform.position, spawnLocation.transform.rotation);
+        //swordVFX.transform.SetParent(spawnLocation);
+        Destroy(swordVFX.gameObject, 2);
     }
 
     void Update()
@@ -83,6 +94,7 @@ public class playerScript : MonoBehaviour
         {
             _rightEnemy = _sight.GetClosestEnemy(true, false);
             _leftEnemy = _sight.GetClosestEnemy(true, true);
+            if(TooFarToLock()) SwitchLock();
         }
 
         AdjustAttachment(_targetedEnemy, _lock);
@@ -99,6 +111,19 @@ public class playerScript : MonoBehaviour
         else
         {
             lockAttachment.SetupAttachment(enemy);
+        }
+    }
+
+    private bool TooFarToLock()
+    {
+        float dis = Vector3.Distance(transform.position, _targetedEnemy.position);
+        if(dis >= 12.2f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -147,21 +172,25 @@ public class playerScript : MonoBehaviour
     {
         if (context.performed)
         {
-            if (_targetedEnemy == null) return;
-
-
-            _bInLock = !_bInLock;
-
-            if(_bInLock == false)
-            {
-                _rightEnemy = null;
-                _leftEnemy = null;
-            }
-
-            Transform target = (_bInLock) ? _targetedEnemy : gameObject.transform.Find("lookAt").transform;
-
-            onTargetLockUpdated?.Invoke(_bInLock, target);
+            SwitchLock();
         }
+    }
+
+    private void SwitchLock()
+    {
+        if (_targetedEnemy == null) return;
+
+        _bInLock = !_bInLock;
+
+        if (_bInLock == false)
+        {
+            _rightEnemy = null;
+            _leftEnemy = null;
+        }
+
+        Transform target = (_bInLock) ? _targetedEnemy : gameObject.transform.Find("lookAt").transform;
+
+        onTargetLockUpdated?.Invoke(_bInLock, target);
     }
 
     public void RightFocus(InputAction.CallbackContext context)
@@ -212,7 +241,14 @@ public class playerScript : MonoBehaviour
             movementDir = transform.TransformDirection(relativeDirection);
         }
 
+        movementDir = movementDir.normalized;
+        float rightSpeed = Vector3.Dot(movementDir, transform.right);
+        float forwardSpeed = Vector3.Dot(movementDir, transform.forward);
+
         _movement.SetBurst(220, 7, movementDir);
+
+        GetComponent<Animator>().SetFloat("leftSpeed", rightSpeed);
+        GetComponent<Animator>().SetFloat("fowardSpeed", forwardSpeed);
     }
 
     #region Anim Events
@@ -243,6 +279,13 @@ public class playerScript : MonoBehaviour
         if (_actions == null) return;
 
         _actions.FinishFlourish();
+    }
+
+    private void StartSwing()
+    {
+        if (_actions == null) return;
+
+        _actions.StartSwingEffect();
     }
 
     private void StepFoward(int time)
