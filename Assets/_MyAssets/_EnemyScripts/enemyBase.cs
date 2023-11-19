@@ -13,11 +13,20 @@ public class enemyBase : MonoBehaviour
     Health healthComponet;
     EnemyHealth healthBar;
 
+    [SerializeField] GameObject hitEffect;
+    [SerializeField] GameObject deathEffect;
+    [SerializeField] GameObject deathSmokeEffect;
+
+    [SerializeField] GameObject bloodEffect;
+    [SerializeField] Transform[] bloodSpawns;
+
     Animator enemyAnimator;
     Rigidbody enemyRigidbody;
+    bool _bBeingExecuted;
     bool _bIsDead;
 
     [SerializeField] Transform player;
+    [SerializeField] Transform killPos;
 
     private void Awake()
     {
@@ -42,19 +51,56 @@ public class enemyBase : MonoBehaviour
 
     private void TookDamage(float currentHealth, float amount, float maxHealth, GameObject instigator, string hitAnim)
     {
-        Debug.Log($"Took Damage: {hitAnim}");
         enemyAnimator.SetTrigger(hitAnim);
-        StartCoroutine(HitBack(-transform.forward, 2f, 0.1f));
+        StartCoroutine(HitBack(-transform.forward, 4f, 0.1f));
+
+        GameObject hit = Instantiate(hitEffect, this.transform);
+        Destroy(hit, 1);
+    }
+
+    private void BloodSpray(int spawn)
+    {
+
+        GameObject blood = Instantiate(bloodEffect, bloodSpawns[spawn].position, bloodSpawns[spawn].rotation);
+        Destroy(blood, 1);
     }
 
     private void Death(float amount, float maxHealth)
     {
         enemyAnimator.SetTrigger("die1");
+    }
+
+    private void DeathSmoke()
+    {
+        HandleDeath();
+
+        GameObject death = Instantiate(deathEffect, transform.position, transform.rotation);
+        Destroy(death, 2);
+        StartCoroutine(DeathDelay());
+    }
+
+    private void HandleDeath()
+    {
         Destroy(healthBar.gameObject);
         GetComponent<BoxCollider>().center = new Vector3(0, 0.05f, 0);
         GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.1f, 0.5f);
         gameObject.layer = 0;
         _bIsDead = true;
+        _bBeingExecuted = false;
+    }
+
+    private IEnumerator DeathDelay()
+    {
+        yield return new WaitForSeconds(2);
+        GameObject deathSmoke = Instantiate(deathSmokeEffect, transform.position, deathSmokeEffect.transform.rotation);
+        Destroy(deathSmoke, 2);
+        Destroy(this.gameObject);
+    }
+
+    public void KillSetup()
+    {
+        _bBeingExecuted = true;
+        enemyAnimator.SetTrigger("execute0");
     }
 
     private IEnumerator HitBack(Vector3 hitDir, float hitForce, float length)
@@ -70,14 +116,10 @@ public class enemyBase : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         if(_bIsDead == false) LookAtPlayer();
+        if (_bBeingExecuted == true) BeingExecuted();
     }
 
     private void LookAtPlayer()
@@ -87,5 +129,10 @@ public class enemyBase : MonoBehaviour
         roanofkds.x = 0;
         roanofkds.z = 0;
         transform.rotation = roanofkds;
+    }
+
+    private void BeingExecuted()
+    {
+        transform.position = Vector3.Lerp(transform.position, killPos.position, 10 * Time.deltaTime);
     }
 }

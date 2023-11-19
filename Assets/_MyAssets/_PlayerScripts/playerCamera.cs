@@ -2,6 +2,7 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
@@ -33,6 +34,7 @@ public class playerCamera
     float _verticalRotSpeed;
 
     bool _bInLock;
+    bool _bExecuteKill;
 
     public playerCamera(GameObject myOwner)
     {
@@ -63,8 +65,10 @@ public class playerCamera
     {
         _bInLock = state;
 
-        _lookAt = (_bInLock) ? target : _followTransform;
-        _follow = (_bInLock) ? _lookAtTransform : _followTransform;
+        _bExecuteKill = false;
+
+        SetLookAtTransform((_bInLock) ? target : _followTransform);
+        SetFollowTranform((_bInLock) ? _lookAtTransform : _followTransform);
     }
 
     public void HandleRotation(Vector2 look)
@@ -81,6 +85,21 @@ public class playerCamera
         LerpCameraLength();
         CameraLookAt();
         CameraFollow();
+    }
+
+    public void SetFollowTranform(Transform follow)
+    {
+        _follow = follow;
+    }
+
+    public void SetLookAtTransform(Transform lookat)
+    {
+        _lookAt = lookat;
+    }
+
+    public void ExecuteKill(bool state)
+    {
+        _bExecuteKill = state;
     }
 
     private Quaternion LockFollow()
@@ -130,8 +149,15 @@ public class playerCamera
 
     private void LerpCameraLength()
     {
-        float dotProduct = Vector3.Dot(_owner.transform.forward, _playerCam.transform.forward);
-        _desiredLength = (dotProduct <= 0.1f) ? _farLength : _defaultLength;
+        if(_bExecuteKill == false)
+        {
+            float dotProduct = Vector3.Dot(_owner.transform.forward, _playerCam.transform.forward);
+            _desiredLength = (dotProduct <= 0.1f) ? _farLength : _defaultLength;
+        }
+        else
+        {
+            _desiredLength = _defaultLength / 1.75f;
+        }
 
         _cameraLength = Mathf.Lerp(_cameraLength, _desiredLength, 5 * Time.deltaTime);
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -5,6 +6,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.VFX;
 using static playerScript;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class playerActions
 {
@@ -29,6 +31,10 @@ public class playerActions
 
     int _inputAge;
 
+    bool _bInLock;
+    bool _bFreshBlood;
+    Transform _target;
+
     private enum input { None, Regular, Dodge, Kill }
     private input _storedInput;
 
@@ -37,6 +43,9 @@ public class playerActions
 
     public delegate void OnDodgeUpdated();
     public event OnDodgeUpdated onDodgeUpdated;
+
+    public delegate void OnKillSetup();
+    public event OnKillSetup onKillSetup;
 
     public delegate void OnSwordVFX(Transform spawnLocation);
     public event OnSwordVFX onSwordVFX;
@@ -51,9 +60,17 @@ public class playerActions
         _handHolder = GameObject.FindGameObjectWithTag("handHolder").GetComponent<Transform>();
         _vfxPlacement = _handHolder.GetChild(0).GetComponent<Transform>();
 
+        _owner.GetComponent<playerScript>().onTargetLockUpdated += TargetLockUpdated;
+
         _desiredWeight = 0;
         _nextAttackIndex = 0;
         _bReadyForNextInput = true;
+    }
+
+    private void TargetLockUpdated(bool state, Transform target)
+    {
+        _bInLock = state;
+        _target = target;
     }
 
     public void RegularAttackInput()
@@ -71,8 +88,14 @@ public class playerActions
     private void Attack(string attackName)
     {
         onMovementStopUpdated?.Invoke(true);
-
         _animator.SetLayerWeight(1, 0);
+
+        if(CanKill())
+        {
+            KillSetup();
+            return;
+        }
+
         _animator.SetBool(attackName + _nextAttackIndex, true);
         _nextAttackIndex++;
     }
@@ -90,6 +113,22 @@ public class playerActions
         onMovementStopUpdated?.Invoke(true);
         onDodgeUpdated?.Invoke();
     }
+    private void KillSetup()
+    {
+        onKillSetup?.Invoke();
+        _target.GetComponent<enemyBase>().KillSetup();
+        _animator.SetTrigger("execute0");
+    }
+
+    private bool CanKill()
+    {
+        if(_nextAttackIndex == 3 && _bInLock && _bFreshBlood)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     #region Anim Events
 
@@ -106,6 +145,7 @@ public class playerActions
             _animator.SetBool("attack" + i, false);
         }
         _animator.ResetTrigger("dodge");
+        _bFreshBlood = false;
 
         onMovementStopUpdated?.Invoke(false);
         _nextAttackIndex = 0;
@@ -117,13 +157,26 @@ public class playerActions
     {
         List<GameObject> enemies = _katanaHit.GetHitEnemies();
 
-        GameObject.FindObjectOfType<ScreenVFX>().StartShake();
-        GameObject.FindObjectOfType<FreezeFrame>().StartFreezeFrame();
-
         foreach (GameObject enemy in enemies)
         {
+            HitScreenEffects();
+            SetFreshBlood(enemy);
             Health enemyHealth = enemy.GetComponent<Health>();
             enemyHealth.ChangeHealth(-5, _owner.transform.gameObject, hitAnim);
+        }
+    }
+
+    private void HitScreenEffects()
+    {
+        GameObject.FindObjectOfType<ScreenVFX>().StartShake();
+        GameObject.FindObjectOfType<FreezeFrame>().StartFreezeFrame();
+    }
+
+    private void SetFreshBlood(GameObject enemy)
+    {
+        if (enemy.transform == _target && _bInLock)
+        {
+            _bFreshBlood = true;
         }
     }
 

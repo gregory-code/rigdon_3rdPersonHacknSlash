@@ -37,6 +37,8 @@ public class playerScript : MonoBehaviour
     bool _bInLock;
     bool _bMovementStop;
 
+    [SerializeField] Transform killAngle;
+
     void Start()
     {
         _playerInput = new PlayerInputActions();
@@ -47,6 +49,7 @@ public class playerScript : MonoBehaviour
         _actions.onMovementStopUpdated += MovementStopUpdated;
         _actions.onDodgeUpdated += DodgeUpdated;
         _actions.onSwordVFX += createSwordVFX;
+        _actions.onKillSetup += cameraKillSetup;
 
         if (FindObjectOfType<Canvas>() == null)
         {
@@ -61,13 +64,6 @@ public class playerScript : MonoBehaviour
         Cursor.visible = false;
 
         _playerInput.PlayerSword.Enable();
-    }
-
-    private void createSwordVFX(Transform spawnLocation)
-    {
-        VisualEffect swordVFX = Instantiate(_slashVisualEffect, spawnLocation.transform.position, spawnLocation.transform.rotation);
-        //swordVFX.transform.SetParent(spawnLocation);
-        Destroy(swordVFX.gameObject, 2);
     }
 
     void Update()
@@ -259,6 +255,22 @@ public class playerScript : MonoBehaviour
 
         GetComponent<Animator>().SetFloat("leftSpeed", rightSpeed);
         GetComponent<Animator>().SetFloat("fowardSpeed", forwardSpeed);
+    }
+
+    private void cameraKillSetup()
+    {
+        if (_camera == null) return;
+
+        _camera.ExecuteKill(true);
+        _camera.SetFollowTranform(killAngle);
+        _camera.SetLookAtTransform(transform);
+    }
+
+    private void createSwordVFX(Transform spawnLocation)
+    {
+        VisualEffect swordVFX = Instantiate(_slashVisualEffect, spawnLocation.transform.position, spawnLocation.transform.rotation);
+        //swordVFX.transform.SetParent(spawnLocation);
+        Destroy(swordVFX.gameObject, 2);
     }
 
     #region Anim Events
