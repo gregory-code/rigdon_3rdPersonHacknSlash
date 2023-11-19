@@ -24,7 +24,7 @@ public class KatanaHit : MonoBehaviour
 
     private IEnumerator ForgetDelay(GameObject enemy)
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.2f);
         if (hitEnemies.Contains(enemy))
         {
             hitEnemies.Remove(enemy);

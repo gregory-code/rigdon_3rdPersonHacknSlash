@@ -113,13 +113,17 @@ public class playerActions
         CheckInput();
     }
 
-    public void Attack()
+    public void AttackHit(string hitAnim)
     {
         List<GameObject> enemies = _katanaHit.GetHitEnemies();
+
+        GameObject.FindObjectOfType<ScreenVFX>().StartShake();
+        GameObject.FindObjectOfType<FreezeFrame>().StartFreezeFrame();
+
         foreach (GameObject enemy in enemies)
         {
             Health enemyHealth = enemy.GetComponent<Health>();
-            enemyHealth.ChangeHealth(-5, _owner.transform.gameObject);
+            enemyHealth.ChangeHealth(-5, _owner.transform.gameObject, hitAnim);
         }
     }
 

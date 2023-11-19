@@ -94,7 +94,7 @@ public class playerScript : MonoBehaviour
         {
             _rightEnemy = _sight.GetClosestEnemy(true, false);
             _leftEnemy = _sight.GetClosestEnemy(true, true);
-            if(TooFarToLock()) SwitchLock();
+            if(TooFarToLock() || NotAnEnemy()) SwitchLock();
         }
 
         AdjustAttachment(_targetedEnemy, _lock);
@@ -125,6 +125,16 @@ public class playerScript : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private bool NotAnEnemy()
+    {
+        if(_targetedEnemy.gameObject.layer != 6)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void Look()
@@ -288,11 +298,11 @@ public class playerScript : MonoBehaviour
         _actions.StartSwingEffect();
     }
 
-    private void Attack()
+    private void Attack(string hitAnim)
     {
         if (_actions == null) return;
 
-        _actions.Attack();
+        _actions.AttackHit(hitAnim);
     }
 
     private void StepFoward(int time)

@@ -587,16 +587,16 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.10916883
+      - time: 0.11382618
         functionName: StepFoward
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 120
         messageOptions: 0
-      - time: 0.14477065
+      - time: 0.13013326
         functionName: Attack
-        data: 
+        data: hitFowardRight
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -608,9 +608,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.22785491
+      - time: 0.22053622
         functionName: Attack
-        data: 
+        data: hitFowardLeft
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

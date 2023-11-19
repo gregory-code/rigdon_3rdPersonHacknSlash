@@ -594,9 +594,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.23951651
+      - time: 0.22687513
         functionName: Attack
-        data: 
+        data: heavyHit
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

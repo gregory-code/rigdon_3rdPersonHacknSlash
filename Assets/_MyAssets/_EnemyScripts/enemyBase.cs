@@ -15,6 +15,7 @@ public class enemyBase : MonoBehaviour
 
     Animator enemyAnimator;
     Rigidbody enemyRigidbody;
+    bool _bIsDead;
 
     [SerializeField] Transform player;
 
@@ -39,15 +40,21 @@ public class enemyBase : MonoBehaviour
         healthBar.SetValue(currentHealth, maxHealth);
     }
 
-    private void TookDamage(float currentHealth, float amount, float maxHealth, GameObject instigator)
+    private void TookDamage(float currentHealth, float amount, float maxHealth, GameObject instigator, string hitAnim)
     {
-        enemyAnimator.SetTrigger("hit");
-        StartCoroutine(HitBack(-transform.forward, 3f, 0.2f));
+        Debug.Log($"Took Damage: {hitAnim}");
+        enemyAnimator.SetTrigger(hitAnim);
+        StartCoroutine(HitBack(-transform.forward, 2f, 0.1f));
     }
 
     private void Death(float amount, float maxHealth)
     {
-        
+        enemyAnimator.SetTrigger("die1");
+        Destroy(healthBar.gameObject);
+        GetComponent<BoxCollider>().center = new Vector3(0, 0.05f, 0);
+        GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.1f, 0.5f);
+        gameObject.layer = 0;
+        _bIsDead = true;
     }
 
     private IEnumerator HitBack(Vector3 hitDir, float hitForce, float length)
@@ -56,7 +63,6 @@ public class enemyBase : MonoBehaviour
         hitDir.y = 0;
         while(length > 0)
         {
-            Debug.Log("Pushing");
             hitForce *= 0.95f;
             length -= Time.deltaTime;
             enemyRigidbody.AddForce(hitDir * hitForce, ForceMode.Impulse);
@@ -70,6 +76,11 @@ public class enemyBase : MonoBehaviour
     }
 
     void Update()
+    {
+        if(_bIsDead == false) LookAtPlayer();
+    }
+
+    private void LookAtPlayer()
     {
         transform.LookAt(player.position);
         Quaternion roanofkds = transform.rotation;
