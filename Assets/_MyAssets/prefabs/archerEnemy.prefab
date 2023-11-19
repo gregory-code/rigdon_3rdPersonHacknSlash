@@ -2208,9 +2208,11 @@ GameObject:
   - component: {fileID: 1417771212204713591}
   - component: {fileID: 447715974151219387}
   - component: {fileID: 6193513934106684470}
-  m_Layer: 0
+  - component: {fileID: 531158680801831987}
+  - component: {fileID: 922387215766514473}
+  m_Layer: 6
   m_Name: archerEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2270,6 +2272,41 @@ MonoBehaviour:
     type: 3}
   healthBarAttachTransform: {fileID: 8933800850722411039}
   player: {fileID: 0}
+--- !u!114 &531158680801831987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746959660123746642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe010c20d3537fd48bd515616d71f5d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 70
+  maxHealth: 70
+--- !u!65 &922387215766514473
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746959660123746642}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.43807983, y: 1.877284, z: 0.37171268}
+  m_Center: {x: 0.015237331, y: 1.0541811, z: -0.010654926}
 --- !u!1 &8806732391703713590
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - hipHolder
   - handHolder
+  - attackHitbox
+  - Enemy
   layers:
   - Default
   - TransparentFX

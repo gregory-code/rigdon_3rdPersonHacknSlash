@@ -113,6 +113,7 @@ public class playerMovement
         if(_burstTime > 0)
         {
             --_burstTime;
+            _burstSpeed *= 0.99f;
             Vector3 movement = _burstDirection * _burstSpeed * Time.deltaTime;
             _characterController.Move(movement);
 

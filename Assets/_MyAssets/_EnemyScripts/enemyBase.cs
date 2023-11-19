@@ -13,6 +13,9 @@ public class enemyBase : MonoBehaviour
     Health healthComponet;
     EnemyHealth healthBar;
 
+    Animator enemyAnimator;
+    Rigidbody enemyRigidbody;
+
     [SerializeField] Transform player;
 
     private void Awake()
@@ -20,6 +23,9 @@ public class enemyBase : MonoBehaviour
         healthBar = Instantiate(healthBarPrefab, FindObjectOfType<Canvas>().transform);
         UIAttachComponent attachmentComp = healthBar.AddComponent<UIAttachComponent>();
         attachmentComp.SetupAttachment(healthBarAttachTransform);
+
+        enemyAnimator = GetComponent<Animator>();
+        enemyRigidbody = GetComponent<Rigidbody>();
 
         healthComponet = GetComponent<Health>();
 
@@ -35,12 +41,27 @@ public class enemyBase : MonoBehaviour
 
     private void TookDamage(float currentHealth, float amount, float maxHealth, GameObject instigator)
     {
-
+        enemyAnimator.SetTrigger("hit");
+        StartCoroutine(HitBack(-transform.forward, 3f, 0.2f));
     }
 
     private void Death(float amount, float maxHealth)
     {
         
+    }
+
+    private IEnumerator HitBack(Vector3 hitDir, float hitForce, float length)
+    {
+        hitDir = hitDir.normalized;
+        hitDir.y = 0;
+        while(length > 0)
+        {
+            Debug.Log("Pushing");
+            hitForce *= 0.95f;
+            length -= Time.deltaTime;
+            enemyRigidbody.AddForce(hitDir * hitForce, ForceMode.Impulse);
+            yield return new WaitForEndOfFrame();
+        }
     }
 
     void Start()

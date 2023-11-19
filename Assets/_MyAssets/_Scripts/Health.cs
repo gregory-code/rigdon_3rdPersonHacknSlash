@@ -17,6 +17,7 @@ public class Health : MonoBehaviour
 
     public void ChangeHealth(float amount, GameObject target)
     {
+        Debug.Log("Changed health");
         //using early return.
         if (amount == 0 || currentHealth == 0)
         {

@@ -586,6 +586,20 @@ ModelImporter:
         floatParameter: 0
         intParameter: 50
         messageOptions: 0
+      - time: 0.15386626
+        functionName: StartSwing
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.19353484
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.20745076
         functionName: CheckAttack
         data: 
@@ -602,13 +616,6 @@ ModelImporter:
         messageOptions: 0
       - time: 0.9283905
         functionName: FinishFlourish
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.15386626
-        functionName: StartSwing
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

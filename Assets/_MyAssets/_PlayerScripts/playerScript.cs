@@ -245,7 +245,7 @@ public class playerScript : MonoBehaviour
         float rightSpeed = Vector3.Dot(movementDir, transform.right);
         float forwardSpeed = Vector3.Dot(movementDir, transform.forward);
 
-        _movement.SetBurst(220, 7, movementDir);
+        _movement.SetBurst(220, 12, movementDir);
 
         GetComponent<Animator>().SetFloat("leftSpeed", rightSpeed);
         GetComponent<Animator>().SetFloat("fowardSpeed", forwardSpeed);
@@ -288,11 +288,18 @@ public class playerScript : MonoBehaviour
         _actions.StartSwingEffect();
     }
 
+    private void Attack()
+    {
+        if (_actions == null) return;
+
+        _actions.Attack();
+    }
+
     private void StepFoward(int time)
     {
         if (_actions == null) return;
 
-        _movement.SetBurst(time, 3, transform.forward);
+        _movement.SetBurst(time, 4, transform.forward);
     }
 
     #endregion

@@ -12,6 +12,7 @@ public class playerActions
     Animator _animator;
 
     Transform _katana;
+    KatanaHit _katanaHit;
     Transform _hipHolder;
     Transform _handHolder;
 
@@ -45,6 +46,7 @@ public class playerActions
         _owner = myOwner;
         _animator = _owner.GetComponent<Animator>();
         _katana = GameObject.Find("Katana").GetComponent<Transform>();
+        _katanaHit = _katana.GetComponent<KatanaHit>();
         _hipHolder = GameObject.FindGameObjectWithTag("hipHolder").GetComponent<Transform>();
         _handHolder = GameObject.FindGameObjectWithTag("handHolder").GetComponent<Transform>();
         _vfxPlacement = _handHolder.GetChild(0).GetComponent<Transform>();
@@ -93,6 +95,7 @@ public class playerActions
 
     public void CheckAttack()
     {
+
         CheckInput();
     }
 
@@ -108,6 +111,16 @@ public class playerActions
         _nextAttackIndex = 0;
 
         CheckInput();
+    }
+
+    public void Attack()
+    {
+        List<GameObject> enemies = _katanaHit.GetHitEnemies();
+        foreach (GameObject enemy in enemies)
+        {
+            Health enemyHealth = enemy.GetComponent<Health>();
+            enemyHealth.ChangeHealth(-5, _owner.transform.gameObject);
+        }
     }
 
     public void StartSwingEffect()

@@ -580,12 +580,40 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.10830502
+        functionName: StartSwing
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.10916883
         functionName: StepFoward
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 120
+        messageOptions: 0
+      - time: 0.14477065
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.19291846
+        functionName: StartSwing
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.22785491
+        functionName: Attack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       - time: 0.2506113
         functionName: CheckAttack
@@ -603,20 +631,6 @@ ModelImporter:
         messageOptions: 0
       - time: 0.9279375
         functionName: FinishFlourish
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.10830502
-        functionName: StartSwing
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.19291846
-        functionName: StartSwing
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
