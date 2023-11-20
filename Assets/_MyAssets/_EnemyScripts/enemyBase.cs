@@ -18,7 +18,9 @@ public class enemyBase : MonoBehaviour
     [SerializeField] GameObject deathSmokeEffect;
 
     [SerializeField] GameObject bloodEffect;
-    [SerializeField] Transform[] bloodSpawns;
+    [SerializeField] Transform[] indicatorSpawns;
+
+    [SerializeField] GameObject damagepopPrefab;
 
     Animator enemyAnimator;
     Rigidbody enemyRigidbody;
@@ -53,6 +55,13 @@ public class enemyBase : MonoBehaviour
     {
         enemyAnimator.SetTrigger(hitAnim);
         StartCoroutine(HitBack(-transform.forward, 4f, 0.1f));
+        DamageEffects(amount);
+    }
+
+    private void DamageEffects(float damage)
+    {
+        GameObject damagePop = Instantiate(damagepopPrefab, FindObjectOfType<Canvas>().transform);
+        damagePop.GetComponent<damagepop>().Init(indicatorSpawns, damage);
 
         GameObject hit = Instantiate(hitEffect, this.transform);
         Destroy(hit, 1);
@@ -61,7 +70,7 @@ public class enemyBase : MonoBehaviour
     private void BloodSpray(int spawn)
     {
 
-        GameObject blood = Instantiate(bloodEffect, bloodSpawns[spawn].position, bloodSpawns[spawn].rotation);
+        GameObject blood = Instantiate(bloodEffect, indicatorSpawns[spawn].position, indicatorSpawns[spawn].rotation);
         Destroy(blood, 1);
     }
 
@@ -97,10 +106,10 @@ public class enemyBase : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void KillSetup()
+    public void KillSetup(int which)
     {
         _bBeingExecuted = true;
-        enemyAnimator.SetTrigger("execute0");
+        enemyAnimator.SetTrigger("execute" + which);
     }
 
     private IEnumerator HitBack(Vector3 hitDir, float hitForce, float length)
@@ -109,7 +118,7 @@ public class enemyBase : MonoBehaviour
         hitDir.y = 0;
         while(length > 0)
         {
-            hitForce *= 0.95f;
+            hitForce *= 0.90f;
             length -= Time.deltaTime;
             enemyRigidbody.AddForce(hitDir * hitForce, ForceMode.Impulse);
             yield return new WaitForEndOfFrame();

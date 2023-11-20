@@ -37,7 +37,7 @@ public class playerScript : MonoBehaviour
     bool _bInLock;
     bool _bMovementStop;
 
-    [SerializeField] Transform killAngle;
+    [SerializeField] Transform[] killAngle;
 
     void Start()
     {
@@ -257,12 +257,12 @@ public class playerScript : MonoBehaviour
         GetComponent<Animator>().SetFloat("fowardSpeed", forwardSpeed);
     }
 
-    private void cameraKillSetup()
+    private void cameraKillSetup(int which)
     {
         if (_camera == null) return;
 
         _camera.ExecuteKill(true);
-        _camera.SetFollowTranform(killAngle);
+        _camera.SetFollowTranform(killAngle[which]);
         _camera.SetLookAtTransform(transform);
     }
 
@@ -322,6 +322,13 @@ public class playerScript : MonoBehaviour
         if (_actions == null) return;
 
         _movement.SetBurst(time, 4, transform.forward);
+    }
+
+    private void HitScreenEffects()
+    {
+        if (_actions == null) return;
+
+        _actions.HitScreenEffects();
     }
 
     #endregion

@@ -5,8 +5,6 @@ using System.Threading;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.VFX;
-using static playerScript;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class playerActions
 {
@@ -44,7 +42,7 @@ public class playerActions
     public delegate void OnDodgeUpdated();
     public event OnDodgeUpdated onDodgeUpdated;
 
-    public delegate void OnKillSetup();
+    public delegate void OnKillSetup(int which);
     public event OnKillSetup onKillSetup;
 
     public delegate void OnSwordVFX(Transform spawnLocation);
@@ -115,9 +113,12 @@ public class playerActions
     }
     private void KillSetup()
     {
-        onKillSetup?.Invoke();
-        _target.GetComponent<enemyBase>().KillSetup();
-        _animator.SetTrigger("execute0");
+        System.Random ranNum = new System.Random();
+        int randomKill = ranNum.Next(0, 2);
+
+        onKillSetup?.Invoke(ranNum.Next(0, 3));
+        _target.GetComponent<enemyBase>().KillSetup(randomKill);
+        _animator.SetTrigger("execute" + randomKill);
     }
 
     private bool CanKill()
@@ -166,7 +167,7 @@ public class playerActions
         }
     }
 
-    private void HitScreenEffects()
+    public void HitScreenEffects()
     {
         GameObject.FindObjectOfType<ScreenVFX>().StartShake();
         GameObject.FindObjectOfType<FreezeFrame>().StartFreezeFrame();
