@@ -34,7 +34,7 @@ public class enemyBase : MonoBehaviour
     {
         healthBar = Instantiate(healthBarPrefab, FindObjectOfType<Canvas>().transform);
         UIAttachComponent attachmentComp = healthBar.AddComponent<UIAttachComponent>();
-        attachmentComp.SetupAttachment(healthBarAttachTransform);
+        attachmentComp.SetupAttachment(healthBarAttachTransform, player);
 
         enemyAnimator = GetComponent<Animator>();
         enemyRigidbody = GetComponent<Rigidbody>();

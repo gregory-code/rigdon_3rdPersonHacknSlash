@@ -237,6 +237,8 @@ public class playerScript : MonoBehaviour
     {
         if (_actions == null) return;
 
+
+
         Vector2 inputVector = _playerInput.PlayerSword.Movement.ReadValue<Vector2>();
         Vector3 movementDir = transform.forward;
 
