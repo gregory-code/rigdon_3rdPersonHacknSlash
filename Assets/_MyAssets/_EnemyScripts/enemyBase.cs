@@ -90,12 +90,17 @@ public class enemyBase : MonoBehaviour
 
     private void HandleDeath()
     {
+        DisableCollider();
         Destroy(healthBar.gameObject);
-        GetComponent<BoxCollider>().center = new Vector3(0, 0.05f, 0);
-        GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.1f, 0.5f);
         gameObject.layer = 0;
         _bIsDead = true;
         _bBeingExecuted = false;
+    }
+
+    private void DisableCollider()
+    {
+        GetComponent<BoxCollider>().center = new Vector3(0, 0.05f, 0);
+        GetComponent<BoxCollider>().size = new Vector3(0.5f, 0.1f, 0.5f);
     }
 
     private IEnumerator DeathDelay()
@@ -108,6 +113,7 @@ public class enemyBase : MonoBehaviour
 
     public void KillSetup(int which)
     {
+        DisableCollider();
         _bBeingExecuted = true;
         enemyAnimator.SetTrigger("execute" + which);
     }
@@ -138,6 +144,11 @@ public class enemyBase : MonoBehaviour
         roanofkds.x = 0;
         roanofkds.z = 0;
         transform.rotation = roanofkds;
+    }
+
+    private void StopFollowingPlayer()
+    {
+        _bBeingExecuted = false;
     }
 
     private void BeingExecuted()

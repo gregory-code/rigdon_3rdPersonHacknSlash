@@ -114,9 +114,9 @@ public class playerActions
     private void KillSetup()
     {
         System.Random ranNum = new System.Random();
-        int randomKill = ranNum.Next(0, 2);
+        int randomKill = ranNum.Next(0, 3);
 
-        onKillSetup?.Invoke(ranNum.Next(0, 3));
+        onKillSetup?.Invoke(ranNum.Next(0, 2));
         _target.GetComponent<enemyBase>().KillSetup(randomKill);
         _animator.SetTrigger("execute" + randomKill);
     }
