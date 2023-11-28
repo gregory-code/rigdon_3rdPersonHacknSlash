@@ -34,6 +34,8 @@ public class playerScript : MonoBehaviour
     [SerializeField] Transform _targetedEnemy;
     [SerializeField] Transform _rightEnemy;
     [SerializeField] Transform _leftEnemy;
+    [SerializeField] Transform _cameraYaw;
+    [SerializeField] Transform _cameraPitch;
     bool _bInLock;
     bool _bMovementStop;
 
@@ -43,7 +45,7 @@ public class playerScript : MonoBehaviour
     {
         _playerInput = new PlayerInputActions();
         _movement = new playerMovement(gameObject);
-        _camera = new playerCamera(gameObject);
+        _camera = new playerCamera(gameObject, _cameraYaw, _cameraPitch);
         _sight = Camera.main.GetComponent<playerSight>();
         _actions = new playerActions(gameObject);
         _actions.onMovementStopUpdated += MovementStopUpdated;

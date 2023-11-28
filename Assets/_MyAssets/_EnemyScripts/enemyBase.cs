@@ -32,6 +32,12 @@ public class enemyBase : MonoBehaviour
 
     private void Awake()
     {
+        if (player == null)
+            player = GameObject.FindObjectOfType<playerScript>().transform;
+
+        if (killPos == null)
+            killPos = player.Find("killPosition").transform;
+
         healthBar = Instantiate(healthBarPrefab, FindObjectOfType<Canvas>().transform);
         UIAttachComponent attachmentComp = healthBar.AddComponent<UIAttachComponent>();
         attachmentComp.SetupAttachment(healthBarAttachTransform, player);

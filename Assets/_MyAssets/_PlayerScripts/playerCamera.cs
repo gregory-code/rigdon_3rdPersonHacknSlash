@@ -19,7 +19,8 @@ public class playerCamera
     Transform _lookAt;
 
     Transform _playerCam;
-    Transform _cameraTrack;
+    Transform _cameraYaw;
+    Transform _cameraPitch;
     Transform _cameraArm;
 
     float _followDamping;
@@ -36,7 +37,7 @@ public class playerCamera
     bool _bInLock;
     bool _bExecuteKill;
 
-    public playerCamera(GameObject myOwner)
+    public playerCamera(GameObject myOwner, Transform cameraYaw, Transform cameraPitch)
     {
         _owner = myOwner;
 
@@ -46,7 +47,8 @@ public class playerCamera
         _lookAt = _lookAtTransform;
 
         _playerCam = Camera.main.transform;
-        _cameraTrack = GameObject.Find("CameraTrack").GetComponent<Transform>();
+        _cameraYaw = cameraYaw;
+        _cameraPitch = cameraPitch;
         _cameraArm = GameObject.Find("CameraArm").GetComponent<Transform>();
 
         _clampMax = 40;
@@ -119,32 +121,40 @@ public class playerCamera
 
         return followLerp;
     }
-
+    
     private void FollowRotation(Quaternion followLerp)
     {
+        followLerp.z = 0;
+        followLerp.y = 0;
+
         _followTransform.rotation = Quaternion.Slerp(_followTransform.rotation, followLerp, 5 * Time.deltaTime);
 
-        Vector3 clampedAngle = _followTransform.eulerAngles;
+        Quaternion clampedAngle = _followTransform.rotation;
 
-        if (clampedAngle.x > 180f) clampedAngle.x -= 360f;
-        clampedAngle.x = Mathf.Clamp(clampedAngle.x, _clampMin, _clampMax);
+        //if (clampedAngle.x > 180f) clampedAngle.x -= 360f;
+        //clampedAngle.x = Mathf.Clamp(clampedAngle.x, _clampMin, _clampMax);
 
-        _followTransform.rotation = Quaternion.Euler(clampedAngle);
+        _followTransform.rotation = clampedAngle;
     }
 
     private void CameraLookAt()
     {
-        Quaternion lookAt = _follow.rotation;
-        lookAt.z = 0;
-        lookAt.x = 0;
-        _cameraTrack.rotation = Quaternion.Lerp(_cameraTrack.rotation, lookAt, 5 * Time.deltaTime);
+        Quaternion lookAtYaw = _follow.rotation;
+        lookAtYaw.z = 0;
+        lookAtYaw.x = 0;
+        _cameraYaw.rotation = Quaternion.Lerp(_cameraYaw.rotation, lookAtYaw, 5 * Time.deltaTime);
+
+        Vector3 lookAtPitch = _follow.localEulerAngles;
+        lookAtPitch.z = 0;
+        lookAtPitch.y = 0;
+        _cameraPitch.localEulerAngles = Vector3.Lerp(_cameraPitch.localEulerAngles, lookAtPitch, 5 * Time.deltaTime);
     }
 
     private void CameraFollow()
     {
         _playerCam.position = _cameraArm.position - _playerCam.forward * _cameraLength;
 
-        _cameraTrack.position = Vector3.Lerp(_cameraTrack.position, _follow.position, (1 - _followDamping) * Time.deltaTime * 20f);
+        _cameraYaw.position = Vector3.Lerp(_cameraYaw.position, _follow.position, (1 - _followDamping) * Time.deltaTime * 20f);
     }
 
     private void LerpCameraLength()

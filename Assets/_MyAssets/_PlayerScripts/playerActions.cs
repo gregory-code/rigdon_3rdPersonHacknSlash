@@ -111,6 +111,7 @@ public class playerActions
         onMovementStopUpdated?.Invoke(true);
         onDodgeUpdated?.Invoke();
     }
+
     private void KillSetup()
     {
         System.Random ranNum = new System.Random();
