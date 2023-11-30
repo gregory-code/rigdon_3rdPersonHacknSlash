@@ -590,9 +590,10 @@ ModelImporter:
       curves: []
       events:
       - time: 0.47353002
-        functionName: StoreSword
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: d6350fe405927bc44838b5df056cb979,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

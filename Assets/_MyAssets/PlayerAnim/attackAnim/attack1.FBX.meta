@@ -580,44 +580,50 @@ ModelImporter:
       curves: []
       events:
       - time: 0.12533328
-        functionName: StepFoward
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: f8b6800b090521440a741e63cc9d01e4,
+          type: 2}
         floatParameter: 0
         intParameter: 50
         messageOptions: 0
       - time: 0.15386626
-        functionName: StartSwing
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 72f6f4d4056d9594484e36dac8ba7ed7,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.17690144
-        functionName: Attack
+        functionName: SendEvent
         data: hitFoward
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: db61cbf813052f44f81e075a065f4e11,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.20745076
-        functionName: CheckAttack
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 611a4e912c965094dbf3cd11a1a95f81,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.7157395
-        functionName: StepFoward
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: f8b6800b090521440a741e63cc9d01e4,
+          type: 2}
         floatParameter: 0
         intParameter: 20
         messageOptions: 0
       - time: 0.9283905
-        functionName: FinishFlourish
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 9bf5927d2e05be6479d34ef451741276,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

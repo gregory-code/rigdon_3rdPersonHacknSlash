@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
 
-public class enemyBase : MonoBehaviour
+public class enemyBase : MonoBehaviour, IEventDispatcher
 {
     Animator _animator;
 
@@ -73,25 +73,9 @@ public class enemyBase : MonoBehaviour
         Destroy(hit, 1);
     }
 
-    private void BloodSpray(int spawn)
-    {
-
-        GameObject blood = Instantiate(bloodEffect, indicatorSpawns[spawn].position, indicatorSpawns[spawn].rotation);
-        Destroy(blood, 1);
-    }
-
     private void Death(float amount, float maxHealth)
     {
         enemyAnimator.SetTrigger("die1");
-    }
-
-    private void DeathSmoke()
-    {
-        HandleDeath();
-
-        GameObject death = Instantiate(deathEffect, transform.position, transform.rotation);
-        Destroy(death, 2);
-        StartCoroutine(DeathDelay());
     }
 
     private void HandleDeath()
@@ -152,13 +136,31 @@ public class enemyBase : MonoBehaviour
         transform.rotation = roanofkds;
     }
 
-    private void StopFollowingPlayer()
-    {
-        _bBeingExecuted = false;
-    }
-
     private void BeingExecuted()
     {
         transform.position = Vector3.Lerp(transform.position, killPos.position, 10 * Time.deltaTime);
+    }
+
+    public void SendEvent(AnimEvent animEvent)
+    {
+        switch (animEvent.functionName)
+        {
+            case "DeathSmoke":
+                HandleDeath();
+
+                GameObject death = Instantiate(deathEffect, transform.position, transform.rotation);
+                Destroy(death, 2);
+                StartCoroutine(DeathDelay());
+                break;
+
+            case "BloodSpray":
+                GameObject blood = Instantiate(bloodEffect, indicatorSpawns[animEvent.spawn].position, indicatorSpawns[animEvent.spawn].rotation);
+                Destroy(blood, 1);
+                break;
+
+            case "StopFollowingPlayer":
+                _bBeingExecuted = false;
+                break;
+        }
     }
 }

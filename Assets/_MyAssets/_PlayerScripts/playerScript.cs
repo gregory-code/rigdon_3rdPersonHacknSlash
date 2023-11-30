@@ -12,7 +12,7 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Animator))]
-public class playerScript : MonoBehaviour
+public class playerScript : MonoBehaviour, IEventDispatcher
 {
     [SerializeField] PlayerInputActions _playerInput;
     [SerializeField] playerMovement _movement;
@@ -277,63 +277,41 @@ public class playerScript : MonoBehaviour
         Destroy(swordVFX.gameObject, 2);
     }
 
-    #region Anim Events
-
-    private void GrabSword()
+    public void SendEvent(AnimEvent animEvent)
     {
-        if (_actions == null) return;
+        switch(animEvent.functionName)
+        {
+            case "Attack":
+                _actions.AttackHit(animEvent.hitAnim);
+                break;
 
-        _actions.UpdateSword(false);
+            case "StepFoward":
+                _movement.SetBurst(animEvent.time, animEvent.speed, transform.forward);
+                break;
+
+            case "StartSwing":
+                _actions.StartSwingEffect();
+                break;
+
+            case "HitScreenEffects":
+                _actions.HitScreenEffects();
+                break;
+
+            case "FinishFlourish":
+                _actions.FinishFlourish();
+                break;
+
+            case "CheckAttack":
+                _actions.CheckAttack();
+                break;
+
+            case "GrabSword":
+                _actions.UpdateSword(false);
+                break;
+
+            case "StoreSword":
+                _actions.UpdateSword(true);
+                break;
+        }
     }
-
-    private void StoreSword()
-    {
-        if (_actions == null) return;
-
-        _actions.UpdateSword(true);
-    }
-
-    public void CheckAttack()
-    {
-        if (_actions == null) return;
-
-        _actions.CheckAttack();
-    }
-
-    private void FinishFlourish()
-    {
-        if (_actions == null) return;
-
-        _actions.FinishFlourish();
-    }
-
-    private void StartSwing()
-    {
-        if (_actions == null) return;
-
-        _actions.StartSwingEffect();
-    }
-
-    private void Attack(string hitAnim)
-    {
-        if (_actions == null) return;
-
-        _actions.AttackHit(hitAnim);
-    }
-
-    private void StepFoward(int time)
-    {
-        if (_actions == null) return;
-
-        _movement.SetBurst(time, 4, transform.forward);
-    }
-
-    private void HitScreenEffects()
-    {
-        if (_actions == null) return;
-
-        _actions.HitScreenEffects();
-    }
-
-    #endregion
 }

@@ -23,6 +23,9 @@ public class playerCamera
     Transform _cameraPitch;
     Transform _cameraArm;
 
+    float _pitch;
+    float _yaw;
+
     float _followDamping;
     float _cameraLength;
     float _desiredLength;
@@ -52,12 +55,12 @@ public class playerCamera
         _cameraArm = GameObject.Find("CameraArm").GetComponent<Transform>();
 
         _clampMax = 40;
-        _clampMin = -30;
-        _horizontalRotSpeed = 12f;
-        _verticalRotSpeed = 9;
+        _clampMin = 1;
+        _horizontalRotSpeed = 9f;
+        _verticalRotSpeed = 6;
         _followDamping = 0.5f;
-        _defaultLength = 5;
-        _farLength = 8;
+        _defaultLength = 3;
+        _farLength = 4;
         _desiredLength = _defaultLength;
 
         _owner.GetComponent<playerScript>().onTargetLockUpdated += TargetLockUpdated;
@@ -75,18 +78,26 @@ public class playerCamera
 
     public void HandleRotation(Vector2 look)
     {
-        Quaternion followLerp = _followTransform.rotation;
+        SetFollowTransformToPlayer();
 
-        if(_bInLock) 
-            followLerp = LockFollow();
-        else 
-            followLerp = RegularFollow(followLerp, look);
-
-        FollowRotation(followLerp);
+        if (_bInLock)
+        {
+            LockFollow();
+        }
+        else
+        {
+            CameraLookAt(look);
+        }
 
         LerpCameraLength();
-        CameraLookAt();
         CameraFollow();
+    }
+
+    private void SetFollowTransformToPlayer()
+    {
+        Vector3 followPlayer = _owner.transform.position;
+        followPlayer.y = 1.7f;
+        _followTransform.position = followPlayer;
     }
 
     public void SetFollowTranform(Transform follow)
@@ -104,51 +115,47 @@ public class playerCamera
         _bExecuteKill = state;
     }
 
-    private Quaternion LockFollow()
+    private void LockFollow()
     {
         Quaternion followLerp = _owner.transform.rotation;
-        return followLerp;
-    }
 
-    private Quaternion RegularFollow(Quaternion followLerp, Vector2 look)
-    {
-        Vector3 followPlayer = _owner.transform.position;
-        followPlayer.y = 1.7f;
-        _followTransform.position = followPlayer;
+        followLerp.z = 0;
 
-        followLerp *= Quaternion.AngleAxis(look.x * _horizontalRotSpeed, Vector3.up);
-        followLerp *= Quaternion.AngleAxis(-look.y * _verticalRotSpeed, Vector3.right);
+        _followTransform.rotation = Quaternion.Slerp(_followTransform.rotation, followLerp, 5 * Time.deltaTime);
 
-        return followLerp;
+        _cameraYaw.rotation = Quaternion.Lerp(_cameraYaw.rotation, _follow.rotation, 5 * Time.deltaTime);
     }
     
     private void FollowRotation(Quaternion followLerp)
     {
         followLerp.z = 0;
-        followLerp.y = 0;
 
         _followTransform.rotation = Quaternion.Slerp(_followTransform.rotation, followLerp, 5 * Time.deltaTime);
-
-        Quaternion clampedAngle = _followTransform.rotation;
-
-        //if (clampedAngle.x > 180f) clampedAngle.x -= 360f;
-        //clampedAngle.x = Mathf.Clamp(clampedAngle.x, _clampMin, _clampMax);
-
-        _followTransform.rotation = clampedAngle;
     }
 
-    private void CameraLookAt()
+    private void CameraLookAt(Vector2 lookInput)
     {
-        Quaternion lookAtYaw = _follow.rotation;
-        lookAtYaw.z = 0;
-        lookAtYaw.x = 0;
-        _cameraYaw.rotation = Quaternion.Lerp(_cameraYaw.rotation, lookAtYaw, 5 * Time.deltaTime);
-
-        Vector3 lookAtPitch = _follow.localEulerAngles;
-        lookAtPitch.z = 0;
-        lookAtPitch.y = 0;
-        _cameraPitch.localEulerAngles = Vector3.Lerp(_cameraPitch.localEulerAngles, lookAtPitch, 5 * Time.deltaTime);
+        RotateYaw(lookInput.x);
+        RotatePitch(lookInput.y);
     }
+
+    private void RotateYaw(float lookInputX)
+    {
+        Vector3 cameraYaw = _cameraYaw.localEulerAngles;
+        _yaw += lookInputX * Time.deltaTime * _horizontalRotSpeed;
+        cameraYaw.y = _yaw;
+        _cameraYaw.localEulerAngles = cameraYaw;
+    }
+
+    private void RotatePitch(float lookInputY)
+    {
+        Vector3 cameraPitch = _cameraPitch.localEulerAngles;
+        _pitch -= lookInputY * Time.deltaTime * _verticalRotSpeed;
+        _pitch = Mathf.Clamp(_pitch, -10, 40);
+        cameraPitch.x = _pitch;
+        _cameraPitch.localEulerAngles = cameraPitch;
+    }
+
 
     private void CameraFollow()
     {

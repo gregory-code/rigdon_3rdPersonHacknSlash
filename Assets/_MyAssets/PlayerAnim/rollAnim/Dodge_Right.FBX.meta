@@ -587,9 +587,10 @@ ModelImporter:
       curves: []
       events:
       - time: 0.9037037
-        functionName: FinishFlourish
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 9bf5927d2e05be6479d34ef451741276,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

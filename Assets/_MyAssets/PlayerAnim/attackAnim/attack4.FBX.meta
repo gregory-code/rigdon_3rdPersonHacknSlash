@@ -581,37 +581,42 @@ ModelImporter:
       curves: []
       events:
       - time: 0.1388148
-        functionName: StepFoward
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: f8b6800b090521440a741e63cc9d01e4,
+          type: 2}
         floatParameter: 0
         intParameter: 80
         messageOptions: 0
       - time: 0.1954681
-        functionName: StartSwing
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 72f6f4d4056d9594484e36dac8ba7ed7,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.22687513
-        functionName: Attack
+        functionName: SendEvent
         data: heavyHit
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: d782fdd100838794f97dcebfb4427436,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.6414852
-        functionName: StepFoward
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: f8b6800b090521440a741e63cc9d01e4,
+          type: 2}
         floatParameter: 0
         intParameter: 20
         messageOptions: 0
       - time: 0.91915095
-        functionName: FinishFlourish
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 9bf5927d2e05be6479d34ef451741276,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0573029, g: 0.057870455, b: 0.051832266, a: 1}
+  m_IndirectSpecularColor: {r: 0.4027571, g: 0.41719013, b: 0.39134198, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -366,7 +366,6 @@ GameObject:
   m_Component:
   - component: {fileID: 26782211}
   - component: {fileID: 26782210}
-  - component: {fileID: 26782209}
   - component: {fileID: 26782208}
   m_Layer: 0
   m_Name: Plane_Ocean (14)
@@ -417,28 +416,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &26782209
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26782207}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &26782210
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1502,7 +1479,6 @@ GameObject:
   m_Component:
   - component: {fileID: 120921666}
   - component: {fileID: 120921665}
-  - component: {fileID: 120921664}
   - component: {fileID: 120921663}
   m_Layer: 0
   m_Name: Plane_Ocean (3)
@@ -1553,28 +1529,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &120921664
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120921662}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &120921665
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1876,7 +1830,6 @@ GameObject:
   m_Component:
   - component: {fileID: 140256802}
   - component: {fileID: 140256801}
-  - component: {fileID: 140256800}
   - component: {fileID: 140256799}
   m_Layer: 0
   m_Name: Plane_Ocean (22)
@@ -1927,28 +1880,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &140256800
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140256798}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &140256801
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2593,6 +2524,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64438420d273554448959a35c747f25a, type: 3}
+--- !u!1001 &226738247
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 55.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35399985
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746959660123746642, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Name
+      value: archerEnemy (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02e9035d27538024c81dbd9cd0910c34, type: 3}
 --- !u!4 &227087780 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 462418, guid: 9f35541b213a65340a8e088b7f3ab551,
@@ -2802,7 +2801,6 @@ GameObject:
   m_Component:
   - component: {fileID: 245773451}
   - component: {fileID: 245773450}
-  - component: {fileID: 245773449}
   - component: {fileID: 245773448}
   m_Layer: 0
   m_Name: Plane_Ocean (8)
@@ -2853,28 +2851,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &245773449
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 245773447}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &245773450
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2995,7 +2971,6 @@ GameObject:
   m_Component:
   - component: {fileID: 249685424}
   - component: {fileID: 249685423}
-  - component: {fileID: 249685422}
   - component: {fileID: 249685421}
   m_Layer: 0
   m_Name: Plane_Ocean (15)
@@ -3046,28 +3021,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &249685422
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249685420}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &249685423
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4408,7 +4361,6 @@ GameObject:
   m_Component:
   - component: {fileID: 324924165}
   - component: {fileID: 324924164}
-  - component: {fileID: 324924163}
   - component: {fileID: 324924162}
   m_Layer: 0
   m_Name: Plane_Ocean (9)
@@ -4459,28 +4411,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &324924163
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324924161}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &324924164
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4817,7 +4747,6 @@ GameObject:
   m_Component:
   - component: {fileID: 360886289}
   - component: {fileID: 360886288}
-  - component: {fileID: 360886287}
   - component: {fileID: 360886286}
   m_Layer: 0
   m_Name: Plane_Ocean (4)
@@ -4868,28 +4797,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &360886287
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360886285}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &360886288
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5868,6 +5775,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 412978451}
   m_CullTransparentMesh: 1
+--- !u!1001 &414328480
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 58.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35399985
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746959660123746642, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Name
+      value: archerEnemy (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02e9035d27538024c81dbd9cd0910c34, type: 3}
 --- !u!4 &415416490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 436916, guid: 287711fb95cdc004b814e53a055b4b1e,
@@ -6081,7 +6056,6 @@ GameObject:
   m_Component:
   - component: {fileID: 438733924}
   - component: {fileID: 438733923}
-  - component: {fileID: 438733922}
   - component: {fileID: 438733921}
   m_Layer: 0
   m_Name: Plane_Ocean (10)
@@ -6132,28 +6106,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &438733922
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 438733920}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &438733923
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6187,7 +6139,6 @@ GameObject:
   m_Component:
   - component: {fileID: 438973101}
   - component: {fileID: 438973100}
-  - component: {fileID: 438973099}
   - component: {fileID: 438973098}
   m_Layer: 0
   m_Name: Plane_Ocean (19)
@@ -6238,28 +6189,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &438973099
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 438973097}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &438973100
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8938,6 +8867,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d76a78a721a5d9d499abc8aec19fdc8b, type: 3}
+--- !u!1001 &668898783
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 58.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35399985
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746959660123746642, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Name
+      value: archerEnemy (5)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02e9035d27538024c81dbd9cd0910c34, type: 3}
 --- !u!4 &670582226 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 436916, guid: 287711fb95cdc004b814e53a055b4b1e,
@@ -9710,7 +9707,6 @@ GameObject:
   m_Component:
   - component: {fileID: 717204437}
   - component: {fileID: 717204436}
-  - component: {fileID: 717204435}
   - component: {fileID: 717204434}
   m_Layer: 0
   m_Name: Plane_Ocean (5)
@@ -9761,28 +9757,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &717204435
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 717204433}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &717204436
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11044,7 +11018,6 @@ GameObject:
   m_Component:
   - component: {fileID: 848883255}
   - component: {fileID: 848883254}
-  - component: {fileID: 848883253}
   - component: {fileID: 848883252}
   m_Layer: 0
   m_Name: Plane_Ocean (1)
@@ -11095,28 +11068,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &848883253
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 848883251}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &848883254
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11746,6 +11697,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c72a1ccba595c84daf7def9a8a6fe2d, type: 3}
+--- !u!1001 &852097737
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 52.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35399985
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746959660123746642, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Name
+      value: archerEnemy (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02e9035d27538024c81dbd9cd0910c34, type: 3}
 --- !u!4 &855910236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 436916, guid: 287711fb95cdc004b814e53a055b4b1e,
@@ -11823,7 +11842,6 @@ GameObject:
   m_Component:
   - component: {fileID: 868697791}
   - component: {fileID: 868697790}
-  - component: {fileID: 868697789}
   - component: {fileID: 868697788}
   m_Layer: 0
   m_Name: Plane_Ocean (13)
@@ -11874,28 +11892,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &868697789
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868697787}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &868697790
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -12229,7 +12225,6 @@ GameObject:
   m_Component:
   - component: {fileID: 884397040}
   - component: {fileID: 884397039}
-  - component: {fileID: 884397038}
   - component: {fileID: 884397037}
   m_Layer: 0
   m_Name: Plane_Ocean (20)
@@ -12280,28 +12275,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &884397038
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 884397036}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &884397039
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -12826,7 +12799,6 @@ GameObject:
   m_Component:
   - component: {fileID: 938502850}
   - component: {fileID: 938502849}
-  - component: {fileID: 938502848}
   - component: {fileID: 938502847}
   m_Layer: 0
   m_Name: Plane_Ocean (21)
@@ -12877,28 +12849,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &938502848
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938502846}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &938502849
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13056,7 +13006,6 @@ GameObject:
   m_Component:
   - component: {fileID: 957827674}
   - component: {fileID: 957827673}
-  - component: {fileID: 957827672}
   - component: {fileID: 957827671}
   m_Layer: 0
   m_Name: Plane_Ocean (24)
@@ -13107,28 +13056,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &957827672
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 957827670}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &957827673
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -16198,7 +16125,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1159018721}
   - component: {fileID: 1159018720}
-  - component: {fileID: 1159018719}
   - component: {fileID: 1159018718}
   m_Layer: 0
   m_Name: Plane_Ocean (16)
@@ -16249,28 +16175,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1159018719
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159018717}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1159018720
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -17090,7 +16994,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1203677817}
   - component: {fileID: 1203677816}
-  - component: {fileID: 1203677815}
   - component: {fileID: 1203677814}
   m_Layer: 0
   m_Name: Plane_Ocean (17)
@@ -17141,28 +17044,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1203677815
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1203677813}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1203677816
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20474,7 +20355,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1451663359}
   - component: {fileID: 1451663358}
-  - component: {fileID: 1451663357}
   - component: {fileID: 1451663356}
   m_Layer: 0
   m_Name: Plane_Ocean (6)
@@ -20525,28 +20405,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1451663357
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451663355}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1451663358
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -21443,7 +21301,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1570661770}
   - component: {fileID: 1570661769}
-  - component: {fileID: 1570661768}
   - component: {fileID: 1570661767}
   m_Layer: 0
   m_Name: Plane_Ocean (23)
@@ -21494,28 +21351,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1570661768
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1570661766}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1570661769
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -21598,7 +21433,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1580531980}
   - component: {fileID: 1580531979}
-  - component: {fileID: 1580531978}
   - component: {fileID: 1580531977}
   m_Layer: 0
   m_Name: Plane_Ocean (11)
@@ -21649,28 +21483,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1580531978
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1580531976}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1580531979
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -22057,7 +21869,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1601721298}
   - component: {fileID: 1601721297}
-  - component: {fileID: 1601721296}
   - component: {fileID: 1601721295}
   m_Layer: 0
   m_Name: Plane_Ocean (12)
@@ -22108,28 +21919,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1601721296
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1601721294}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1601721297
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -22975,7 +22764,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1697521768}
   - component: {fileID: 1697521767}
-  - component: {fileID: 1697521766}
   - component: {fileID: 1697521765}
   m_Layer: 0
   m_Name: Plane_Ocean (2)
@@ -23026,28 +22814,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1697521766
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697521764}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1697521767
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -25955,7 +25721,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1907408235}
   - component: {fileID: 1907408234}
-  - component: {fileID: 1907408233}
   - component: {fileID: 1907408232}
   m_Layer: 0
   m_Name: Plane_Ocean
@@ -26006,28 +25771,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1907408233
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1907408231}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1907408234
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -26554,7 +26297,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1940884264}
   - component: {fileID: 1940884263}
-  - component: {fileID: 1940884262}
   - component: {fileID: 1940884261}
   m_Layer: 0
   m_Name: Plane_Ocean (18)
@@ -26605,28 +26347,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1940884262
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940884260}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1940884263
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -26650,6 +26370,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 52880495}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1001 &1943161471
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 52.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35399985
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1417771212204713591, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8746959660123746642, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Name
+      value: archerEnemy (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02e9035d27538024c81dbd9cd0910c34, type: 3}
 --- !u!1001 &1945536683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27887,7 +27675,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2020428062}
   - component: {fileID: 2020428061}
-  - component: {fileID: 2020428060}
   - component: {fileID: 2020428059}
   m_Layer: 0
   m_Name: Plane_Ocean (7)
@@ -27938,28 +27725,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2020428060
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020428058}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &2020428061
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -33228,7 +32993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeDuration: 0.05
-  shakeMangintude: 0.005
+  shakeMangintude: 0.05
 --- !u!4 &6881894667707137329
 Transform:
   m_ObjectHideFlags: 0
@@ -33634,7 +33399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8938025eebd1d644f83f7c82ddb6ce5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeScale: 0.02
+  timeScale: 0.01
   duration: 0.001
 --- !u!4 &7822893693435420704
 Transform:
@@ -34545,3 +34310,8 @@ SceneRoots:
   - {fileID: 448949684}
   - {fileID: 1771755302586821867}
   - {fileID: 1412143638}
+  - {fileID: 226738247}
+  - {fileID: 852097737}
+  - {fileID: 1943161471}
+  - {fileID: 414328480}
+  - {fileID: 668898783}

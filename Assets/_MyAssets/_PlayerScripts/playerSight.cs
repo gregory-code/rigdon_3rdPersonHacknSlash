@@ -15,10 +15,13 @@ public class playerSight : MonoBehaviour
     Transform _targetedEnemy;
     Collider[] nearbyEnemies;
 
+    playerScript player;
+
 
     public void Start()
     {
-        GameObject.Find("player").GetComponent<playerScript>().onTargetLockUpdated += TargetLockUpdated;
+        player = GameObject.FindObjectOfType<playerScript>();
+        player.onTargetLockUpdated += TargetLockUpdated;
     }
 
     private void TargetLockUpdated(bool state, Transform target)
@@ -49,13 +52,13 @@ public class playerSight : MonoBehaviour
 
     private Transform GetClosestOnDistance(List<Transform> enemylist)
     {
-        float closestValue = 9999;
+        float closestValue = float.MaxValue;
         Transform closestDis = null;
 
         foreach (Transform enemy in enemylist)
         {
             if (enemy.transform.root == _targetedEnemy) continue;
-            float dis = Vector3.Distance(enemy.position, transform.position);
+            float dis = Vector3.Distance(enemy.position, player.transform.position);
 
             if (dis < closestValue)
             {
@@ -69,7 +72,7 @@ public class playerSight : MonoBehaviour
 
     private Transform GetClosestOnLeft(List<Transform> enemylist)
     {
-        float closestAngle = -9999;
+        float closestAngle = float.MinValue;
         Transform closestEnemy = null;
 
         foreach (Transform enemy in enemylist)
@@ -91,7 +94,7 @@ public class playerSight : MonoBehaviour
 
     private Transform GetClosestOnRight(List<Transform> enemylist)
     {
-        float closestAngle = 9999;
+        float closestAngle = float.MaxValue;
         Transform closestEnemy = null;
 
         foreach (Transform enemy in enemylist)

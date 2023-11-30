@@ -577,9 +577,10 @@ ModelImporter:
       curves: []
       events:
       - time: 0.08913545
-        functionName: BloodSpray
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: a0d76423bd1c12d429afc22503eb3562,
+          type: 2}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0

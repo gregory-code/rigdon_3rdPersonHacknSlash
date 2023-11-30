@@ -591,9 +591,10 @@ ModelImporter:
       curves: []
       events:
       - time: 0.3075837
-        functionName: GrabSword
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: c38ec5cf9b7170a40b5748f447ad8d30,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

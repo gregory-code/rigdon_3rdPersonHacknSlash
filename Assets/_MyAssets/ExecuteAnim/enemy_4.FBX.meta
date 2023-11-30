@@ -567,30 +567,34 @@ ModelImporter:
       curves: []
       events:
       - time: 0.70305675
-        functionName: DeathSmoke
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: a3e420a82be3d874ba695fea0e3a7b59,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.18340611
-        functionName: BloodSpray
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 27f590393b9be124eb04901cf3d606e9,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.42794758
-        functionName: BloodSpray
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 5f452b3b9125a4449b9cbb7d6d94e999,
+          type: 2}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
       - time: 0.29230767
-        functionName: StopFollowingPlayer
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 7572b8ce5bf69604eace98cd6a4cb4c3,
+          type: 2}
         floatParameter: 0
         intParameter: 1
         messageOptions: 0

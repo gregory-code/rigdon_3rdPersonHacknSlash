@@ -569,37 +569,42 @@ ModelImporter:
       curves: []
       events:
       - time: 0.09867889
-        functionName: StartSwing
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 72f6f4d4056d9594484e36dac8ba7ed7,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.10495627
-        functionName: HitScreenEffects
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 4f54a00a74dc6ca4f97ae2f865101e3f,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.27599612
-        functionName: HitScreenEffects
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 4f54a00a74dc6ca4f97ae2f865101e3f,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.40328538
-        functionName: StartSwing
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 72f6f4d4056d9594484e36dac8ba7ed7,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.83274406
-        functionName: FinishFlourish
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 9bf5927d2e05be6479d34ef451741276,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

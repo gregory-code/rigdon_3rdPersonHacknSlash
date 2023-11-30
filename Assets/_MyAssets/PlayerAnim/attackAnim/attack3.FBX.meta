@@ -581,58 +581,66 @@ ModelImporter:
       curves: []
       events:
       - time: 0.10830502
-        functionName: StartSwing
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 72f6f4d4056d9594484e36dac8ba7ed7,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.11382618
-        functionName: StepFoward
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: f8b6800b090521440a741e63cc9d01e4,
+          type: 2}
         floatParameter: 0
         intParameter: 120
         messageOptions: 0
       - time: 0.13013326
-        functionName: Attack
+        functionName: SendEvent
         data: hitFowardRight
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 09cdb3b5c1a45284fac424006e374130,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.19291846
-        functionName: StartSwing
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 72f6f4d4056d9594484e36dac8ba7ed7,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.22053622
-        functionName: Attack
+        functionName: SendEvent
         data: hitFowardLeft
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 1bdbdd825d960eb46be77742ae5e705f,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.2506113
-        functionName: CheckAttack
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 611a4e912c965094dbf3cd11a1a95f81,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.621997
-        functionName: StepFoward
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: f8b6800b090521440a741e63cc9d01e4,
+          type: 2}
         floatParameter: 0
         intParameter: 20
         messageOptions: 0
       - time: 0.9279375
-        functionName: FinishFlourish
+        functionName: SendEvent
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11400000, guid: 9bf5927d2e05be6479d34ef451741276,
+          type: 2}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
