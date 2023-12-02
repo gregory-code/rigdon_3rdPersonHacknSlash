@@ -56,8 +56,8 @@ public class playerCamera
 
         _clampMax = 40;
         _clampMin = 1;
-        _horizontalRotSpeed = 9f;
-        _verticalRotSpeed = 6;
+        _horizontalRotSpeed = 45f;
+        _verticalRotSpeed = 30;
         _followDamping = 0.5f;
         _defaultLength = 3;
         _farLength = 4;
@@ -124,6 +124,8 @@ public class playerCamera
         _followTransform.rotation = Quaternion.Slerp(_followTransform.rotation, followLerp, 5 * Time.deltaTime);
 
         _cameraYaw.rotation = Quaternion.Lerp(_cameraYaw.rotation, _follow.rotation, 5 * Time.deltaTime);
+
+        _yaw = _cameraYaw.localEulerAngles.y;
     }
     
     private void FollowRotation(Quaternion followLerp)
@@ -173,7 +175,7 @@ public class playerCamera
         }
         else
         {
-            _desiredLength = _defaultLength / 1.75f;
+            _desiredLength = _defaultLength / 6f;
         }
 
         _cameraLength = Mathf.Lerp(_cameraLength, _desiredLength, 5 * Time.deltaTime);

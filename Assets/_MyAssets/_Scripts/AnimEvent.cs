@@ -11,4 +11,7 @@ public class AnimEvent : ScriptableObject
     public int speed;
     public int intensity;
     public int spawn;
+
+    public AudioClip soundEfx;
+    public bool bIsStep;
 }

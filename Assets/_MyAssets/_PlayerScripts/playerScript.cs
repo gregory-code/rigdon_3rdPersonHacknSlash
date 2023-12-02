@@ -26,6 +26,9 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     [SerializeField] playerLock _lockRightPrefab;
     [SerializeField] playerLock _lockLeftPrefab;
 
+    [SerializeField] AudioSource stepAudio;
+    [SerializeField] AudioSource vfxAudio;
+
     [SerializeField] VisualEffect _slashVisualEffect;
 
     public delegate void OnTargetLockUpdated(bool state, Transform target);
@@ -279,6 +282,18 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     public void SendEvent(AnimEvent animEvent)
     {
+        if(animEvent.soundEfx != null)
+        {
+            if(animEvent.bIsStep)
+            {
+                playAudio(stepAudio, animEvent.soundEfx);
+            }
+            else
+            {
+                playAudio(vfxAudio, animEvent.soundEfx);
+            }
+        }
+
         switch(animEvent.functionName)
         {
             case "Attack":
@@ -313,5 +328,11 @@ public class playerScript : MonoBehaviour, IEventDispatcher
                 _actions.UpdateSword(true);
                 break;
         }
+    }
+
+    private void playAudio(AudioSource player, AudioClip clip)
+    {
+        player.clip = clip;
+        player.Play();
     }
 }

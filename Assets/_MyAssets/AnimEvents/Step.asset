@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41d324fb2d7a2574da6910c8eca00a0c, type: 3}
-  m_Name: AttackHeavy
+  m_Name: Step
   m_EditorClassIdentifier: 
-  functionName: Attack
-  hitAnim: heavyHit
+  functionName: 
+  hitAnim: 
   time: 0
   speed: 0
   intensity: 0
   spawn: 0
-  soundEfx: {fileID: 8300000, guid: b08ff4be12b7ed04088d2616beb26340, type: 3}
-  bIsStep: 0
+  soundEfx: {fileID: 8300000, guid: 06dbae8233d993f498b8707e7754f85e, type: 3}
+  bIsStep: 1

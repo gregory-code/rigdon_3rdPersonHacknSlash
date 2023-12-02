@@ -22,6 +22,8 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
     [SerializeField] GameObject damagepopPrefab;
 
+    private AudioSource enemyAudio;
+
     Animator enemyAnimator;
     Rigidbody enemyRigidbody;
     bool _bBeingExecuted;
@@ -46,6 +48,8 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
         enemyRigidbody = GetComponent<Rigidbody>();
 
         healthComponet = GetComponent<Health>();
+
+        enemyAudio = GetComponent<AudioSource>();
 
         healthComponet.onHealthChanged += HealthChanged;
         healthComponet.onTakenDamage += TookDamage;
@@ -143,6 +147,11 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
     public void SendEvent(AnimEvent animEvent)
     {
+        if (animEvent.soundEfx != null)
+        {
+            playAudio(animEvent.soundEfx);
+        }
+
         switch (animEvent.functionName)
         {
             case "DeathSmoke":
@@ -162,5 +171,11 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
                 _bBeingExecuted = false;
                 break;
         }
+    }
+
+    private void playAudio(AudioClip clip)
+    {
+        enemyAudio.clip = clip;
+        enemyAudio.Play();
     }
 }
