@@ -42,7 +42,6 @@ public class enemyNavMesh : MonoBehaviour
         {
             enemyNavMeshAgent.isStopped = true;
             LerpAnim(0);
-            canMove = false;
             return;
         }
         else if (distance > 6)
@@ -76,7 +75,7 @@ public class enemyNavMesh : MonoBehaviour
 
     private void LerpAnim(float target)
     {
-        animSpeed = Mathf.Lerp(animSpeed, target, 20 * Time.deltaTime);
+        animSpeed = Mathf.Lerp(animSpeed, target, 10 * Time.deltaTime);
         enemyAnimator.SetFloat("speed", animSpeed);
     }
 }
