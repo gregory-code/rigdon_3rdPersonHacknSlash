@@ -32,6 +32,9 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
     [SerializeField] Transform player;
     [SerializeField] Transform killPos;
 
+    [SerializeField] KatanaHit katanaHit;
+    enemyNavMesh navMeshScript;
+
     private void Awake()
     {
         if (player == null)
@@ -50,6 +53,8 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
         healthComponet = GetComponent<Health>();
 
         enemyAudio = GetComponent<AudioSource>();
+
+        navMeshScript = GetComponent<enemyNavMesh>();
 
         healthComponet.onHealthChanged += HealthChanged;
         healthComponet.onTakenDamage += TookDamage;
@@ -114,6 +119,8 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
     private IEnumerator HitBack(Vector3 hitDir, float hitForce, float length)
     {
+        navMeshScript.SetActive(false);
+
         hitDir = hitDir.normalized;
         hitDir.y = 0;
         while(length > 0)
@@ -142,6 +149,7 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
     private void BeingExecuted()
     {
+        navMeshScript.SetActive(false);
         transform.position = Vector3.Lerp(transform.position, killPos.position, 10 * Time.deltaTime);
     }
 
@@ -169,6 +177,10 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
             case "StopFollowingPlayer":
                 _bBeingExecuted = false;
+                break;
+
+            case "ResumeMove":
+                navMeshScript.SetActive(true);
                 break;
         }
     }

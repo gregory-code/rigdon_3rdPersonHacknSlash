@@ -6,9 +6,11 @@ public class KatanaHit : MonoBehaviour
 {
     [SerializeField] private List<GameObject> hitEnemies = new List<GameObject>();
 
+    [SerializeField] string enemyTag;
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Enemy")
+        if(other.gameObject.tag == enemyTag)
         {
             hitEnemies.Add(other.gameObject);
         }
@@ -16,7 +18,7 @@ public class KatanaHit : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == enemyTag)
         {
             StartCoroutine(ForgetDelay(other.gameObject));
         }
