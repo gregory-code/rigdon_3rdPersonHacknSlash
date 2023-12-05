@@ -89,6 +89,7 @@ public class playerCamera
             CameraLookAt(look);
         }
 
+        RotatePitch(look.y);
         LerpCameraLength();
         CameraFollow();
     }
@@ -138,7 +139,6 @@ public class playerCamera
     private void CameraLookAt(Vector2 lookInput)
     {
         RotateYaw(lookInput.x);
-        RotatePitch(lookInput.y);
     }
 
     private void RotateYaw(float lookInputX)

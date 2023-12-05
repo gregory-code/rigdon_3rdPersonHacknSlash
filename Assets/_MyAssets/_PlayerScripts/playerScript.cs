@@ -6,9 +6,8 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.VFX;
-using static playerScript;
-using static UnityEngine.UI.GridLayoutGroup;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Animator))]
@@ -29,6 +28,9 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     [SerializeField] AudioSource stepAudio;
     [SerializeField] AudioSource vfxAudio;
 
+    Health healthComponet;
+    [SerializeField] Image healthImage;
+
     [SerializeField] VisualEffect _slashVisualEffect;
 
     public delegate void OnTargetLockUpdated(bool state, Transform target);
@@ -39,6 +41,9 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     [SerializeField] Transform _leftEnemy;
     [SerializeField] Transform _cameraYaw;
     [SerializeField] Transform _cameraPitch;
+
+    private Animator playerAnimator;
+
     bool _bInLock;
     bool _bMovementStop;
 
@@ -65,10 +70,46 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         _lockRight = Instantiate(_lockRightPrefab, FindObjectOfType<Canvas>().transform);
         _lockLeft = Instantiate(_lockLeftPrefab, FindObjectOfType<Canvas>().transform);
 
+        playerAnimator = GetComponent<Animator>();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         _playerInput.PlayerSword.Enable();
+
+        healthComponet = GetComponent<Health>();
+
+        healthComponet.onHealthChanged += HealthChanged;
+        healthComponet.onTakenDamage += TookDamage;
+        healthComponet.onHealthEmpty += Death;
+    }
+
+    private void HealthChanged(float currentHealth, float amount, float maxHealth)
+    {
+        healthImage.fillAmount = (currentHealth / maxHealth);
+    }
+
+    private void TookDamage(float currentHealth, float amount, float maxHealth, GameObject instigator, string hitAnim)
+    {
+        playerAnimator.SetTrigger(hitAnim);
+        _bMovementStop = true;
+        _actions.HitScreenEffects();
+        _movement.SetBurst(20, 4, -transform.forward);
+        DamageEffects(amount);
+    }
+
+    private void DamageEffects(float damage)
+    {
+        //GameObject damagePop = Instantiate(damagepopPrefab, FindObjectOfType<Canvas>().transform);
+        //damagePop.GetComponent<damagepop>().Init(indicatorSpawns, damage);
+
+        //GameObject hit = Instantiate(hitEffect, this.transform);
+        //Destroy(hit, 1);
+    }
+
+    private void Death(float amount, float maxHealth)
+    {
+        
     }
 
     void Update()
@@ -172,7 +213,7 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     public void DodgeRoll(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && _bMovementStop == false)
         {
             if (_actions == null) return;
             _actions.DodgeInput();
@@ -326,6 +367,10 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
             case "StoreSword":
                 _actions.UpdateSword(true);
+                break;
+
+            case "ResumeMove":
+                _bMovementStop = false;
                 break;
         }
     }

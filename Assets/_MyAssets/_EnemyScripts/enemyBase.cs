@@ -32,7 +32,7 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
     [SerializeField] Transform player;
     [SerializeField] Transform killPos;
 
-    [SerializeField] KatanaHit katanaHit;
+    
     enemyNavMesh navMeshScript;
 
     private void Awake()
