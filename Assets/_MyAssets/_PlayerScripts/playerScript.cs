@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     Health healthComponet;
     [SerializeField] Image healthImage;
+    [SerializeField] TextMeshProUGUI healthText;
 
     [SerializeField] VisualEffect _slashVisualEffect;
 
@@ -86,7 +88,19 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     private void HealthChanged(float currentHealth, float amount, float maxHealth)
     {
-        healthImage.fillAmount = (currentHealth / maxHealth);
+        healthText.text = $"Health: {currentHealth}/{maxHealth}";
+        StartCoroutine(changeHealthOverTime(currentHealth, maxHealth));
+    }
+
+    private IEnumerator changeHealthOverTime(float currentHealth, float maxHealth)
+    {
+        float time = 120;
+        while(time > 0)
+        {
+            time--;
+            yield return new WaitForEndOfFrame();
+            healthImage.fillAmount = Mathf.Lerp(healthImage.fillAmount, (currentHealth / maxHealth), 4 * Time.deltaTime);
+        }
     }
 
     private void TookDamage(float currentHealth, float amount, float maxHealth, GameObject instigator, string hitAnim)
@@ -105,6 +119,11 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
         //GameObject hit = Instantiate(hitEffect, this.transform);
         //Destroy(hit, 1);
+    }
+
+    public void SlowDownAttacked(Transform enemyAttacking)
+    {
+
     }
 
     private void Death(float amount, float maxHealth)

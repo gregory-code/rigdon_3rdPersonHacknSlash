@@ -28,9 +28,13 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
     [SerializeField] KatanaHit katanaHit;
     [SerializeField] Transform _vfxPlacement;
 
+    private float desiredSpeed = 3;
+
     private bool isAlive = true;
 
-    void Start()
+    private bool isLeader;
+
+    void Awake()
     {
         enemyAnimator = GetComponent<Animator>();
         enemyNavMeshAgent = GetComponent<NavMeshAgent>();
@@ -39,6 +43,13 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
         previousPos = transform.position;
 
         StartCoroutine(CheckAttack());
+    }
+
+    public void SetLeaderStatus(bool status)
+    {
+        desiredSpeed = (status) ? 6 : 3 ;
+        enemyNavMeshAgent.speed = (status) ? 6 : 3 ;
+        isLeader = status;
     }
 
     void Update()
@@ -50,7 +61,24 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
         }
 
         float distance = (Vector3.Distance(transform.position, player.position));
-        CheckMoveDistance(distance);
+        
+        if (distance <= 2.5f)
+        {
+            withinRange = true;
+        }
+        else
+        {
+            withinRange = false;
+        }
+
+        if(isLeader)
+        {
+            Move(player.position, 1);
+        }
+        else
+        {
+            CheckMoveDistance(distance);
+        }
     }
 
     private IEnumerator CheckAttack()
@@ -58,8 +86,10 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
         while(isAlive)
         {
             yield return new WaitForSeconds(0.5f);
+
+            int randomChance = (isLeader) ? 0 : UnityEngine.Random.Range(0, 5); 
             
-            if(withinRange && UnityEngine.Random.Range(0, 5) == 0 && canMove == true)
+            if(withinRange && randomChance == 0 && canMove == true)
             {
                 canMove = false;
                 enemyNavMeshAgent.isStopped = true;
@@ -72,7 +102,7 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
     private void CheckNextAttack()
     {
         attackIndex++;
-        if (Vector3.Distance(transform.position, player.position) <= 3f)
+        if (withinRange)
         {
             enemyAnimator.SetBool("attack" + attackIndex, true);
         }
@@ -100,11 +130,6 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
     private void CheckMoveDistance(float distance)
     {
-        if(distance <= 4.1f)
-        {
-            withinRange = true;
-        }
-
         if (distance < 4 && distance > 3.5f)
         {
             enemyNavMeshAgent.isStopped = true;
@@ -128,7 +153,7 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
         enemyAnimator.SetFloat("fowardSpeed", fowardSpeed);
         canMove = true;
 
-        LerpAnim(3);
+        LerpAnim(desiredSpeed);
 
         previousPos = transform.position;
         enemyNavMeshAgent.destination = destination;
@@ -186,6 +211,10 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
             case "CheckAttack":
                 CheckNextAttack();
+                break;
+
+            case "SlowDown":
+                player.GetComponent<playerScript>().SlowDownAttacked(gameObject.transform);
                 break;
         }
     }

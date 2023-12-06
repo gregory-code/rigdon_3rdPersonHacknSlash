@@ -797,7 +797,7 @@ Transform:
   m_GameObject: {fileID: 52880494}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -44, y: -0.6, z: 55}
+  m_LocalPosition: {x: -44, y: -2, z: 55}
   m_LocalScale: {x: 12, y: 8, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27129,6 +27129,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cf375f9208bd17468242e6d1c3cc819, type: 3}
+--- !u!1 &1978647042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1978647044}
+  - component: {fileID: 1978647043}
+  m_Layer: 0
+  m_Name: enemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1978647043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978647042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03374ea7baf318d4fb3ead2088fecb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1978647044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978647042}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -224.47343, y: -329.71545, z: 696.03015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1978791560
 GameObject:
   m_ObjectHideFlags: 0
@@ -34474,6 +34518,7 @@ MonoBehaviour:
   stepAudio: {fileID: 9162425638644607035}
   vfxAudio: {fileID: 9162425638644607036}
   healthImage: {fileID: 827317392}
+  healthText: {fileID: 2142298765}
   _slashVisualEffect: {fileID: 6157207105798382939, guid: b1b946b61f54c1343a845b5b6bdc355e,
     type: 3}
   _targetedEnemy: {fileID: 0}
@@ -34706,3 +34751,4 @@ SceneRoots:
   - {fileID: 1412143638}
   - {fileID: 1519548252}
   - {fileID: 635447869}
+  - {fileID: 1978647044}
