@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4027589, g: 0.41719204, b: 0.3913496, a: 1}
+  m_IndirectSpecularColor: {r: 0.4027571, g: 0.41719013, b: 0.39134198, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &4
 LightmapSettings:
@@ -8619,6 +8619,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3993442175593931428, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993442175593931428, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993442175593931428, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193513934106684470, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: enemyManagerScript
+      value: 
+      objectReference: {fileID: 1978647043}
     - target: {fileID: 6883942456882168602, guid: 02e9035d27538024c81dbd9cd0910c34,
         type: 3}
       propertyPath: katanaHit
@@ -20001,6 +20021,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3993442175593931428, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993442175593931428, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993442175593931428, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193513934106684470, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: enemyManagerScript
+      value: 
+      objectReference: {fileID: 1978647043}
     - target: {fileID: 6883942456882168602, guid: 02e9035d27538024c81dbd9cd0910c34,
         type: 3}
       propertyPath: katanaHit
@@ -20920,6 +20960,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3993442175593931428, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993442175593931428, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993442175593931428, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193513934106684470, guid: 02e9035d27538024c81dbd9cd0910c34,
+        type: 3}
+      propertyPath: enemyManagerScript
+      value: 
+      objectReference: {fileID: 1978647043}
     - target: {fileID: 6883942456882168602, guid: 02e9035d27538024c81dbd9cd0910c34,
         type: 3}
       propertyPath: katanaHit
@@ -27158,6 +27218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03374ea7baf318d4fb3ead2088fecb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allActiveEnemies: []
 --- !u!4 &1978647044
 Transform:
   m_ObjectHideFlags: 0

@@ -44,10 +44,16 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     [SerializeField] Transform _cameraYaw;
     [SerializeField] Transform _cameraPitch;
 
+    private bool inQuickTim = false;
+
     private Animator playerAnimator;
+
+    bool bInvincible;
 
     bool _bInLock;
     bool _bMovementStop;
+
+    bool recentlyDodged;
 
     [SerializeField] Transform[] killAngle;
 
@@ -88,6 +94,9 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     private void HealthChanged(float currentHealth, float amount, float maxHealth)
     {
+        if (bInvincible)
+            return;
+
         healthText.text = $"Health: {currentHealth}/{maxHealth}";
         StartCoroutine(changeHealthOverTime(currentHealth, maxHealth));
     }
@@ -105,6 +114,9 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     private void TookDamage(float currentHealth, float amount, float maxHealth, GameObject instigator, string hitAnim)
     {
+        if (bInvincible)
+            return;
+
         playerAnimator.SetTrigger(hitAnim);
         _bMovementStop = true;
         _actions.HitScreenEffects();
@@ -124,6 +136,22 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     public void SlowDownAttacked(Transform enemyAttacking)
     {
 
+        if(inQuickTim)
+        {
+            inQuickTim = false;
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            inQuickTim = true;
+            _targetedEnemy = enemyAttacking;
+            _bInLock = false;
+            SwitchLock();
+
+            Time.timeScale = 0.06f;
+        }
+
+        _camera.inQuickTime(inQuickTim);
     }
 
     private void Death(float amount, float maxHealth)
@@ -232,10 +260,18 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     public void DodgeRoll(InputAction.CallbackContext context)
     {
+        if(context.performed && inQuickTim)
+        {
+            if (_actions == null) return;
+            recentlyDodged = true;
+            //SlowDownAttacked(_targetedEnemy);
+            _actions.DodgeInput(true);
+        }
+
         if (context.performed && _bMovementStop == false)
         {
             if (_actions == null) return;
-            _actions.DodgeInput();
+            _actions.DodgeInput(false);
         }
     }
 
@@ -318,7 +354,16 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         float rightSpeed = Vector3.Dot(movementDir, transform.right);
         float forwardSpeed = Vector3.Dot(movementDir, transform.forward);
 
-        _movement.SetBurst(220, 12, movementDir);
+        float speed = 12;
+        float duration = 220;
+
+        if (inQuickTim)
+            speed = 16;
+
+        if (inQuickTim)
+            duration = 240;
+
+        _movement.SetBurst(duration, speed, movementDir);
 
         GetComponent<Animator>().SetFloat("leftSpeed", rightSpeed);
         GetComponent<Animator>().SetFloat("fowardSpeed", forwardSpeed);
@@ -373,6 +418,8 @@ public class playerScript : MonoBehaviour, IEventDispatcher
                 break;
 
             case "FinishFlourish":
+                bInvincible = false;
+                recentlyDodged = false;
                 _actions.FinishFlourish();
                 break;
 
@@ -390,6 +437,18 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
             case "ResumeMove":
                 _bMovementStop = false;
+                break;
+
+            case "StartRoll":
+                bInvincible = true;
+                break;
+
+            case "FinishRoll":
+                if(recentlyDodged)
+                {
+                    _actions.inQuickTime = true;
+                    _actions.Attack("Kill em");
+                }
                 break;
         }
     }

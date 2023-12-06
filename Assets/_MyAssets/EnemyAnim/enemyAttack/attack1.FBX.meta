@@ -587,10 +587,26 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.12182219
+        functionName: SendEvent
+        data: 
+        objectReferenceParameter: {fileID: 11400000, guid: ece0de3a9b2853f4abfa6dbdf16a2c83,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.13826174
         functionName: SendEvent
         data: 
         objectReferenceParameter: {fileID: 11400000, guid: 72f6f4d4056d9594484e36dac8ba7ed7,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.14824414
+        functionName: SendEvent
+        data: 
+        objectReferenceParameter: {fileID: 11400000, guid: ece0de3a9b2853f4abfa6dbdf16a2c83,
           type: 2}
         floatParameter: 0
         intParameter: 0

@@ -16,6 +16,8 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
     private Transform player;
     private float animSpeed;
 
+
+
     private int attackIndex;
 
     [SerializeField] VisualEffect _slashVisualEffect;
@@ -62,7 +64,7 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
         float distance = (Vector3.Distance(transform.position, player.position));
         
-        if (distance <= 2.5f)
+        if (distance <= 1.4f)
         {
             withinRange = true;
         }
@@ -73,7 +75,7 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
         if(isLeader)
         {
-            Move(player.position, 1);
+            CheckLeaderDistance(distance);
         }
         else
         {
@@ -128,14 +130,27 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
         Destroy(swordVFX.gameObject, 2);
     }
 
-    private void CheckMoveDistance(float distance)
+    private void CheckLeaderDistance(float distance)
     {
-        if (distance < 4 && distance > 3.5f)
+        if (distance > 1)
+        {
+            Move(player.position, 1);
+        }
+        else
         {
             enemyNavMeshAgent.isStopped = true;
             LerpAnim(0);
         }
-        else if (distance > 4f)
+    }
+
+    private void CheckMoveDistance(float distance)
+    {
+        if (distance < 6 && distance > 4f)
+        {
+            enemyNavMeshAgent.isStopped = true;
+            LerpAnim(0);
+        }
+        else if (distance > 6f)
         {
             withinRange = false;
             Move(player.position, 1);
@@ -214,7 +229,8 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
                 break;
 
             case "SlowDown":
-                player.GetComponent<playerScript>().SlowDownAttacked(gameObject.transform);
+                if(withinRange) 
+                    player.GetComponent<playerScript>().SlowDownAttacked(gameObject.transform);
                 break;
         }
     }

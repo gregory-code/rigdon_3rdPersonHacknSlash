@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class enemyManager : MonoBehaviour
 {
-    enemyNavMesh[] allActiveEnemies;
+    public List<enemyNavMesh> allActiveEnemies = new List<enemyNavMesh>();
     bool gameIsLive = true;
 
     void Start()
     {
-        allActiveEnemies = GameObject.FindObjectsOfType<enemyNavMesh>();
+        Refresh("");
         NewLeader();
         StartCoroutine(leaderCheck());
     }
@@ -23,9 +23,26 @@ public class enemyManager : MonoBehaviour
         }
     }
 
+    public void Refresh(string excludeName)
+    {
+        allActiveEnemies.Clear();
+
+        enemyNavMesh[] startingEnemies = GameObject.FindObjectsOfType<enemyNavMesh>();
+        foreach (enemyNavMesh enemy in startingEnemies)
+        {
+
+            if(enemy.name != excludeName)
+            {
+                allActiveEnemies.Add(enemy);
+            }
+            
+            
+        }
+    }
+
     private void NewLeader()
     {
-        int randomEnemy = Random.Range(0, allActiveEnemies.Length);
+        int randomEnemy = Random.Range(0, allActiveEnemies.Count);
         foreach (enemyNavMesh enemy in allActiveEnemies)
         {
             enemy.SetLeaderStatus(false);

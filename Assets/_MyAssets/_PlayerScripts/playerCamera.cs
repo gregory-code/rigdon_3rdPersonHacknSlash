@@ -23,6 +23,8 @@ public class playerCamera
     Transform _cameraPitch;
     Transform _cameraArm;
 
+    bool bInQuickTime;
+
     float _pitch;
     float _yaw;
 
@@ -166,9 +168,16 @@ public class playerCamera
         _cameraYaw.position = Vector3.Lerp(_cameraYaw.position, _follow.position, (1 - _followDamping) * Time.deltaTime * 20f);
     }
 
+    public void inQuickTime(bool state)
+    {
+        bInQuickTime = state;
+    }
+
     private void LerpCameraLength()
     {
-        if(_bExecuteKill == false)
+        float speed = (bInQuickTime) ? 500 : 5 ;
+
+        if (_bExecuteKill == false || bInQuickTime == true)
         {
             float dotProduct = Vector3.Dot(_owner.transform.forward, _playerCam.transform.forward);
             _desiredLength = (dotProduct <= 0.1f) ? _farLength : _defaultLength;
@@ -178,7 +187,7 @@ public class playerCamera
             _desiredLength = _defaultLength / 6f;
         }
 
-        _cameraLength = Mathf.Lerp(_cameraLength, _desiredLength, 5 * Time.deltaTime);
+        _cameraLength = Mathf.Lerp(_cameraLength, _desiredLength, speed * Time.deltaTime);
     }
 
 

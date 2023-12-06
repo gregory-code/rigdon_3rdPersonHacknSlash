@@ -17,6 +17,8 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
     [SerializeField] GameObject deathEffect;
     [SerializeField] GameObject deathSmokeEffect;
 
+    public bool heatlhBarAlreadyGone;
+
     [SerializeField] GameObject bloodEffect;
     [SerializeField] Transform[] indicatorSpawns;
 
@@ -32,6 +34,7 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
     [SerializeField] Transform player;
     [SerializeField] Transform killPos;
 
+    [SerializeField] enemyManager enemyManagerScript;
     
     enemyNavMesh navMeshScript;
 
@@ -84,13 +87,20 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
     private void Death(float amount, float maxHealth)
     {
+        enemyManagerScript.Refresh(this.name);
         enemyAnimator.SetTrigger("die1");
     }
 
     private void HandleDeath()
     {
         DisableCollider();
-        Destroy(healthBar.gameObject);
+
+        if(heatlhBarAlreadyGone == false)
+        {
+            heatlhBarAlreadyGone = true;
+            Destroy(healthBar.gameObject);
+        }
+
         gameObject.layer = 0;
         _bIsDead = true;
         _bBeingExecuted = false;
@@ -113,6 +123,8 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
     public void KillSetup(int which)
     {
         DisableCollider();
+        heatlhBarAlreadyGone = true;
+        Destroy(healthBar.gameObject);
         _bBeingExecuted = true;
         enemyAnimator.SetTrigger("execute" + which);
     }

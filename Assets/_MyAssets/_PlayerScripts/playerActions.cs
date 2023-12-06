@@ -33,6 +33,8 @@ public class playerActions
     bool _bFreshBlood;
     Transform _target;
 
+    public bool inQuickTime = false;
+
     private enum input { None, Regular, Dodge, Kill }
     private input _storedInput;
 
@@ -83,7 +85,7 @@ public class playerActions
         if(_nextAttackIndex == 0) CheckInput();
     }
 
-    private void Attack(string attackName)
+    public void Attack(string attackName)
     {
         onMovementStopUpdated?.Invoke(true);
         _animator.SetLayerWeight(1, 0);
@@ -98,11 +100,11 @@ public class playerActions
         _nextAttackIndex++;
     }
 
-    public void DodgeInput()
+    public void DodgeInput(bool quickTime)
     {
         StoreInput(100, input.Dodge);
 
-        if (_bReadyForNextInput == true) Dodge();
+        if (_bReadyForNextInput == true || quickTime == true) Dodge();
     }
 
     private void Dodge()
@@ -124,6 +126,12 @@ public class playerActions
 
     private bool CanKill()
     {
+
+        if(inQuickTime && _bInLock)
+        {
+            return true;
+        }
+
         if(_nextAttackIndex == 3 && _bInLock && _bFreshBlood)
         {
             return true;
@@ -148,6 +156,7 @@ public class playerActions
         }
         _animator.ResetTrigger("dodge");
         _bFreshBlood = false;
+        inQuickTime = false;
 
         onMovementStopUpdated?.Invoke(false);
         _nextAttackIndex = 0;
@@ -163,8 +172,11 @@ public class playerActions
         {
             HitScreenEffects();
             SetFreshBlood(enemy);
-            Health enemyHealth = enemy.GetComponent<Health>();
-            enemyHealth.ChangeHealth(-5, _owner.transform.gameObject, hitAnim);
+            if(enemy.GetComponent<enemyBase>().heatlhBarAlreadyGone == false)
+            {
+                Health enemyHealth = enemy.GetComponent<Health>();
+                enemyHealth.ChangeHealth(-5, _owner.transform.gameObject, hitAnim);
+            }
         }
     }
 
