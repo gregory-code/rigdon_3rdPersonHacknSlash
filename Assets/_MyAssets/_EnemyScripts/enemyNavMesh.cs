@@ -56,15 +56,10 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
     void Update()
     {
-        if (canMove == false)
-        {
-            LerpAnim(0);
-            return;
-        }
 
         float distance = (Vector3.Distance(transform.position, player.position));
         
-        if (distance <= 1.4f)
+        if (distance <= 2f)
         {
             withinRange = true;
         }
@@ -73,7 +68,13 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
             withinRange = false;
         }
 
-        if(isLeader)
+        if (canMove == false)
+        {
+            LerpAnim(0);
+            return;
+        }
+
+        if (isLeader)
         {
             CheckLeaderDistance(distance);
         }
@@ -132,7 +133,7 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
     private void CheckLeaderDistance(float distance)
     {
-        if (distance > 1)
+        if (distance > 1.4f)
         {
             Move(player.position, 1);
         }

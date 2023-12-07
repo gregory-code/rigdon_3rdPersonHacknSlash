@@ -8,6 +8,8 @@ TagManager:
   - handHolder
   - attackHitbox
   - Enemy
+  - FxTemporaire
+  - dock
   layers:
   - Default
   - TransparentFX

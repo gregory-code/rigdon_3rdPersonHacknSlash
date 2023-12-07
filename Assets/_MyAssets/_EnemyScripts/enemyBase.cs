@@ -87,7 +87,6 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
     private void Death(float amount, float maxHealth)
     {
-        enemyManagerScript.Refresh(this.name);
         enemyAnimator.SetTrigger("die1");
     }
 
@@ -123,8 +122,13 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
     public void KillSetup(int which)
     {
         DisableCollider();
-        heatlhBarAlreadyGone = true;
-        Destroy(healthBar.gameObject);
+
+        if (heatlhBarAlreadyGone == false)
+        {
+            heatlhBarAlreadyGone = true;
+            Destroy(healthBar.gameObject);
+        }
+
         _bBeingExecuted = true;
         enemyAnimator.SetTrigger("execute" + which);
     }

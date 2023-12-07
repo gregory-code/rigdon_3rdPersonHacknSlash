@@ -177,12 +177,12 @@ public class playerCamera
     {
         float speed = (bInQuickTime) ? 500 : 5 ;
 
-        if (_bExecuteKill == false || bInQuickTime == true)
+        if (_bExecuteKill == false)
         {
             float dotProduct = Vector3.Dot(_owner.transform.forward, _playerCam.transform.forward);
             _desiredLength = (dotProduct <= 0.1f) ? _farLength : _defaultLength;
         }
-        else
+        else if(_bExecuteKill == true || bInQuickTime)
         {
             _desiredLength = _defaultLength / 6f;
         }

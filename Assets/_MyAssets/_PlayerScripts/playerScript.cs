@@ -33,6 +33,11 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     [SerializeField] Image healthImage;
     [SerializeField] TextMeshProUGUI healthText;
 
+    [SerializeField] Image staminaImage;
+    private float maxStamina = 100;
+    private float currentStamina = 100;
+
+
     [SerializeField] VisualEffect _slashVisualEffect;
 
     public delegate void OnTargetLockUpdated(bool state, Transform target);
@@ -108,7 +113,7 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         {
             time--;
             yield return new WaitForEndOfFrame();
-            healthImage.fillAmount = Mathf.Lerp(healthImage.fillAmount, (currentHealth / maxHealth), 4 * Time.deltaTime);
+            healthImage.fillAmount = Mathf.Lerp(healthImage.fillAmount, (currentHealth / maxHealth), 8 * Time.deltaTime);
         }
     }
 
@@ -165,6 +170,10 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         if (_camera == null) return;
         if (_sight == null) return;
         if (_actions == null) return;
+
+        currentStamina = Mathf.Lerp(currentStamina, 100, 0.075f * Time.deltaTime);
+
+        staminaImage.fillAmount = Mathf.Lerp(staminaImage.fillAmount, (currentStamina / maxStamina), 8 * Time.deltaTime);
 
         Look();
 
@@ -260,9 +269,12 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     public void DodgeRoll(InputAction.CallbackContext context)
     {
+
         if(context.performed && inQuickTim)
         {
             if (_actions == null) return;
+            if (CheckDodgeValue() == false)
+                return;
             recentlyDodged = true;
             //SlowDownAttacked(_targetedEnemy);
             _actions.DodgeInput(true);
@@ -271,7 +283,22 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         if (context.performed && _bMovementStop == false)
         {
             if (_actions == null) return;
+            if (CheckDodgeValue() == false)
+                return;
             _actions.DodgeInput(false);
+        }
+    }
+
+    private bool CheckDodgeValue()
+    {
+        if (currentStamina >= 20)
+        {
+            currentStamina -= 20;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
