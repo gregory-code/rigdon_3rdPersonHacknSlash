@@ -32,7 +32,7 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
     private float desiredSpeed = 3;
 
-    private bool isAlive = true;
+    public bool isAlive = true;
 
     private bool isLeader;
 
@@ -56,6 +56,11 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
     void Update()
     {
+        if (isAlive == false)
+        {
+            enemyNavMeshAgent.isStopped = true;
+            return;
+        }
 
         float distance = (Vector3.Distance(transform.position, player.position));
         

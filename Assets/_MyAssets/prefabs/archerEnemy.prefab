@@ -1139,6 +1139,38 @@ Transform:
   - {fileID: 1388040194678325863}
   m_Father: {fileID: 1031337574065516264}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3309812582771765280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9199448628923405793}
+  m_Layer: 0
+  m_Name: swordHolderHand2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9199448628923405793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3309812582771765280}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.6528726, y: -0.6145367, z: 0.32245493, w: -0.30352083}
+  m_LocalPosition: {x: 0.0087, y: 0.1228, z: 0.0425}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2646812778417588057}
+  m_Father: {fileID: 8639089698349470508}
+  m_LocalEulerAnglesHint: {x: 52.433, y: 184.515, z: -264.311}
 --- !u!1 &3367938408192623416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1967,6 +1999,7 @@ Transform:
   - {fileID: 6677324345489799967}
   - {fileID: 7778503347333246422}
   - {fileID: 229504773319609443}
+  - {fileID: 9199448628923405793}
   m_Father: {fileID: 254810852131712944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5810533915860200157
@@ -2033,6 +2066,37 @@ Transform:
   - {fileID: 2110062051094049260}
   m_Father: {fileID: 6535131120046350409}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6040069474726027973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2646812778417588057}
+  m_Layer: 0
+  m_Name: vfxPlacement2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2646812778417588057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6040069474726027973}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.042925566, y: -0.3971901, z: -0.735818, w: 0.5467809}
+  m_LocalPosition: {x: -0.387, y: 0.166, z: 0.447}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9199448628923405793}
+  m_LocalEulerAnglesHint: {x: -39.158, y: -28.6, z: -96.408}
 --- !u!1 &6360081760098514814
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,6 +2660,7 @@ MonoBehaviour:
   deathEffect: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
   deathSmokeEffect: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845,
     type: 3}
+  heatlhBarAlreadyGone: 0
   bloodEffect: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 3}
   indicatorSpawns:
   - {fileID: 1189532408217374308}
@@ -2608,7 +2673,7 @@ MonoBehaviour:
     type: 3}
   player: {fileID: 0}
   killPos: {fileID: 0}
-  katanaHit: {fileID: 787046682351113982}
+  enemyManagerScript: {fileID: 0}
 --- !u!114 &531158680801831987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2635,6 +2700,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d158541496a9a6c41a41e153c74e58d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slashVisualEffect: {fileID: 6157207105798382939, guid: b1b946b61f54c1343a845b5b6bdc355e,
+    type: 3}
+  katanaHit: {fileID: 787046682351113982}
+  _vfxPlacement: {fileID: 2646812778417588057}
 --- !u!65 &922387215766514473
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2789,10 +2858,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 3
+  m_Acceleration: 30
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 400
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

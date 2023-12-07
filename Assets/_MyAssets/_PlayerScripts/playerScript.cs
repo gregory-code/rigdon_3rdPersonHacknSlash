@@ -122,6 +122,9 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         if (bInvincible)
             return;
 
+        if (hitAnim == "none")
+            return;
+
         playerAnimator.SetTrigger(hitAnim);
         _bMovementStop = true;
         _actions.HitScreenEffects();

@@ -71,6 +71,9 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
     private void TookDamage(float currentHealth, float amount, float maxHealth, GameObject instigator, string hitAnim)
     {
+        if (hitAnim == "none")
+            return;
+
         enemyAnimator.SetTrigger(hitAnim);
         StartCoroutine(HitBack(-transform.forward, 4f, 0.1f));
         DamageEffects(amount);
@@ -87,6 +90,7 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
     private void Death(float amount, float maxHealth)
     {
+        GetComponent<enemyNavMesh>().isAlive = false;
         enemyAnimator.SetTrigger("die1");
     }
 

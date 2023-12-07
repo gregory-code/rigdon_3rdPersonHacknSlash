@@ -15,6 +15,25 @@ public class Health : MonoBehaviour
     [SerializeField] float currentHealth;
     [SerializeField] float maxHealth;
 
+    public void GetFireDamage(GameObject firePrefab)
+    {
+        GameObject fire = Instantiate(firePrefab);
+        fire.transform.SetParent(this.transform);
+        fire.transform.localPosition = Vector3.zero;
+        Destroy(fire, 3.5f);
+        StartCoroutine(FireDamageCoroutine());
+    }
+
+    private IEnumerator FireDamageCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+        ChangeHealth(-5, this.gameObject, "none");
+        yield return new WaitForSeconds(1);
+        ChangeHealth(-5, this.gameObject, "none");
+        yield return new WaitForSeconds(1);
+        ChangeHealth(-5, this.gameObject, "none");
+    }
+
     public void ChangeHealth(float amount, GameObject target, string hitAnim)
     {
         //using early return.
@@ -54,4 +73,6 @@ public class Health : MonoBehaviour
     {
         return maxHealth;
     }
+
+
 }
