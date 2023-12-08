@@ -584,7 +584,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.6773866
+      - time: 0.519528
         functionName: SendEvent
         data: 
         objectReferenceParameter: {fileID: 11400000, guid: e1c9093c33977ce4f8594a14614c411c,

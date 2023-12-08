@@ -18,5 +18,5 @@ MonoBehaviour:
   speed: 0
   intensity: 0
   spawn: 0
-  soundEfx: {fileID: 8300000, guid: b08ff4be12b7ed04088d2616beb26340, type: 3}
+  soundEfx: {fileID: 0}
   bIsStep: 0

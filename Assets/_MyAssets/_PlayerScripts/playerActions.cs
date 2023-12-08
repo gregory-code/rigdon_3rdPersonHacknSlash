@@ -22,6 +22,8 @@ public class playerActions
     int _timeDelay;
     int _desiredWeight;
 
+    bool drawingSword;
+
     // What?
 
     int _nextAttackIndex;
@@ -77,9 +79,13 @@ public class playerActions
     {
         if (_bSwordEquipped == false)
         {
+            drawingSword = true;
             DrawSword(true);
             return;
         }
+
+        if (drawingSword)
+            return;
 
         StoreInput(100, input.Regular);
         if(_nextAttackIndex == 0) CheckInput();
@@ -118,6 +124,9 @@ public class playerActions
     {
         System.Random ranNum = new System.Random();
         int randomKill = ranNum.Next(0, 3);
+
+        int random = UnityEngine.Random.Range(0, 2);
+        GameObject.Find("beingExecuted" + random).GetComponent<AudioSource>().Play();
 
         onKillSetup?.Invoke(ranNum.Next(0, 2));
         _target.GetComponent<enemyBase>().KillSetup(randomKill);
@@ -240,6 +249,11 @@ public class playerActions
         _desiredWeight = 0;
         _bSwordEquipped = bState;
         _animator.SetBool("bSwordEquipped", _bSwordEquipped);
+    }
+
+    public void finishDrawingSword()
+    {
+        drawingSword = false;
     }
 
     public void UpdateSword(bool toHip)

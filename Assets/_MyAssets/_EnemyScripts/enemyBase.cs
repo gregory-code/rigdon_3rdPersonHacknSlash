@@ -173,6 +173,12 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
         transform.position = Vector3.Lerp(transform.position, killPos.position, 10 * Time.deltaTime);
     }
 
+    private void bloodSpray(int spawn)
+    {
+        GameObject blood = Instantiate(bloodEffect, indicatorSpawns[spawn].position, indicatorSpawns[spawn].rotation);
+        Destroy(blood, 1);
+    }
+
     public void SendEvent(AnimEvent animEvent)
     {
         if (animEvent.soundEfx != null)
@@ -185,14 +191,22 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
             case "DeathSmoke":
                 HandleDeath();
 
+                GameObject.Find("death").GetComponent<AudioSource>().Play();
+
                 GameObject death = Instantiate(deathEffect, transform.position, transform.rotation);
                 Destroy(death, 2);
                 StartCoroutine(DeathDelay());
                 break;
 
+            case "BloodKill":
+                GameObject.Find("bloodBlade").GetComponent<AudioSource>().Play();
+                bloodSpray(animEvent.spawn);
+                break;
+
             case "BloodSpray":
-                GameObject blood = Instantiate(bloodEffect, indicatorSpawns[animEvent.spawn].position, indicatorSpawns[animEvent.spawn].rotation);
-                Destroy(blood, 1);
+                int random = UnityEngine.Random.Range(0, 3);
+                GameObject.Find("blood" + random).GetComponent<AudioSource>().Play();
+                bloodSpray(animEvent.spawn);
                 break;
 
             case "StopFollowingPlayer":

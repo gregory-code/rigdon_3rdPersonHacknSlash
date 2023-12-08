@@ -12,8 +12,18 @@ public class Health : MonoBehaviour
     public event OnHealthEmpty onHealthEmpty;
     public event OnTakenDamage onTakenDamage;
 
+    public bool isPlayer;
+    public playerScript bigPlayerScript;
+
     [SerializeField] float currentHealth;
     [SerializeField] float maxHealth;
+
+    public void SetMaxHealth(float max)
+    {
+        maxHealth = max;
+        currentHealth = max;
+        ChangeHealth(max, this.gameObject, "none");
+    }
 
     public void GetFireDamage(GameObject firePrefab)
     {
@@ -36,6 +46,14 @@ public class Health : MonoBehaviour
 
     public void ChangeHealth(float amount, GameObject target, string hitAnim)
     {
+        if(isPlayer)
+        {
+            if(bigPlayerScript.bInvincible == true)
+            {
+                return;
+            }
+        }
+
         //using early return.
         if (amount == 0 || currentHealth == 0)
         {
@@ -47,6 +65,8 @@ public class Health : MonoBehaviour
         onHealthChanged?.Invoke(currentHealth, amount, maxHealth);
         if (amount < 0)
         {
+            int random = Random.Range(0, 3);
+            GameObject.Find("hit" + random).GetComponent<AudioSource>().Play();
             onTakenDamage?.Invoke(currentHealth, amount, maxHealth, target, hitAnim);
         }
 

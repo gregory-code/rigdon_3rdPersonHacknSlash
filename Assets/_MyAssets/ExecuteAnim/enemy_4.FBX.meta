@@ -566,14 +566,6 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.70305675
-        functionName: SendEvent
-        data: 
-        objectReferenceParameter: {fileID: 11400000, guid: a3e420a82be3d874ba695fea0e3a7b59,
-          type: 2}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0.18340611
         functionName: SendEvent
         data: 
@@ -582,14 +574,6 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.42794758
-        functionName: SendEvent
-        data: 
-        objectReferenceParameter: {fileID: 11400000, guid: 5f452b3b9125a4449b9cbb7d6d94e999,
-          type: 2}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
       - time: 0.29230767
         functionName: SendEvent
         data: 
@@ -597,6 +581,22 @@ ModelImporter:
           type: 2}
         floatParameter: 0
         intParameter: 1
+        messageOptions: 0
+      - time: 0.41664016
+        functionName: SendEvent
+        data: 
+        objectReferenceParameter: {fileID: 11400000, guid: b6d9674ae78995241a4779f577e06041,
+          type: 2}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: 0.70305675
+        functionName: SendEvent
+        data: 
+        objectReferenceParameter: {fileID: 11400000, guid: a3e420a82be3d874ba695fea0e3a7b59,
+          type: 2}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       transformMask: []
       maskType: 3

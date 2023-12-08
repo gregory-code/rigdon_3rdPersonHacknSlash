@@ -26,11 +26,14 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
     private bool canMove = true;
     private bool withinRange = false;
+    private float rangeDistance = 1.5f;
 
     [SerializeField] KatanaHit katanaHit;
     [SerializeField] Transform _vfxPlacement;
 
-    private float desiredSpeed = 3;
+    private float desiredSpeed = 2;
+    private float walkSpeed = 2;
+    private float runSpeed = 4;
 
     public bool isAlive = true;
 
@@ -49,8 +52,8 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
     public void SetLeaderStatus(bool status)
     {
-        desiredSpeed = (status) ? 6 : 3 ;
-        enemyNavMeshAgent.speed = (status) ? 6 : 3 ;
+        desiredSpeed = (status) ? runSpeed : walkSpeed ;
+        enemyNavMeshAgent.speed = (status) ? runSpeed : walkSpeed ;
         isLeader = status;
     }
 
@@ -64,7 +67,7 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
         float distance = (Vector3.Distance(transform.position, player.position));
         
-        if (distance <= 2f)
+        if (distance <= rangeDistance)
         {
             withinRange = true;
         }
@@ -223,6 +226,8 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
                 break;
 
             case "StartSwing":
+                int random = UnityEngine.Random.Range(0, 3);
+                GameObject.Find("slice" + random).GetComponent<AudioSource>().Play();
                 createSwordVFX(_vfxPlacement);
                 break;
 
@@ -236,7 +241,44 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
             case "SlowDown":
                 if(withinRange) 
-                    player.GetComponent<playerScript>().SlowDownAttacked(gameObject.transform);
+                    player.GetComponent<playerScript>().SlowDownAttacked(gameObject.transform, true);
+                break;
+
+            case "ResumeSlow":
+                player.GetComponent<playerScript>().SlowDownAttacked(gameObject.transform, false);
+                break;
+        }
+    }
+
+    internal void Init(int diff)
+    {
+        switch (diff)
+        {
+            case 0:
+                walkSpeed = 3;
+                runSpeed = 6;
+                GetComponent<Health>().SetMaxHealth(15);
+                break;
+
+            case 1:
+                walkSpeed = 3;
+                runSpeed = 6;
+                rangeDistance = 2;
+                GetComponent<Health>().SetMaxHealth(25);
+                break;
+
+            case 2:
+                walkSpeed = 3.5f;
+                runSpeed = 7;
+                rangeDistance = 2.2f;
+                GetComponent<Health>().SetMaxHealth(35);
+                break;
+
+            case 3:
+                walkSpeed = 4;
+                runSpeed = 7;
+                rangeDistance = 2.5f;
+                GetComponent<Health>().SetMaxHealth(45);
                 break;
         }
     }

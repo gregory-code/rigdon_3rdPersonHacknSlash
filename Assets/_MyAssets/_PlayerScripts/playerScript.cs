@@ -9,6 +9,7 @@ using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.VFX;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Animator))]
@@ -53,7 +54,7 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     private Animator playerAnimator;
 
-    bool bInvincible;
+    public bool bInvincible;
 
     bool _bInLock;
     bool _bMovementStop;
@@ -99,8 +100,6 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     private void HealthChanged(float currentHealth, float amount, float maxHealth)
     {
-        if (bInvincible)
-            return;
 
         healthText.text = $"Health: {currentHealth}/{maxHealth}";
         StartCoroutine(changeHealthOverTime(currentHealth, maxHealth));
@@ -119,9 +118,6 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     private void TookDamage(float currentHealth, float amount, float maxHealth, GameObject instigator, string hitAnim)
     {
-        if (bInvincible)
-            return;
-
         if (hitAnim == "none")
             return;
 
@@ -141,17 +137,16 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         //Destroy(hit, 1);
     }
 
-    public void SlowDownAttacked(Transform enemyAttacking)
+    public void SlowDownAttacked(Transform enemyAttacking, bool state)
     {
+        inQuickTim = state;
 
-        if(inQuickTim)
+        if(inQuickTim == false)
         {
-            inQuickTim = false;
             Time.timeScale = 1f;
         }
         else
         {
-            inQuickTim = true;
             _targetedEnemy = enemyAttacking;
             _bInLock = false;
             SwitchLock();
@@ -279,7 +274,7 @@ public class playerScript : MonoBehaviour, IEventDispatcher
             if (CheckDodgeValue() == false)
                 return;
             recentlyDodged = true;
-            //SlowDownAttacked(_targetedEnemy);
+            SlowDownAttacked(_targetedEnemy, false);
             _actions.DodgeInput(true);
         }
 
@@ -387,11 +382,11 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         float speed = 12;
         float duration = 220;
 
-        if (inQuickTim)
-            speed = 16;
+        if (recentlyDodged)
+            speed = 10;
 
-        if (inQuickTim)
-            duration = 240;
+        if (recentlyDodged)
+            duration = 50;
 
         _movement.SetBurst(duration, speed, movementDir);
 
@@ -440,6 +435,8 @@ public class playerScript : MonoBehaviour, IEventDispatcher
                 break;
 
             case "StartSwing":
+                int random = UnityEngine.Random.Range(0, 3);
+                GameObject.Find("slice" + random).GetComponent<AudioSource>().Play();
                 _actions.StartSwingEffect();
                 break;
 
@@ -458,6 +455,7 @@ public class playerScript : MonoBehaviour, IEventDispatcher
                 break;
 
             case "GrabSword":
+                GameObject.Find("drawSword").GetComponent<AudioSource>().Play();
                 _actions.UpdateSword(false);
                 break;
 
@@ -474,11 +472,20 @@ public class playerScript : MonoBehaviour, IEventDispatcher
                 break;
 
             case "FinishRoll":
-                if(recentlyDodged)
+                //bInvincible = false;
+                if (recentlyDodged)
                 {
-                    _actions.inQuickTime = true;
-                    _actions.Attack("Kill em");
+                    float distance = Vector3.Distance(transform.position, _targetedEnemy.position);
+                    if (distance < 3f)
+                    {
+                        _actions.inQuickTime = true;
+                        _actions.Attack("Kill em");
+                    }
                 }
+                break;
+
+            case "FinishSwordDraw":
+                _actions.finishDrawingSword();
                 break;
         }
     }
