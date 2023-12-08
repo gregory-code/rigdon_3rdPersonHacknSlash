@@ -28,6 +28,10 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     [SerializeField] playerLock _lockLeftPrefab;
 
     bool openMenu;
+    bool bLost;
+    [SerializeField] CanvasGroup bloodCanvasGroup;
+    [SerializeField] GameObject gameOverGameObject;
+    [SerializeField] CanvasGroup gameOverGroup;
     [SerializeField] GameObject menuGameObject;
 
     [SerializeField] AudioSource stepAudio;
@@ -163,11 +167,31 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     private void Death(float amount, float maxHealth)
     {
         playerAnimator.SetTrigger("dead");
+        gameOver();
+    }
+
+    public void gameOver()
+    {
+        bLost = true;
+        gameOverGameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        GameObject.FindObjectOfType<enemyManager>().GameOver();
         _bMovementStop = true;
     }
 
     void Update()
     {
+        if(bLost)
+        {
+            gameOverGroup.alpha = Mathf.Lerp(gameOverGroup.alpha, 1, 0.8f * Time.deltaTime);
+        }
+
+        if(bLost == false && transform.localPosition.y < -5)
+        {
+            gameOver();
+        }
+
         if (Time.timeScale == 0)
             return;
 
@@ -304,6 +328,9 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     public void MenuState()
     {
+        if (bLost)
+            return;
+
         openMenu = !openMenu;
         menuGameObject.SetActive(openMenu);
         Cursor.lockState = (openMenu) ? CursorLockMode.None : CursorLockMode.Locked;
@@ -324,7 +351,9 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     public void Restart()
     {
-        MenuState();
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         SceneManager.LoadScene(1);
     }
 

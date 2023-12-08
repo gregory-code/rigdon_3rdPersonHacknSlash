@@ -78,6 +78,19 @@ public class enemyManager : MonoBehaviour
         }
     }
 
+    public void GameOver()
+    {
+        gameIsLive = false;
+
+        StopAllCoroutines();
+
+        enemyNavMesh[] activeEnemies = GameObject.FindObjectsOfType<enemyNavMesh>();
+        foreach (enemyNavMesh enemy in activeEnemies)
+        {
+            enemy.SetLeaderStatus(false);
+        }
+    }
+
     private IEnumerator SpawnTimer()
     {
         while (gameIsLive)

@@ -22,6 +22,6 @@ public class globalVolume : MonoBehaviour
         if (Time.timeScale == 0)
             return;
 
-        sky.exposure.value -= 0.01f;
+        sky.multiplier.value -= 0.00005f;
     }
 }
