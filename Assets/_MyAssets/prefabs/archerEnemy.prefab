@@ -194,6 +194,37 @@ Transform:
   - {fileID: 449681728492782965}
   m_Father: {fileID: 5234886916119950145}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &578480723898369641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6590226715473747871}
+  m_Layer: 6
+  m_Name: spaceTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6590226715473747871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578480723898369641}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.617, z: 0.235}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1417771212204713591}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &675795034919912031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2618,6 +2649,7 @@ Transform:
   - {fileID: 7644627426384759387}
   - {fileID: 3999579631204910402}
   - {fileID: 8290787911310602715}
+  - {fileID: 6590226715473747871}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &447715974151219387
@@ -2686,6 +2718,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe010c20d3537fd48bd515616d71f5d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
+  bigPlayerScript: {fileID: 0}
   currentHealth: 25
   maxHealth: 25
 --- !u!114 &6883942456882168602
@@ -2700,10 +2734,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d158541496a9a6c41a41e153c74e58d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceBarPrefab: {fileID: 5000995011211930607, guid: 635b27eb7de27ff41a71ee89977ca0da,
+    type: 3}
+  spaceBarTransform: {fileID: 6590226715473747871}
   _slashVisualEffect: {fileID: 6157207105798382939, guid: b1b946b61f54c1343a845b5b6bdc355e,
     type: 3}
   katanaHit: {fileID: 787046682351113982}
   _vfxPlacement: {fileID: 2646812778417588057}
+  isAlive: 1
 --- !u!65 &922387215766514473
 BoxCollider:
   m_ObjectHideFlags: 0

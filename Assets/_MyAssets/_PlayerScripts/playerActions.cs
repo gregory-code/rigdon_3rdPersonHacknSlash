@@ -36,6 +36,7 @@ public class playerActions
     Transform _target;
 
     public bool inQuickTime = false;
+    private bool inExecute;
 
     private enum input { None, Regular, Dodge, Kill }
     private input _storedInput;
@@ -87,17 +88,21 @@ public class playerActions
         if (drawingSword)
             return;
 
-        StoreInput(100, input.Regular);
+        StoreInput(40, input.Regular); // was 100
         if(_nextAttackIndex == 0) CheckInput();
     }
 
     public void Attack(string attackName)
     {
+        if (inExecute == true)
+            return;
+
         onMovementStopUpdated?.Invoke(true);
         _animator.SetLayerWeight(1, 0);
 
         if(CanKill())
         {
+            inExecute = true;
             KillSetup();
             return;
         }
@@ -108,7 +113,7 @@ public class playerActions
 
     public void DodgeInput(bool quickTime)
     {
-        StoreInput(100, input.Dodge);
+        StoreInput(40, input.Dodge); // was 100
 
         if (_bReadyForNextInput == true || quickTime == true) Dodge();
     }
@@ -122,6 +127,9 @@ public class playerActions
 
     private void KillSetup()
     {
+        if (_bSwordEquipped == false)
+            return;
+
         System.Random ranNum = new System.Random();
         int randomKill = ranNum.Next(0, 3);
 
@@ -166,6 +174,7 @@ public class playerActions
         _animator.ResetTrigger("dodge");
         _bFreshBlood = false;
         inQuickTime = false;
+        inExecute = false;
 
         onMovementStopUpdated?.Invoke(false);
         _nextAttackIndex = 0;

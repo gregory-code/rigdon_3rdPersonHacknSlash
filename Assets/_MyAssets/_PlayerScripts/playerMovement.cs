@@ -126,8 +126,9 @@ public class playerMovement
 
     public void SetBurst(float time, float speed, Vector3 dir)
     {
-        _burstTime = time;
-        _burstSpeed = speed;
+
+        _burstTime = time/* / 3.5f*/;
+        _burstSpeed = speed/* / 1.5f*/;
         _burstDirection = dir;
     }
 

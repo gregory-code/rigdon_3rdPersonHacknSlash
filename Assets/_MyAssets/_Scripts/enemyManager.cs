@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
@@ -14,7 +13,7 @@ public class enemyManager : MonoBehaviour
     [SerializeField] ParticleSystem particle;
     [SerializeField] Transform[] spawnParticles;
     [SerializeField] GameObject enemyPrefab;
-    private float waitTimer = 10;
+    private float waitTimer = 5;
 
     [SerializeField] Animator waveAnimator;
 
@@ -23,13 +22,21 @@ public class enemyManager : MonoBehaviour
     private int killAmount = 0;
     [SerializeField] TextMeshProUGUI killText;
 
+    private int pacifistMode;
+
     private int spawned = 1;
     private int difficultly = 0;
 
     void Start()
     {
         NewLeader();
-        StartCoroutine(leaderCheck());
+
+        pacifistMode = PlayerPrefs.GetInt("pacifist");
+        if(pacifistMode == 0)
+        {
+            waitTimer = 10;
+            StartCoroutine(leaderCheck());
+        }
         StartCoroutine(SpawnTimer());
     }
 

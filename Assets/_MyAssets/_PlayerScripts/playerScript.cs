@@ -173,11 +173,19 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     public void gameOver()
     {
         bLost = true;
+        gameOverGroup.interactable = true;
+        gameOverGroup.blocksRaycasts = true;
         gameOverGameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         GameObject.FindObjectOfType<enemyManager>().GameOver();
         _bMovementStop = true;
+    }
+
+    public void UpdateSens(float value)
+    {
+        PlayerPrefs.SetFloat("Sens", value);
+        _camera.UpdateSens(value);
     }
 
     void Update()
@@ -190,6 +198,11 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         if(bLost == false && transform.localPosition.y < -5)
         {
             gameOver();
+        }
+
+        if(transform.localPosition.y > -1)
+        {
+            _movement.SetBurst(30, 6, -transform.forward);
         }
 
         if (Time.timeScale == 0)
@@ -459,10 +472,10 @@ public class playerScript : MonoBehaviour, IEventDispatcher
         float duration = 220;
 
         if (recentlyDodged)
-            speed = 10;
+            speed = 8;
 
         if (recentlyDodged)
-            duration = 50;
+            duration = 80;
 
         _movement.SetBurst(duration, speed, movementDir);
 

@@ -58,7 +58,9 @@ public class playerCamera
 
         _clampMax = 40;
         _clampMin = 1;
-        _horizontalRotSpeed = 45f;
+        _horizontalRotSpeed = PlayerPrefs.GetFloat("Sens");
+        if (_horizontalRotSpeed == 0)
+            _horizontalRotSpeed = 30;
         _verticalRotSpeed = 30;
         _followDamping = 0.5f;
         _defaultLength = 3;
@@ -66,6 +68,11 @@ public class playerCamera
         _desiredLength = _defaultLength;
 
         _owner.GetComponent<playerScript>().onTargetLockUpdated += TargetLockUpdated;
+    }
+
+    public void UpdateSens(float value)
+    {
+        _horizontalRotSpeed = value;
     }
 
     private void TargetLockUpdated(bool state, Transform target)

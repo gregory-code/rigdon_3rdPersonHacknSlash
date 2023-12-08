@@ -17,12 +17,13 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
     private float animSpeed;
 
 
+    public GameObject spaceBarPrefab;
+    private GameObject spaceBar;
+    public Transform spaceBarTransform;
 
     private int attackIndex;
 
     [SerializeField] VisualEffect _slashVisualEffect;
-
-    private Vector3 previousPos;
 
     private bool canMove = true;
     private bool withinRange = false;
@@ -31,9 +32,9 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
     [SerializeField] KatanaHit katanaHit;
     [SerializeField] Transform _vfxPlacement;
 
-    private float desiredSpeed = 2;
-    private float walkSpeed = 2;
-    private float runSpeed = 4;
+    private float desiredSpeed = 3;
+    private float walkSpeed = 3;
+    private float runSpeed = 6;
 
     public bool isAlive = true;
 
@@ -45,7 +46,11 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
         enemyNavMeshAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
-        previousPos = transform.position;
+        spaceBar = Instantiate(spaceBarPrefab, GameObject.Find("Canvas").GetComponent<Transform>());
+        spaceBar.SetActive(false);
+
+        enemyNavMeshAgent.speed = walkSpeed;
+
 
         StartCoroutine(CheckAttack());
     }
@@ -53,7 +58,7 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
     public void SetLeaderStatus(bool status)
     {
         desiredSpeed = (status) ? runSpeed : walkSpeed ;
-        enemyNavMeshAgent.speed = (status) ? runSpeed : walkSpeed ;
+        enemyNavMeshAgent.speed = (status) ? runSpeed  : walkSpeed ;
         isLeader = status;
     }
 
@@ -67,6 +72,8 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
             enemyNavMeshAgent.isStopped = true;
             return;
         }
+
+        spaceBar.transform.position = Camera.main.WorldToScreenPoint(spaceBarTransform.position);
 
         float distance = (Vector3.Distance(transform.position, player.position));
         
@@ -182,7 +189,6 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
         LerpAnim(desiredSpeed);
 
-        previousPos = transform.position;
         enemyNavMeshAgent.destination = destination;
     }
 
@@ -243,11 +249,15 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
                 break;
 
             case "SlowDown":
-                if(withinRange) 
+                if(withinRange)
+                {
+                    spaceBar.SetActive(true);
                     player.GetComponent<playerScript>().SlowDownAttacked(gameObject.transform, true);
+                }
                 break;
 
             case "ResumeSlow":
+                spaceBar.SetActive(false);
                 player.GetComponent<playerScript>().SlowDownAttacked(gameObject.transform, false);
                 break;
         }
@@ -258,7 +268,7 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
         switch (diff)
         {
             case 0:
-                walkSpeed = 3;
+                walkSpeed = 2.5f;
                 runSpeed = 6;
                 GetComponent<Health>().SetMaxHealth(15);
                 break;
@@ -271,15 +281,15 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
                 break;
 
             case 2:
-                walkSpeed = 3.5f;
+                walkSpeed = 4f;
                 runSpeed = 7;
                 rangeDistance = 2.2f;
                 GetComponent<Health>().SetMaxHealth(35);
                 break;
 
             case 3:
-                walkSpeed = 4;
-                runSpeed = 7;
+                walkSpeed = 6;
+                runSpeed = 8;
                 rangeDistance = 2.5f;
                 GetComponent<Health>().SetMaxHealth(45);
                 break;
