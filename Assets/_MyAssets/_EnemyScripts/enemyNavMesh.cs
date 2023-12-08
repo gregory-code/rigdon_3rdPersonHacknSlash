@@ -59,6 +59,9 @@ public class enemyNavMesh : MonoBehaviour, IEventDispatcher
 
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+
         if (isAlive == false)
         {
             enemyNavMeshAgent.isStopped = true;

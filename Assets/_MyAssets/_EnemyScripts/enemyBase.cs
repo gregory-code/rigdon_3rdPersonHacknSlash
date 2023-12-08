@@ -157,7 +157,10 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
 
     void Update()
     {
-        if(_bIsDead == false) LookAtPlayer();
+        if (Time.timeScale == 0)
+            return;
+
+        if (_bIsDead == false) LookAtPlayer();
         if (_bBeingExecuted == true) BeingExecuted();
     }
 

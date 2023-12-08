@@ -7,9 +7,9 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.VFX;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(Animator))]
@@ -26,6 +26,9 @@ public class playerScript : MonoBehaviour, IEventDispatcher
     [SerializeField] playerLock _lockPrefab;
     [SerializeField] playerLock _lockRightPrefab;
     [SerializeField] playerLock _lockLeftPrefab;
+
+    bool openMenu;
+    [SerializeField] GameObject menuGameObject;
 
     [SerializeField] AudioSource stepAudio;
     [SerializeField] AudioSource vfxAudio;
@@ -159,11 +162,15 @@ public class playerScript : MonoBehaviour, IEventDispatcher
 
     private void Death(float amount, float maxHealth)
     {
-        
+        playerAnimator.SetTrigger("dead");
+        _bMovementStop = true;
     }
 
     void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+
         if (_movement == null) return;
         if (_camera == null) return;
         if (_sight == null) return;
@@ -286,6 +293,46 @@ public class playerScript : MonoBehaviour, IEventDispatcher
             _actions.DodgeInput(false);
         }
     }
+
+    public void Menu(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            MenuState();
+        }
+    }
+
+    public void MenuState()
+    {
+        openMenu = !openMenu;
+        menuGameObject.SetActive(openMenu);
+        Cursor.lockState = (openMenu) ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = openMenu;
+        if (openMenu)
+        {
+            Time.timeScale = 0;
+        }
+        else if (inQuickTim)
+        {
+            Time.timeScale = 0.06f;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
+
+    public void Restart()
+    {
+        MenuState();
+        SceneManager.LoadScene(1);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
 
     private bool CheckDodgeValue()
     {
