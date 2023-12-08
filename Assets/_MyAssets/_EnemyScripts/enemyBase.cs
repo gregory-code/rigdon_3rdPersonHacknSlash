@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
+using TMPro;
 
 public class enemyBase : MonoBehaviour, IEventDispatcher
 {
@@ -103,6 +104,8 @@ public class enemyBase : MonoBehaviour, IEventDispatcher
             heatlhBarAlreadyGone = true;
             Destroy(healthBar.gameObject);
         }
+
+        GameObject.FindObjectOfType<enemyManager>().increaseKillCount();
 
         gameObject.layer = 0;
         _bIsDead = true;

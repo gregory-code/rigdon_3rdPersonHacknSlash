@@ -18,6 +18,8 @@ public class enemyManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI waveText;
     [SerializeField] TextMeshProUGUI detailsText;
+    private int killAmount = 0;
+    [SerializeField] TextMeshProUGUI killText;
 
     private int spawned = 1;
     private int difficultly = 0;
@@ -50,6 +52,12 @@ public class enemyManager : MonoBehaviour
                 detailsText.text = "You won't live much longer";
                 break;
         }
+    }
+
+    public void increaseKillCount()
+    {
+        killAmount++;
+        killText.text = "Kills: " + killAmount;
     }
 
     //sound effects

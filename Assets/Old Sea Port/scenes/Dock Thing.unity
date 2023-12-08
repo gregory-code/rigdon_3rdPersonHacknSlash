@@ -30370,6 +30370,7 @@ MonoBehaviour:
   waveAnimator: {fileID: 1898678820}
   waveText: {fileID: 1353142572}
   detailsText: {fileID: 1091815576}
+  killText: {fileID: 13174560}
 --- !u!95 &1898678820
 Animator:
   serializedVersion: 5
